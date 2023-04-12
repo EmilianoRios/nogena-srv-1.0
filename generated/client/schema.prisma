@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["deno"]
+  output          = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id       String     @id @default(cuid())
+  fullName String
+  dni      Int        @unique
+  email    String     @unique
+  phone    String
+  password String
+  createAt DateTime   @default(now())
+  updateAt DateTime   @updatedAt
+  careers  Careers[]
+  post     Posts[]
+  comments Comments[]
+}
+
+model CycleCareer {
+  id           String    @id @default(cuid())
+  points       Int
+  currentMonth DateTime
+  createAt     DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
+  careers      Careers[]
+}
+
+model WalkCareer {
+  id           String    @id @default(cuid())
+  points       Int
+  currentMonth DateTime
+  createAt     DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
+  careers      Careers[]
+}
+
+model RunCareer {
+  id           String    @id @default(cuid())
+  points       Int
+  currentMonth DateTime
+  createAt     DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
+  careers      Careers[]
+}
+
+model Careers {
+  id            String      @id @default(cuid())
+  employeeId    String
+  cycleCareerId String
+  walkCareerId  String
+  runCareerId   String
+  createAt      DateTime    @default(now())
+  updateAt      DateTime    @updatedAt
+  employee      Employee    @relation(fields: [employeeId], references: [id])
+  cycleCareer   CycleCareer @relation(fields: [cycleCareerId], references: [id])
+  walkCareer    WalkCareer  @relation(fields: [walkCareerId], references: [id])
+  runCareer     RunCareer   @relation(fields: [runCareerId], references: [id])
+}
+
+model Posts {
+  id       String     @id @default(cuid())
+  title    String
+  content  String
+  authorId String
+  author   Employee   @relation(fields: [authorId], references: [id])
+  comments Comments[]
+}
+
+model Comments {
+  id       String   @id @default(cuid())
+  content  String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  postId   String
+  post     Posts    @relation(fields: [postId], references: [id])
+  authorId String
+  author   Employee @relation(fields: [authorId], references: [id])
+}
