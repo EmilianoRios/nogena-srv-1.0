@@ -10,4 +10,4 @@ routesEmployee
   .get('/', employeeController.getAllEmployees)
   .get('/:employeeId', employeeController.getOneEmployee)
   .delete('/:employeeId', employeeController.deleteOneEmployee)
-  .patch('/:employeeId', employeeController.updateOneEmployee)
+  .patch('/', employeeController.updateOneEmployee)
