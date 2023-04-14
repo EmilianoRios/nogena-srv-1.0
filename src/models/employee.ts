@@ -13,4 +13,10 @@ interface EmployeeUpdateModel {
   email?: string
 }
 
-export { EmployeeModel, EmployeeUpdateModel }
+interface EmployeeUpdatePasswordModel {
+  id: string
+  password: string
+  newPassword: string
+}
+
+export { EmployeeModel, EmployeeUpdateModel, EmployeeUpdatePasswordModel }

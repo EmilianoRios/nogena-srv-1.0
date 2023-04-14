@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "module": "esnext",
+    "target": "es2017"
+  }
+}

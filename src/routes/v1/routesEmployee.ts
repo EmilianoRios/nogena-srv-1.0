@@ -11,3 +11,4 @@ routesEmployee
   .get('/:employeeId', employeeController.getOneEmployee)
   .delete('/:employeeId', employeeController.deleteOneEmployee)
   .patch('/', employeeController.updateOneEmployee)
+  .patch('/:employeeId', employeeController.updateOneEmployeePassword)

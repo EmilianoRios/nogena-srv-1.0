@@ -1,8 +1,6 @@
 // @ts-ignore
-import * as employeeService from '../services/serviceEmployee.ts'
-// @ts-ignore
 import { Context } from 'https://deno.land/x/oak@v11.1.0/context.ts'
-// @ts-ignore
+import * as employeeService from '../services/serviceEmployee.ts'
 import { EmployeeModel, EmployeeUpdateModel } from '../models/employee.ts'
 
 async function createNewEmployee(ctx: Context) {
@@ -10,12 +8,21 @@ async function createNewEmployee(ctx: Context) {
     const body: EmployeeModel = await ctx.request.body('json').value
     const { fullName, dni, phone, email, password } = body
 
+    if (!fullName || !dni || !phone || !email || !password) {
+      ctx.response.status = 500
+      ctx.response.body = {
+        status: 'FAILED',
+        error: 'Faltan elementos en el cuerpo de la solicitud.'
+      }
+      return
+    }
+
     const newEmployee = await employeeService.createNewEmployee({
       fullName,
       dni,
       phone,
       email,
-      password,
+      password
     })
 
     ctx.response.status = 201
@@ -33,14 +40,14 @@ async function getAllEmployees(ctx: Context) {
 
     const allEmployees = await employeeService.getAllEmployees({
       skip,
-      take,
+      take
     })
 
     ctx.response.status = 200
     ctx.response.body = {
       status: 'OK',
       data: allEmployees,
-      page: skip,
+      page: skip
     }
   } catch (error) {
     ctx.response.status = 500
@@ -56,7 +63,7 @@ async function getOneEmployee(ctx: Context) {
     ctx.response.status = 200
     ctx.response.body = {
       status: 'OK',
-      data: oneEmployee,
+      data: oneEmployee
     }
   } catch (error) {
     ctx.response.status = 500
@@ -79,13 +86,56 @@ async function deleteOneEmployee(ctx: Context) {
 async function updateOneEmployee(ctx: Context) {
   try {
     const body: EmployeeUpdateModel = await ctx.request.body('json').value
+    const { email } = body
+
+    if (!email) {
+      ctx.response.status = 500
+      ctx.response.body = {
+        status: 'FAILED',
+        error: 'Faltan elementos en el cuerpo de la solicitud.'
+      }
+      return
+    }
 
     const updatedEmployee = await employeeService.updateOneEmployee(body)
 
     ctx.response.status = 200
     ctx.response.body = {
       status: 'OK',
-      data: updatedEmployee,
+      data: updatedEmployee
+    }
+  } catch (error) {
+    ctx.response.status = 500
+    ctx.response.body = { status: 'FAILED', error: error.message || error }
+  }
+}
+
+async function updateOneEmployeePassword(ctx: Context) {
+  try {
+    const id = await ctx.params.employeeId
+    const body = await ctx.request.body('json').value
+    const { password, newPassword } = body
+
+    if (!password || !newPassword) {
+      ctx.response.status = 500
+      ctx.response.body = {
+        status: 'FAILED',
+        error: 'Faltan elementos en el cuerpo de la solicitud.'
+      }
+      return
+    }
+
+    const updatedPasswordEmployee =
+      await employeeService.updateOneEmployeePassword({
+        id,
+        password,
+        newPassword
+      })
+
+    ctx.response.status = 200
+    ctx.response.body = {
+      status: 'OK',
+      data: updatedPasswordEmployee
     }
   } catch (error) {
     ctx.response.status = 500
@@ -99,4 +149,5 @@ export {
   getOneEmployee,
   deleteOneEmployee,
   updateOneEmployee,
+  updateOneEmployeePassword
 }
