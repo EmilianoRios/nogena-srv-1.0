@@ -20,7 +20,7 @@ export type Employee = {
   id: string
   fullName: string
   dni: number
-  email: string
+  username: string
   phone: string
   password: string
   role: string
@@ -1173,7 +1173,7 @@ export namespace Prisma {
     id: string | null
     fullName: string | null
     dni: number | null
-    email: string | null
+    username: string | null
     phone: string | null
     password: string | null
     role: string | null
@@ -1185,7 +1185,7 @@ export namespace Prisma {
     id: string | null
     fullName: string | null
     dni: number | null
-    email: string | null
+    username: string | null
     phone: string | null
     password: string | null
     role: string | null
@@ -1197,7 +1197,7 @@ export namespace Prisma {
     id: number
     fullName: number
     dni: number
-    email: number
+    username: number
     phone: number
     password: number
     role: number
@@ -1219,7 +1219,7 @@ export namespace Prisma {
     id?: true
     fullName?: true
     dni?: true
-    email?: true
+    username?: true
     phone?: true
     password?: true
     role?: true
@@ -1231,7 +1231,7 @@ export namespace Prisma {
     id?: true
     fullName?: true
     dni?: true
-    email?: true
+    username?: true
     phone?: true
     password?: true
     role?: true
@@ -1243,7 +1243,7 @@ export namespace Prisma {
     id?: true
     fullName?: true
     dni?: true
-    email?: true
+    username?: true
     phone?: true
     password?: true
     role?: true
@@ -1343,7 +1343,7 @@ export namespace Prisma {
     id: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -1374,7 +1374,7 @@ export namespace Prisma {
     id?: boolean
     fullName?: boolean
     dni?: boolean
-    email?: boolean
+    username?: boolean
     phone?: boolean
     password?: boolean
     role?: boolean
@@ -8105,7 +8105,7 @@ export namespace Prisma {
     id: 'id',
     fullName: 'fullName',
     dni: 'dni',
-    email: 'email',
+    username: 'username',
     phone: 'phone',
     password: 'password',
     role: 'role',
@@ -8186,7 +8186,7 @@ export namespace Prisma {
     id?: StringFilter | string
     fullName?: StringFilter | string
     dni?: IntFilter | number
-    email?: StringFilter | string
+    username?: StringFilter | string
     phone?: StringFilter | string
     password?: StringFilter | string
     role?: StringFilter | string
@@ -8201,7 +8201,7 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
@@ -8215,14 +8215,14 @@ export namespace Prisma {
   export type EmployeeWhereUniqueInput = {
     id?: string
     dni?: number
-    email?: string
+    username?: string
   }
 
   export type EmployeeOrderByWithAggregationInput = {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
@@ -8242,7 +8242,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter | string
     fullName?: StringWithAggregatesFilter | string
     dni?: IntWithAggregatesFilter | number
-    email?: StringWithAggregatesFilter | string
+    username?: StringWithAggregatesFilter | string
     phone?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
     role?: StringWithAggregatesFilter | string
@@ -8560,7 +8560,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -8575,7 +8575,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -8590,7 +8590,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -8605,7 +8605,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -8620,7 +8620,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -8632,7 +8632,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -8644,7 +8644,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -9082,7 +9082,7 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
@@ -9098,7 +9098,7 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
@@ -9110,7 +9110,7 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
@@ -10168,7 +10168,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -10182,7 +10182,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -10269,7 +10269,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -10283,7 +10283,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -10360,7 +10360,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -10374,7 +10374,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -10424,7 +10424,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -10438,7 +10438,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -10487,7 +10487,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -10501,7 +10501,7 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
     role: string
@@ -10544,7 +10544,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -10558,7 +10558,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string

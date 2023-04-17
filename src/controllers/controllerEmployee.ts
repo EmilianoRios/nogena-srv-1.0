@@ -178,8 +178,9 @@ async function authenticateToken(ctx: Context) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
-        error: 'Faltan elementos en el cuerpo de la solicitud'
+        error: 'Acceso no permitido'
       }
+      return
     }
 
     const authenticatedToken = await employeeService.authenticateToken({ id })

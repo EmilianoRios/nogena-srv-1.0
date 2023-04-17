@@ -120,7 +120,7 @@ exports.Prisma.EmployeeScalarFieldEnum = makeEnum({
   id: 'id',
   fullName: 'fullName',
   dni: 'dni',
-  email: 'email',
+  username: 'username',
   phone: 'phone',
   password: 'password',
   role: 'role',
