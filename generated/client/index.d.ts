@@ -3,7 +3,7 @@
  * Client
 **/
 
-import * as runtime from './runtime/data-proxy';
+import * as runtime from './runtime/library';
 type UnwrapPromise<P extends any> = P extends Promise<infer R> ? R : P
 type UnwrapTuple<Tuple extends readonly unknown[]> = {
   [K in keyof Tuple]: K extends `${number}` ? Tuple[K] extends Prisma.PrismaPromise<infer X> ? X : UnwrapPromise<Tuple[K]> : UnwrapPromise<Tuple[K]>
@@ -23,6 +23,7 @@ export type Employee = {
   email: string
   phone: string
   password: string
+  role: string
   createAt: Date
   updateAt: Date
 }
@@ -1175,6 +1176,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     password: string | null
+    role: string | null
     createAt: Date | null
     updateAt: Date | null
   }
@@ -1186,6 +1188,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     password: string | null
+    role: string | null
     createAt: Date | null
     updateAt: Date | null
   }
@@ -1197,6 +1200,7 @@ export namespace Prisma {
     email: number
     phone: number
     password: number
+    role: number
     createAt: number
     updateAt: number
     _all: number
@@ -1218,6 +1222,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     password?: true
+    role?: true
     createAt?: true
     updateAt?: true
   }
@@ -1229,6 +1234,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     password?: true
+    role?: true
     createAt?: true
     updateAt?: true
   }
@@ -1240,6 +1246,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     password?: true
+    role?: true
     createAt?: true
     updateAt?: true
     _all?: true
@@ -1339,6 +1346,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt: Date
     updateAt: Date
     _count: EmployeeCountAggregateOutputType | null
@@ -1369,6 +1377,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     password?: boolean
+    role?: boolean
     createAt?: boolean
     updateAt?: boolean
     careers?: boolean | Employee$careersArgs
@@ -8099,6 +8108,7 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     password: 'password',
+    role: 'role',
     createAt: 'createAt',
     updateAt: 'updateAt'
   };
@@ -8179,6 +8189,7 @@ export namespace Prisma {
     email?: StringFilter | string
     phone?: StringFilter | string
     password?: StringFilter | string
+    role?: StringFilter | string
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
     careers?: CareersListRelationFilter
@@ -8193,6 +8204,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careers?: CareersOrderByRelationAggregateInput
@@ -8213,6 +8225,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     _count?: EmployeeCountOrderByAggregateInput
@@ -8232,6 +8245,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter | string
     phone?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
+    role?: StringWithAggregatesFilter | string
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -8549,6 +8563,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersCreateNestedManyWithoutEmployeeInput
@@ -8563,6 +8578,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
@@ -8577,6 +8593,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUpdateManyWithoutEmployeeNestedInput
@@ -8591,6 +8608,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -8605,6 +8623,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -8616,6 +8635,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8627,6 +8647,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9064,6 +9085,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
   }
@@ -9079,6 +9101,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
   }
@@ -9090,6 +9113,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
   }
@@ -10147,6 +10171,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
     post?: PostsCreateNestedManyWithoutAuthorInput
@@ -10160,6 +10185,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
     post?: PostsUncheckedCreateNestedManyWithoutAuthorInput
@@ -10246,6 +10272,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostsUpdateManyWithoutAuthorNestedInput
@@ -10259,6 +10286,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostsUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10335,6 +10363,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersCreateNestedManyWithoutEmployeeInput
@@ -10348,6 +10377,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
@@ -10397,6 +10427,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUpdateManyWithoutEmployeeNestedInput
@@ -10410,6 +10441,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -10458,6 +10490,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersCreateNestedManyWithoutEmployeeInput
@@ -10471,6 +10504,7 @@ export namespace Prisma {
     email: string
     phone: string
     password: string
+    role: string
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
@@ -10513,6 +10547,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUpdateManyWithoutEmployeeNestedInput
@@ -10526,6 +10561,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput

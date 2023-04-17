@@ -143,11 +143,62 @@ async function updateOneEmployeePassword(ctx: Context) {
   }
 }
 
+async function logInUser(ctx: Context) {
+  try {
+    const body = await ctx.request.body('json').value
+    const { email, password } = body
+
+    if (!email || !password) {
+      ctx.response.status = 500
+      ctx.response.body = {
+        status: 'FAILED',
+        error: 'Faltan elementos en el cuerpo de la solicitud'
+      }
+      return
+    }
+
+    const loggedUser = await employeeService.logInUser({ email, password })
+
+    ctx.response.status = 200
+    ctx.response.body = { status: 'OK', data: loggedUser }
+  } catch (error) {
+    ctx.response.status = 500
+    ctx.response.body = { status: 'FAILED', error: error.message || error }
+  }
+}
+
+async function authenticateToken(ctx: Context) {
+  try {
+    const body = await ctx.state
+    const {
+      user: { id }
+    } = body
+
+    if (!id) {
+      ctx.response.status = 500
+      ctx.response.body = {
+        status: 'FAILED',
+        error: 'Faltan elementos en el cuerpo de la solicitud'
+      }
+    }
+
+    const authenticatedToken = await employeeService.authenticateToken({ id })
+
+    ctx.response.status = 200
+    ctx.response.body = { status: 'OK', data: authenticatedToken }
+  } catch (error) {
+    ctx.response.status = 500
+    ctx.response.body = { status: 'FAILED', error: error.message || error }
+  }
+}
+
 export {
   createNewEmployee,
   getAllEmployees,
   getOneEmployee,
   deleteOneEmployee,
   updateOneEmployee,
-  updateOneEmployeePassword
+  updateOneEmployeePassword,
+  logInUser,
+  authenticateToken
 }

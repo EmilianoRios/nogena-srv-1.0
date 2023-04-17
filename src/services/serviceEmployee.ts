@@ -1,19 +1,20 @@
 // @ts-ignore
-import { prisma } from '../../src/database/config.ts'
+import * as bcrypt from 'https://deno.land/x/bcrypt/mod.ts'
 // @ts-ignore
+import { create } from 'https://deno.land/x/djwt/mod.ts'
+import { prisma } from '../../src/database/config.ts'
 import {
+  EmployeeAccessToken,
+  EmployeeLogInModel,
   EmployeeModel,
   EmployeeUpdateModel,
   EmployeeUpdatePasswordModel
 } from '../models/employee.ts'
-// @ts-ignore
-import { PaginationModel } from '../models/employee.ts'
-// @ts-ignore
-import * as bcrypt from 'https://deno.land/x/bcrypt/mod.ts'
+import { PaginationModel } from '../models/pagination.ts'
+import { key } from '../utils/apiKey.ts'
 
 async function createNewEmployee(data: EmployeeModel) {
   try {
-    console.log(data)
     const employeeEmail = await prisma.employee.findUnique({
       where: {
         email: data?.email
@@ -21,8 +22,7 @@ async function createNewEmployee(data: EmployeeModel) {
     })
 
     if (employeeEmail) {
-      const error = 'El usuario ya existe.'
-      throw error
+      throw new Error('El usuario ya existe.')
     }
 
     const employeeDni = await prisma.employee.findUnique({
@@ -32,8 +32,7 @@ async function createNewEmployee(data: EmployeeModel) {
     })
 
     if (employeeDni) {
-      const error = 'El usuario ya existe.'
-      throw error
+      throw new Error('El usuario ya existe.')
     }
 
     const hash = await bcrypt.hash(data?.password)
@@ -111,8 +110,7 @@ async function deleteOneEmployee(id: string) {
     })
 
     if (!employee) {
-      const error = 'Usuario no encontrado.'
-      throw error
+      throw new Error('Usuario no encontrado.')
     }
 
     await prisma.employee.delete({
@@ -135,8 +133,7 @@ async function updateOneEmployee(data: EmployeeUpdateModel) {
     })
 
     if (!employee) {
-      const error = 'Usuario no encontrado.'
-      throw error
+      throw new Error('Usuario no encontrado.')
     }
 
     const updateEmployee = await prisma.employee.update({
@@ -169,15 +166,13 @@ async function updateOneEmployeePassword(data: EmployeeUpdatePasswordModel) {
     })
 
     if (!employee) {
-      const error = 'Usuario no encontrado.'
-      throw error
+      throw new Error('Usuario no encontrado.')
     }
 
     const match = await bcrypt.compare(data?.password, employee?.password)
 
     if (!match) {
-      const error = 'La contraseña actual ingresada no es correcta.'
-      throw error
+      throw new Error('La contraseña actual ingresada no es correcta.')
     }
 
     const hash = await bcrypt.hash(data?.newPassword)
@@ -203,11 +198,87 @@ async function updateOneEmployeePassword(data: EmployeeUpdatePasswordModel) {
   }
 }
 
+async function logInUser(data: EmployeeLogInModel) {
+  try {
+    const foundedUser = await prisma.employee.findUnique({
+      where: {
+        email: data?.email
+      },
+      select: {
+        id: true,
+        fullName: true,
+        dni: true,
+        phone: true,
+        email: true,
+        password: true
+      }
+    })
+
+    if (!foundedUser) {
+      throw new Error('Correo o contraseña incorrectas')
+    }
+
+    const match = await bcrypt.compare(data?.password, foundedUser?.password)
+
+    if (!match) {
+      throw new Error('Correo o contraseña incorrectas')
+    }
+
+    const accessToken = await create(
+      {
+        alg: 'HS256',
+        typ: 'JWT'
+      },
+      {
+        id: foundedUser?.id
+      },
+      key
+    )
+
+    const loggedUser = {
+      token: accessToken,
+      id: foundedUser?.id
+    }
+
+    return loggedUser
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+async function authenticateToken(data: EmployeeAccessToken) {
+  try {
+    const foundedUserWithTokenId = await prisma.employee.findUnique({
+      where: {
+        id: data?.id
+      },
+      select: {
+        id: true,
+        fullName: true,
+        dni: true,
+        phone: true,
+        email: true
+      }
+    })
+
+    if (!foundedUserWithTokenId) {
+      const error = 'No se ha podido autenticar al usuario'
+      throw error
+    }
+
+    return foundedUserWithTokenId
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 export {
   createNewEmployee,
   getAllEmployees,
   getOneEmployee,
   deleteOneEmployee,
   updateOneEmployee,
-  updateOneEmployeePassword
+  updateOneEmployeePassword,
+  logInUser,
+  authenticateToken
 }

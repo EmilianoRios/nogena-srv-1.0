@@ -19,4 +19,19 @@ interface EmployeeUpdatePasswordModel {
   newPassword: string
 }
 
-export { EmployeeModel, EmployeeUpdateModel, EmployeeUpdatePasswordModel }
+interface EmployeeLogInModel {
+  email: string
+  password: string
+}
+
+interface EmployeeAccessToken {
+  id: string
+}
+
+export {
+  EmployeeModel,
+  EmployeeUpdateModel,
+  EmployeeUpdatePasswordModel,
+  EmployeeLogInModel,
+  EmployeeAccessToken
+}
