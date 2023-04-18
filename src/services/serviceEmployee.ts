@@ -54,7 +54,16 @@ async function createNewEmployee(data: EmployeeModel) {
       }
     })
 
-    return newEmployee
+    const newCareer = await prisma.career.create({
+      data: {
+        employeeId: newEmployee?.id
+      },
+      select: {
+        id: true
+      }
+    })
+
+    return { newEmployee, newCareer }
   } catch (error) {
     throw new Error(error)
   }
