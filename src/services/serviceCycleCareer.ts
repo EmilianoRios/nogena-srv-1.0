@@ -1,38 +1,100 @@
 import { prisma } from '../database/config.ts'
-import { CareerModel, CareerUpdateModel } from '../models/career.ts'
+import { OneCyclesCareers, CyclesCareersModel } from '../models/cycleCareer.ts'
 import { PaginationModel } from '../models/pagination.ts'
 
-async function createNewCycleCareer() {
+async function createNewCycleCareer(data: CyclesCareersModel) {
   try {
+    const newCycleCareer = await prisma.cyclecareer.create({
+      data: {
+        ...data
+      }
+    })
+    return newCycleCareer
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+async function getAllCyclesCareers(pagination: PaginationModel) {
+  try {
+    const allCycleCareers = await prisma.cyclecareer.findMany({
+      take: +pagination.take,
+      skip: +pagination.take * +pagination.skip,
+      select: {
+        points: true,
+        currentMonth: true,
+        kilometers: true
+      }
+    })
+
+    return allCycleCareers
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+async function getOneCycleCareer(data: OneCyclesCareers) {
+  try {
+    const cycleCareerEmploye = await prisma.cyclecareer.findUnique({
+      where: {
+        careerId: data?.careerId
+      },
+      select: {
+        points: true,
+        currentMonth: true,
+        kilometers: true
+      }
+    })
+    return cycleCareerEmploye
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+async function deleteOneCycleCareer(data: OneCyclesCareers) {
+  try {
+    const cycleCareerEmploye = await prisma.cyclecareer.findUnique({
+      where: {
+        careerId: data?.careerId
+      }
+    })
+
+    if (!cycleCareerEmploye) {
+      throw new Error('La careera del usuario no fue encontrada.')
+    }
+
+    await prisma.cyclecareer.delete({
+      where: {
+        careerId: data?.careerId
+      }
+    })
+
     return
   } catch (error) {
     throw new Error(error)
   }
 }
-async function getAllCyclesCareers() {
+async function updateOneCycleCareer(data: CyclesCareersModel) {
   try {
-    return
-  } catch (error) {
-    throw new Error(error)
-  }
-}
-async function getOneCycleCareer() {
-  try {
-    return
-  } catch (error) {
-    throw new Error(error)
-  }
-}
-async function deleteOneCycleCareer() {
-  try {
-    return
-  } catch (error) {
-    throw new Error(error)
-  }
-}
-async function updateOneCycleCareer() {
-  try {
-    return
+    const cycleCareerEmploye = await prisma.findUnique({
+      where: {
+        careerId: data?.careerId
+      }
+    })
+
+    if (!cycleCareerEmploye) {
+      throw new Error('La careera del usuario no fue encontrada.')
+    }
+
+    const updateCycleCareer = await prisma.cyclecareer.update({
+      where: {
+        careerId: data?.careerId
+      },
+      data: {
+        points: data?.points,
+        currentMonth: data?.currentMonth,
+        kilometers: data?.kilometers
+      }
+    })
+
+    return updateCycleCareer
   } catch (error) {
     throw new Error(error)
   }

@@ -1,8 +1,8 @@
 import { prisma } from '../database/config.ts'
-import { CareerModel, CareerUpdateModel } from '../models/career.ts'
+import { OneCareerModel, CareerUpdateModel } from '../models/career.ts'
 import { PaginationModel } from '../models/pagination.ts'
 
-async function createNewCareer(data: CareerModel) {
+async function createNewCareer(data: OneCareerModel) {
   try {
     const careerEmployee = await prisma.careers.findUnique({
       where: {
@@ -47,7 +47,7 @@ async function getAllCareers(pagination: PaginationModel) {
     throw new Error(error)
   }
 }
-async function getOneCareer(data: CareerModel) {
+async function getOneCareer(data: OneCareerModel) {
   try {
     const careerEmployee = await prisma.careers.findUnique({
       where: {
@@ -70,7 +70,7 @@ async function getOneCareer(data: CareerModel) {
     throw new Error(error)
   }
 }
-async function deleteOneCareer(data: CareerModel) {
+async function deleteOneCareer(data: OneCareerModel) {
   try {
     const careerEmployee = await prisma.careers.findUnique({
       where: {

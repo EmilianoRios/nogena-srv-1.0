@@ -1,4 +1,4 @@
-interface CareerModel {
+interface OneCareerModel {
   employeeId: string
 }
 
@@ -9,4 +9,4 @@ interface CareerUpdateModel {
   runCareerId?: string
 }
 
-export { CareerModel, CareerUpdateModel }
+export { OneCareerModel, CareerUpdateModel }
