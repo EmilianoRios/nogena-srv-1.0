@@ -13,11 +13,11 @@ const Prisma = {}
 exports.Prisma = Prisma
 
 /**
- * Prisma Client JS version: 4.12.0
+ * Prisma Client JS version: 4.13.0
  * Query Engine version: 659ef412370fa3b41cd7bf6e94587c1dfb7f67e7
  */
 Prisma.prismaVersion = {
-  client: "4.12.0",
+  client: "4.13.0",
   engine: "659ef412370fa3b41cd7bf6e94587c1dfb7f67e7"
 }
 
@@ -85,38 +85,32 @@ Prisma.NullTypes = {
 /**
  * Enums
  */
-// Based on
-// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
-function makeEnum(x) { return x; }
 
-exports.Prisma.CareersScalarFieldEnum = makeEnum({
+exports.Prisma.CareersScalarFieldEnum = {
   id: 'id',
-  employeeId: 'employeeId',
-  cycleCareerId: 'cycleCareerId',
-  walkCareerId: 'walkCareerId',
-  runCareerId: 'runCareerId',
-  createAt: 'createAt',
-  updateAt: 'updateAt'
-});
+  employeeId: 'employeeId'
+};
 
-exports.Prisma.CommentsScalarFieldEnum = makeEnum({
+exports.Prisma.CommentsScalarFieldEnum = {
   id: 'id',
   content: 'content',
-  createAt: 'createAt',
-  updateAt: 'updateAt',
   postId: 'postId',
-  authorId: 'authorId'
-});
+  authorId: 'authorId',
+  createAt: 'createAt',
+  updateAt: 'updateAt'
+};
 
-exports.Prisma.CycleCareerScalarFieldEnum = makeEnum({
+exports.Prisma.CycleCareerScalarFieldEnum = {
   id: 'id',
   points: 'points',
   currentMonth: 'currentMonth',
+  kilometers: 'kilometers',
   createAt: 'createAt',
-  updateAt: 'updateAt'
-});
+  updateAt: 'updateAt',
+  careersId: 'careersId'
+};
 
-exports.Prisma.EmployeeScalarFieldEnum = makeEnum({
+exports.Prisma.EmployeeScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
   dni: 'dni',
@@ -126,32 +120,35 @@ exports.Prisma.EmployeeScalarFieldEnum = makeEnum({
   role: 'role',
   createAt: 'createAt',
   updateAt: 'updateAt'
-});
+};
 
-exports.Prisma.PostsScalarFieldEnum = makeEnum({
+exports.Prisma.PostsScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
   authorId: 'authorId'
-});
+};
 
-exports.Prisma.QueryMode = makeEnum({
+exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
-});
+};
 
-exports.Prisma.RunCareerScalarFieldEnum = makeEnum({
+exports.Prisma.RunCareerScalarFieldEnum = {
   id: 'id',
   points: 'points',
   currentMonth: 'currentMonth',
+  kilometers: 'kilometers',
+  careerId: 'careerId',
   createAt: 'createAt',
-  updateAt: 'updateAt'
-});
+  updateAt: 'updateAt',
+  careersId: 'careersId'
+};
 
-exports.Prisma.SortOrder = makeEnum({
+exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-});
+};
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
@@ -160,16 +157,18 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.WalkCareerScalarFieldEnum = makeEnum({
+exports.Prisma.WalkCareerScalarFieldEnum = {
   id: 'id',
   points: 'points',
   currentMonth: 'currentMonth',
+  kilometers: 'kilometers',
   createAt: 'createAt',
-  updateAt: 'updateAt'
-});
+  updateAt: 'updateAt',
+  careersId: 'careersId'
+};
 
 
-exports.Prisma.ModelName = makeEnum({
+exports.Prisma.ModelName = {
   Employee: 'Employee',
   CycleCareer: 'CycleCareer',
   WalkCareer: 'WalkCareer',
@@ -177,7 +176,7 @@ exports.Prisma.ModelName = makeEnum({
   Careers: 'Careers',
   Posts: 'Posts',
   Comments: 'Comments'
-});
+};
 
 /**
  * Create the Client

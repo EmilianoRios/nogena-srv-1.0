@@ -29,44 +29,46 @@ model Employee {
 }
 
 model CycleCareer {
-  id           String    @id @default(cuid())
+  id           String   @id @default(cuid())
   points       Int
   currentMonth DateTime
-  createAt     DateTime  @default(now())
-  updateAt     DateTime  @updatedAt
-  careers      Careers[]
+  kilometers   Int
+  createAt     DateTime @default(now())
+  updateAt     DateTime @updatedAt
+  careersId    String
+  career       Careers  @relation(fields: [careersId], references: [id])
 }
 
 model WalkCareer {
-  id           String    @id @default(cuid())
+  id           String   @id @default(cuid())
   points       Int
   currentMonth DateTime
-  createAt     DateTime  @default(now())
-  updateAt     DateTime  @updatedAt
-  careers      Careers[]
+  kilometers   Int
+  createAt     DateTime @default(now())
+  updateAt     DateTime @updatedAt
+  careersId    String
+  career       Careers  @relation(fields: [careersId], references: [id])
 }
 
 model RunCareer {
-  id           String    @id @default(cuid())
+  id           String   @id @default(cuid())
   points       Int
   currentMonth DateTime
-  createAt     DateTime  @default(now())
-  updateAt     DateTime  @updatedAt
-  careers      Careers[]
+  kilometers   Int
+  careerId     String
+  createAt     DateTime @default(now())
+  updateAt     DateTime @updatedAt
+  careersId    String
+  career       Careers  @relation(fields: [careersId], references: [id])
 }
 
 model Careers {
-  id            String      @id @default(cuid())
-  employeeId    String
-  cycleCareerId String
-  walkCareerId  String
-  runCareerId   String
-  createAt      DateTime    @default(now())
-  updateAt      DateTime    @updatedAt
-  employee      Employee    @relation(fields: [employeeId], references: [id])
-  cycleCareer   CycleCareer @relation(fields: [cycleCareerId], references: [id])
-  walkCareer    WalkCareer  @relation(fields: [walkCareerId], references: [id])
-  runCareer     RunCareer   @relation(fields: [runCareerId], references: [id])
+  id          String        @id @default(cuid())
+  employeeId  String
+  cycleCareer CycleCareer[]
+  WalkCareer  WalkCareer[]
+  RunCareer   RunCareer[]
+  employee    Employee      @relation(fields: [employeeId], references: [id])
 }
 
 model Posts {
@@ -74,17 +76,17 @@ model Posts {
   title    String
   content  String
   authorId String
-  author   Employee   @relation(fields: [authorId], references: [id])
   comments Comments[]
+  author   Employee   @relation(fields: [authorId], references: [id])
 }
 
 model Comments {
   id       String   @id @default(cuid())
   content  String
+  postId   String
+  authorId String
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
-  postId   String
   post     Posts    @relation(fields: [postId], references: [id])
-  authorId String
   author   Employee @relation(fields: [authorId], references: [id])
 }
