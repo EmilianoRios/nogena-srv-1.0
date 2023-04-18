@@ -1,14 +1,18 @@
 // @ts-ignore
 import { Context } from 'https://deno.land/x/oak@v11.1.0/context.ts'
 import * as employeeService from '../services/serviceEmployee.ts'
-import { EmployeeModel, EmployeeUpdateModel } from '../models/employee.ts'
+import {
+  EmployeeLogInModel,
+  EmployeeModel,
+  EmployeeUpdateModel
+} from '../models/employee.ts'
 
 async function createNewEmployee(ctx: Context) {
   try {
     const body: EmployeeModel = await ctx.request.body('json').value
-    const { fullName, dni, phone, email, password } = body
+    const { fullName, dni, phone, username, password } = body
 
-    if (!fullName || !dni || !phone || !email || !password) {
+    if (!fullName || !dni || !phone || !username || !password) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -21,7 +25,7 @@ async function createNewEmployee(ctx: Context) {
       fullName,
       dni,
       phone,
-      email,
+      username,
       password
     })
 
@@ -86,9 +90,9 @@ async function deleteOneEmployee(ctx: Context) {
 async function updateOneEmployee(ctx: Context) {
   try {
     const body: EmployeeUpdateModel = await ctx.request.body('json').value
-    const { email } = body
+    const { username } = body
 
-    if (!email) {
+    if (!username) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -145,10 +149,10 @@ async function updateOneEmployeePassword(ctx: Context) {
 
 async function logInUser(ctx: Context) {
   try {
-    const body = await ctx.request.body('json').value
-    const { email, password } = body
+    const body: EmployeeLogInModel = await ctx.request.body('json').value
+    const { username, password } = body
 
-    if (!email || !password) {
+    if (!username || !password) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -157,7 +161,7 @@ async function logInUser(ctx: Context) {
       return
     }
 
-    const loggedUser = await employeeService.logInUser({ email, password })
+    const loggedUser = await employeeService.logInUser({ username, password })
 
     ctx.response.status = 200
     ctx.response.body = { status: 'OK', data: loggedUser }

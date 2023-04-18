@@ -2,7 +2,7 @@ interface EmployeeModel {
   fullName: string
   dni: number
   phone: string
-  email: string
+  username: string
   password: string
 }
 
@@ -10,7 +10,7 @@ interface EmployeeUpdateModel {
   fullName?: string
   dni?: number
   phone?: string
-  email?: string
+  username?: string
 }
 
 interface EmployeeUpdatePasswordModel {
@@ -20,7 +20,7 @@ interface EmployeeUpdatePasswordModel {
 }
 
 interface EmployeeLogInModel {
-  email: string
+  username: string
   password: string
 }
 

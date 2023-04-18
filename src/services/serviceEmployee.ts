@@ -2,7 +2,7 @@
 import * as bcrypt from 'https://deno.land/x/bcrypt/mod.ts'
 // @ts-ignore
 import { create } from 'https://deno.land/x/djwt/mod.ts'
-import { prisma } from '../../src/database/config.ts'
+import { prisma } from '../database/config.ts'
 import {
   EmployeeAccessToken,
   EmployeeLogInModel,
@@ -15,13 +15,13 @@ import { key } from '../utils/apiKey.ts'
 
 async function createNewEmployee(data: EmployeeModel) {
   try {
-    const employeeEmail = await prisma.employee.findUnique({
+    const employeeUsername = await prisma.employee.findUnique({
       where: {
-        email: data?.email
+        username: data?.username
       }
     })
 
-    if (employeeEmail) {
+    if (employeeUsername) {
       throw new Error('El usuario ya existe.')
     }
 
@@ -42,7 +42,7 @@ async function createNewEmployee(data: EmployeeModel) {
         fullName: data?.fullName,
         dni: data?.dni,
         phone: data?.phone,
-        email: data?.email,
+        username: data?.username,
         password: hash
       },
       select: {
@@ -50,7 +50,7 @@ async function createNewEmployee(data: EmployeeModel) {
         fullName: true,
         dni: true,
         phone: true,
-        email: true
+        username: true
       }
     })
 
@@ -69,7 +69,7 @@ async function getAllEmployees(pagination: PaginationModel) {
         fullName: true,
         dni: true,
         phone: true,
-        email: true
+        username: true
       },
       orderBy: {
         fullName: 'desc'
@@ -92,7 +92,7 @@ async function getOneEmployee(id: string) {
         fullName: true,
         dni: true,
         phone: true,
-        email: true
+        username: true
       }
     })
     return oneEmployee
@@ -118,6 +118,7 @@ async function deleteOneEmployee(id: string) {
         id: id
       }
     })
+
     return
   } catch (error) {
     throw new Error(error)
@@ -128,7 +129,7 @@ async function updateOneEmployee(data: EmployeeUpdateModel) {
   try {
     const employee = await prisma.employee.findUnique({
       where: {
-        email: data?.email
+        username: data?.username
       }
     })
 
@@ -138,7 +139,7 @@ async function updateOneEmployee(data: EmployeeUpdateModel) {
 
     const updateEmployee = await prisma.employee.update({
       where: {
-        email: data?.email
+        username: data?.username
       },
       data: {
         ...data
@@ -148,7 +149,7 @@ async function updateOneEmployee(data: EmployeeUpdateModel) {
         fullName: true,
         dni: true,
         phone: true,
-        email: true
+        username: true
       }
     })
     return updateEmployee
@@ -189,7 +190,7 @@ async function updateOneEmployeePassword(data: EmployeeUpdatePasswordModel) {
         fullName: true,
         dni: true,
         phone: true,
-        email: true
+        username: true
       }
     })
     return updateEmployee
@@ -202,14 +203,14 @@ async function logInUser(data: EmployeeLogInModel) {
   try {
     const foundedUser = await prisma.employee.findUnique({
       where: {
-        email: data?.email
+        username: data?.username
       },
       select: {
         id: true,
         fullName: true,
         dni: true,
         phone: true,
-        email: true,
+        username: true,
         password: true
       }
     })
