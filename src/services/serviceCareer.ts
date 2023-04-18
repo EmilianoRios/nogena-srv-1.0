@@ -32,14 +32,9 @@ async function getAllCareers(pagination: PaginationModel) {
       skip: +pagination?.take * +pagination?.skip,
       select: {
         employeeId: true,
-        cycleCareerId: true,
-        walkCareerId: true,
-        runCareerId: true
-      },
-      include: {
-        CycleCareer: true,
-        WalkCareer: true,
-        RunCareer: true
+        cycleCareer: true,
+        walkCareer: true,
+        runCareer: true
       }
     })
     return allCareers
@@ -55,14 +50,9 @@ async function getOneCareer(data: OneCareerModel) {
       },
       select: {
         employeeId: true,
-        cycleCareerId: true,
-        walkCareerId: true,
-        runCareerId: true
-      },
-      include: {
-        CycleCareer: true,
-        WalkCareer: true,
-        RunCareer: true
+        cycleCareer: true,
+        walkCareer: true,
+        runCareer: true
       }
     })
     return careerEmployee
