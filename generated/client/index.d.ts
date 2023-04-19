@@ -981,14 +981,14 @@ export namespace Prisma {
 
   export type CareersCountOutputType = {
     cycleCareer: number
-    WalkCareer: number
-    RunCareer: number
+    walkCareer: number
+    runCareer: number
   }
 
   export type CareersCountOutputTypeSelect = {
     cycleCareer?: boolean
-    WalkCareer?: boolean
-    RunCareer?: boolean
+    walkCareer?: boolean
+    runCareer?: boolean
   }
 
   export type CareersCountOutputTypeGetPayload<S extends boolean | null | undefined | CareersCountOutputTypeArgs> =
@@ -5250,8 +5250,8 @@ export namespace Prisma {
     id?: boolean
     employeeId?: boolean
     cycleCareer?: boolean | Careers$cycleCareerArgs
-    WalkCareer?: boolean | Careers$WalkCareerArgs
-    RunCareer?: boolean | Careers$RunCareerArgs
+    walkCareer?: boolean | Careers$walkCareerArgs
+    runCareer?: boolean | Careers$runCareerArgs
     employee?: boolean | EmployeeArgs
     _count?: boolean | CareersCountOutputTypeArgs
   }
@@ -5259,8 +5259,8 @@ export namespace Prisma {
 
   export type CareersInclude = {
     cycleCareer?: boolean | Careers$cycleCareerArgs
-    WalkCareer?: boolean | Careers$WalkCareerArgs
-    RunCareer?: boolean | Careers$RunCareerArgs
+    walkCareer?: boolean | Careers$walkCareerArgs
+    runCareer?: boolean | Careers$runCareerArgs
     employee?: boolean | EmployeeArgs
     _count?: boolean | CareersCountOutputTypeArgs
   }
@@ -5273,8 +5273,8 @@ export namespace Prisma {
     ? Careers  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'cycleCareer' ? Array < CycleCareerGetPayload<S['include'][P]>>  :
-        P extends 'WalkCareer' ? Array < WalkCareerGetPayload<S['include'][P]>>  :
-        P extends 'RunCareer' ? Array < RunCareerGetPayload<S['include'][P]>>  :
+        P extends 'walkCareer' ? Array < WalkCareerGetPayload<S['include'][P]>>  :
+        P extends 'runCareer' ? Array < RunCareerGetPayload<S['include'][P]>>  :
         P extends 'employee' ? EmployeeGetPayload<S['include'][P]> :
         P extends '_count' ? CareersCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
@@ -5282,8 +5282,8 @@ export namespace Prisma {
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'cycleCareer' ? Array < CycleCareerGetPayload<S['select'][P]>>  :
-        P extends 'WalkCareer' ? Array < WalkCareerGetPayload<S['select'][P]>>  :
-        P extends 'RunCareer' ? Array < RunCareerGetPayload<S['select'][P]>>  :
+        P extends 'walkCareer' ? Array < WalkCareerGetPayload<S['select'][P]>>  :
+        P extends 'runCareer' ? Array < RunCareerGetPayload<S['select'][P]>>  :
         P extends 'employee' ? EmployeeGetPayload<S['select'][P]> :
         P extends '_count' ? CareersCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Careers ? Careers[P] : never
   } 
@@ -5659,9 +5659,9 @@ export namespace Prisma {
 
     cycleCareer<T extends Careers$cycleCareerArgs= {}>(args?: Subset<T, Careers$cycleCareerArgs>): Prisma.PrismaPromise<Array<CycleCareerGetPayload<T>>| Null>;
 
-    WalkCareer<T extends Careers$WalkCareerArgs= {}>(args?: Subset<T, Careers$WalkCareerArgs>): Prisma.PrismaPromise<Array<WalkCareerGetPayload<T>>| Null>;
+    walkCareer<T extends Careers$walkCareerArgs= {}>(args?: Subset<T, Careers$walkCareerArgs>): Prisma.PrismaPromise<Array<WalkCareerGetPayload<T>>| Null>;
 
-    RunCareer<T extends Careers$RunCareerArgs= {}>(args?: Subset<T, Careers$RunCareerArgs>): Prisma.PrismaPromise<Array<RunCareerGetPayload<T>>| Null>;
+    runCareer<T extends Careers$runCareerArgs= {}>(args?: Subset<T, Careers$runCareerArgs>): Prisma.PrismaPromise<Array<RunCareerGetPayload<T>>| Null>;
 
     employee<T extends EmployeeArgs= {}>(args?: Subset<T, EmployeeArgs>): Prisma__EmployeeClient<EmployeeGetPayload<T> | Null>;
 
@@ -6042,9 +6042,9 @@ export namespace Prisma {
 
 
   /**
-   * Careers.WalkCareer
+   * Careers.walkCareer
    */
-  export type Careers$WalkCareerArgs = {
+  export type Careers$walkCareerArgs = {
     /**
      * Select specific fields to fetch from the WalkCareer
      */
@@ -6063,9 +6063,9 @@ export namespace Prisma {
 
 
   /**
-   * Careers.RunCareer
+   * Careers.runCareer
    */
-  export type Careers$RunCareerArgs = {
+  export type Careers$runCareerArgs = {
     /**
      * Select specific fields to fetch from the RunCareer
      */
@@ -8374,8 +8374,8 @@ export namespace Prisma {
     id?: StringFilter | string
     employeeId?: StringFilter | string
     cycleCareer?: CycleCareerListRelationFilter
-    WalkCareer?: WalkCareerListRelationFilter
-    RunCareer?: RunCareerListRelationFilter
+    walkCareer?: WalkCareerListRelationFilter
+    runCareer?: RunCareerListRelationFilter
     employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
 
@@ -8383,8 +8383,8 @@ export namespace Prisma {
     id?: SortOrder
     employeeId?: SortOrder
     cycleCareer?: CycleCareerOrderByRelationAggregateInput
-    WalkCareer?: WalkCareerOrderByRelationAggregateInput
-    RunCareer?: RunCareerOrderByRelationAggregateInput
+    walkCareer?: WalkCareerOrderByRelationAggregateInput
+    runCareer?: RunCareerOrderByRelationAggregateInput
     employee?: EmployeeOrderByWithRelationInput
   }
 
@@ -8819,8 +8819,8 @@ export namespace Prisma {
   export type CareersCreateInput = {
     id?: string
     cycleCareer?: CycleCareerCreateNestedManyWithoutCareerInput
-    WalkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
-    RunCareer?: RunCareerCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerCreateNestedManyWithoutCareerInput
     employee: EmployeeCreateNestedOneWithoutCareersInput
   }
 
@@ -8828,15 +8828,15 @@ export namespace Prisma {
     id?: string
     employeeId: string
     cycleCareer?: CycleCareerUncheckedCreateNestedManyWithoutCareerInput
-    WalkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
-    RunCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     cycleCareer?: CycleCareerUpdateManyWithoutCareerNestedInput
-    WalkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
-    RunCareer?: RunCareerUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUpdateManyWithoutCareerNestedInput
     employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
   }
 
@@ -8844,8 +8844,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     employeeId?: StringFieldUpdateOperationsInput | string
     cycleCareer?: CycleCareerUncheckedUpdateManyWithoutCareerNestedInput
-    WalkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
-    RunCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersCreateManyInput = {
@@ -9870,15 +9870,15 @@ export namespace Prisma {
   export type CareersCreateWithoutEmployeeInput = {
     id?: string
     cycleCareer?: CycleCareerCreateNestedManyWithoutCareerInput
-    WalkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
-    RunCareer?: RunCareerCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerCreateNestedManyWithoutCareerInput
   }
 
   export type CareersUncheckedCreateWithoutEmployeeInput = {
     id?: string
     cycleCareer?: CycleCareerUncheckedCreateNestedManyWithoutCareerInput
-    WalkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
-    RunCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersCreateOrConnectWithoutEmployeeInput = {
@@ -10021,16 +10021,16 @@ export namespace Prisma {
 
   export type CareersCreateWithoutCycleCareerInput = {
     id?: string
-    WalkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
-    RunCareer?: RunCareerCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerCreateNestedManyWithoutCareerInput
     employee: EmployeeCreateNestedOneWithoutCareersInput
   }
 
   export type CareersUncheckedCreateWithoutCycleCareerInput = {
     id?: string
     employeeId: string
-    WalkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
-    RunCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersCreateOrConnectWithoutCycleCareerInput = {
@@ -10045,22 +10045,22 @@ export namespace Prisma {
 
   export type CareersUpdateWithoutCycleCareerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    WalkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
-    RunCareer?: RunCareerUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUpdateManyWithoutCareerNestedInput
     employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
   }
 
   export type CareersUncheckedUpdateWithoutCycleCareerInput = {
     id?: StringFieldUpdateOperationsInput | string
     employeeId?: StringFieldUpdateOperationsInput | string
-    WalkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
-    RunCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersCreateWithoutWalkCareerInput = {
     id?: string
     cycleCareer?: CycleCareerCreateNestedManyWithoutCareerInput
-    RunCareer?: RunCareerCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerCreateNestedManyWithoutCareerInput
     employee: EmployeeCreateNestedOneWithoutCareersInput
   }
 
@@ -10068,7 +10068,7 @@ export namespace Prisma {
     id?: string
     employeeId: string
     cycleCareer?: CycleCareerUncheckedCreateNestedManyWithoutCareerInput
-    RunCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersCreateOrConnectWithoutWalkCareerInput = {
@@ -10084,7 +10084,7 @@ export namespace Prisma {
   export type CareersUpdateWithoutWalkCareerInput = {
     id?: StringFieldUpdateOperationsInput | string
     cycleCareer?: CycleCareerUpdateManyWithoutCareerNestedInput
-    RunCareer?: RunCareerUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUpdateManyWithoutCareerNestedInput
     employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
   }
 
@@ -10092,13 +10092,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     employeeId?: StringFieldUpdateOperationsInput | string
     cycleCareer?: CycleCareerUncheckedUpdateManyWithoutCareerNestedInput
-    RunCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersCreateWithoutRunCareerInput = {
     id?: string
     cycleCareer?: CycleCareerCreateNestedManyWithoutCareerInput
-    WalkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
     employee: EmployeeCreateNestedOneWithoutCareersInput
   }
 
@@ -10106,7 +10106,7 @@ export namespace Prisma {
     id?: string
     employeeId: string
     cycleCareer?: CycleCareerUncheckedCreateNestedManyWithoutCareerInput
-    WalkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersCreateOrConnectWithoutRunCareerInput = {
@@ -10122,7 +10122,7 @@ export namespace Prisma {
   export type CareersUpdateWithoutRunCareerInput = {
     id?: StringFieldUpdateOperationsInput | string
     cycleCareer?: CycleCareerUpdateManyWithoutCareerNestedInput
-    WalkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
     employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
   }
 
@@ -10130,7 +10130,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     employeeId?: StringFieldUpdateOperationsInput | string
     cycleCareer?: CycleCareerUncheckedUpdateManyWithoutCareerNestedInput
-    WalkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CycleCareerCreateWithoutCareerInput = {
@@ -10606,15 +10606,15 @@ export namespace Prisma {
   export type CareersUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     cycleCareer?: CycleCareerUpdateManyWithoutCareerNestedInput
-    WalkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
-    RunCareer?: RunCareerUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersUncheckedUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     cycleCareer?: CycleCareerUncheckedUpdateManyWithoutCareerNestedInput
-    WalkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
-    RunCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersUncheckedUpdateManyWithoutCareersInput = {

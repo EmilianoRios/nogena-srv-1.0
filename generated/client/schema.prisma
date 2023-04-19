@@ -66,8 +66,8 @@ model Careers {
   id          String        @id @default(cuid())
   employeeId  String
   cycleCareer CycleCareer[]
-  WalkCareer  WalkCareer[]
-  RunCareer   RunCareer[]
+  walkCareer  WalkCareer[]
+  runCareer   RunCareer[]
   employee    Employee      @relation(fields: [employeeId], references: [id])
 }
 
