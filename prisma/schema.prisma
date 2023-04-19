@@ -20,7 +20,7 @@ model Employee {
   username String     @unique
   phone    String
   password String
-  role     String
+  role     Role       @default(REGULAR)
   createAt DateTime   @default(now())
   updateAt DateTime   @updatedAt
   careers  Careers[]
@@ -89,4 +89,9 @@ model Comments {
   updateAt DateTime @updatedAt
   post     Posts    @relation(fields: [postId], references: [id])
   author   Employee @relation(fields: [authorId], references: [id])
+}
+
+enum Role {
+  REGULAR
+  ADMIN
 }

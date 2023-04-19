@@ -20,9 +20,10 @@ export type Employee = {
   id: string
   fullName: string
   dni: number
-  email: string
+  username: string
   phone: string
   password: string
+  role: Role
   createAt: Date
   updateAt: Date
 }
@@ -35,8 +36,10 @@ export type CycleCareer = {
   id: string
   points: number
   currentMonth: Date
+  kilometers: number
   createAt: Date
   updateAt: Date
+  careersId: string
 }
 
 /**
@@ -47,8 +50,10 @@ export type WalkCareer = {
   id: string
   points: number
   currentMonth: Date
+  kilometers: number
   createAt: Date
   updateAt: Date
+  careersId: string
 }
 
 /**
@@ -59,8 +64,11 @@ export type RunCareer = {
   id: string
   points: number
   currentMonth: Date
+  kilometers: number
+  careerId: string
   createAt: Date
   updateAt: Date
+  careersId: string
 }
 
 /**
@@ -70,11 +78,6 @@ export type RunCareer = {
 export type Careers = {
   id: string
   employeeId: string
-  cycleCareerId: string
-  walkCareerId: string
-  runCareerId: string
-  createAt: Date
-  updateAt: Date
 }
 
 /**
@@ -95,11 +98,26 @@ export type Posts = {
 export type Comments = {
   id: string
   content: string
-  createAt: Date
-  updateAt: Date
   postId: string
   authorId: string
+  createAt: Date
+  updateAt: Date
 }
+
+
+/**
+ * Enums
+ */
+
+// Based on
+// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+
+export const Role: {
+  REGULAR: 'REGULAR',
+  ADMIN: 'ADMIN'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
 
 
 /**
@@ -331,7 +349,7 @@ export namespace Prisma {
 
 
   /**
-   * Prisma Client JS version: 4.12.0
+   * Prisma Client JS version: 4.13.0
    * Query Engine version: 659ef412370fa3b41cd7bf6e94587c1dfb7f67e7
    */
   export type PrismaVersion = {
@@ -972,30 +990,34 @@ export namespace Prisma {
 
 
   /**
-   * Count Type CycleCareerCountOutputType
+   * Count Type CareersCountOutputType
    */
 
 
-  export type CycleCareerCountOutputType = {
-    careers: number
+  export type CareersCountOutputType = {
+    cycleCareer: number
+    walkCareer: number
+    runCareer: number
   }
 
-  export type CycleCareerCountOutputTypeSelect = {
-    careers?: boolean
+  export type CareersCountOutputTypeSelect = {
+    cycleCareer?: boolean
+    walkCareer?: boolean
+    runCareer?: boolean
   }
 
-  export type CycleCareerCountOutputTypeGetPayload<S extends boolean | null | undefined | CycleCareerCountOutputTypeArgs> =
+  export type CareersCountOutputTypeGetPayload<S extends boolean | null | undefined | CareersCountOutputTypeArgs> =
     S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? CycleCareerCountOutputType :
+    S extends true ? CareersCountOutputType :
     S extends undefined ? never :
-    S extends { include: any } & (CycleCareerCountOutputTypeArgs)
-    ? CycleCareerCountOutputType 
-    : S extends { select: any } & (CycleCareerCountOutputTypeArgs)
+    S extends { include: any } & (CareersCountOutputTypeArgs)
+    ? CareersCountOutputType 
+    : S extends { select: any } & (CareersCountOutputTypeArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-    P extends keyof CycleCareerCountOutputType ? CycleCareerCountOutputType[P] : never
+    P extends keyof CareersCountOutputType ? CareersCountOutputType[P] : never
   } 
-      : CycleCareerCountOutputType
+      : CareersCountOutputType
 
 
 
@@ -1003,99 +1025,13 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * CycleCareerCountOutputType without action
+   * CareersCountOutputType without action
    */
-  export type CycleCareerCountOutputTypeArgs = {
+  export type CareersCountOutputTypeArgs = {
     /**
-     * Select specific fields to fetch from the CycleCareerCountOutputType
+     * Select specific fields to fetch from the CareersCountOutputType
      */
-    select?: CycleCareerCountOutputTypeSelect | null
-  }
-
-
-
-  /**
-   * Count Type WalkCareerCountOutputType
-   */
-
-
-  export type WalkCareerCountOutputType = {
-    careers: number
-  }
-
-  export type WalkCareerCountOutputTypeSelect = {
-    careers?: boolean
-  }
-
-  export type WalkCareerCountOutputTypeGetPayload<S extends boolean | null | undefined | WalkCareerCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? WalkCareerCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (WalkCareerCountOutputTypeArgs)
-    ? WalkCareerCountOutputType 
-    : S extends { select: any } & (WalkCareerCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof WalkCareerCountOutputType ? WalkCareerCountOutputType[P] : never
-  } 
-      : WalkCareerCountOutputType
-
-
-
-
-  // Custom InputTypes
-
-  /**
-   * WalkCareerCountOutputType without action
-   */
-  export type WalkCareerCountOutputTypeArgs = {
-    /**
-     * Select specific fields to fetch from the WalkCareerCountOutputType
-     */
-    select?: WalkCareerCountOutputTypeSelect | null
-  }
-
-
-
-  /**
-   * Count Type RunCareerCountOutputType
-   */
-
-
-  export type RunCareerCountOutputType = {
-    careers: number
-  }
-
-  export type RunCareerCountOutputTypeSelect = {
-    careers?: boolean
-  }
-
-  export type RunCareerCountOutputTypeGetPayload<S extends boolean | null | undefined | RunCareerCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? RunCareerCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (RunCareerCountOutputTypeArgs)
-    ? RunCareerCountOutputType 
-    : S extends { select: any } & (RunCareerCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof RunCareerCountOutputType ? RunCareerCountOutputType[P] : never
-  } 
-      : RunCareerCountOutputType
-
-
-
-
-  // Custom InputTypes
-
-  /**
-   * RunCareerCountOutputType without action
-   */
-  export type RunCareerCountOutputTypeArgs = {
-    /**
-     * Select specific fields to fetch from the RunCareerCountOutputType
-     */
-    select?: RunCareerCountOutputTypeSelect | null
+    select?: CareersCountOutputTypeSelect | null
   }
 
 
@@ -1172,9 +1108,10 @@ export namespace Prisma {
     id: string | null
     fullName: string | null
     dni: number | null
-    email: string | null
+    username: string | null
     phone: string | null
     password: string | null
+    role: Role | null
     createAt: Date | null
     updateAt: Date | null
   }
@@ -1183,9 +1120,10 @@ export namespace Prisma {
     id: string | null
     fullName: string | null
     dni: number | null
-    email: string | null
+    username: string | null
     phone: string | null
     password: string | null
+    role: Role | null
     createAt: Date | null
     updateAt: Date | null
   }
@@ -1194,9 +1132,10 @@ export namespace Prisma {
     id: number
     fullName: number
     dni: number
-    email: number
+    username: number
     phone: number
     password: number
+    role: number
     createAt: number
     updateAt: number
     _all: number
@@ -1215,9 +1154,10 @@ export namespace Prisma {
     id?: true
     fullName?: true
     dni?: true
-    email?: true
+    username?: true
     phone?: true
     password?: true
+    role?: true
     createAt?: true
     updateAt?: true
   }
@@ -1226,9 +1166,10 @@ export namespace Prisma {
     id?: true
     fullName?: true
     dni?: true
-    email?: true
+    username?: true
     phone?: true
     password?: true
+    role?: true
     createAt?: true
     updateAt?: true
   }
@@ -1237,9 +1178,10 @@ export namespace Prisma {
     id?: true
     fullName?: true
     dni?: true
-    email?: true
+    username?: true
     phone?: true
     password?: true
+    role?: true
     createAt?: true
     updateAt?: true
     _all?: true
@@ -1336,9 +1278,10 @@ export namespace Prisma {
     id: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
+    role: Role
     createAt: Date
     updateAt: Date
     _count: EmployeeCountAggregateOutputType | null
@@ -1366,9 +1309,10 @@ export namespace Prisma {
     id?: boolean
     fullName?: boolean
     dni?: boolean
-    email?: boolean
+    username?: boolean
     phone?: boolean
     password?: boolean
+    role?: boolean
     createAt?: boolean
     updateAt?: boolean
     careers?: boolean | Employee$careersArgs
@@ -2230,68 +2174,84 @@ export namespace Prisma {
 
   export type CycleCareerAvgAggregateOutputType = {
     points: number | null
+    kilometers: number | null
   }
 
   export type CycleCareerSumAggregateOutputType = {
     points: number | null
+    kilometers: number | null
   }
 
   export type CycleCareerMinAggregateOutputType = {
     id: string | null
     points: number | null
     currentMonth: Date | null
+    kilometers: number | null
     createAt: Date | null
     updateAt: Date | null
+    careersId: string | null
   }
 
   export type CycleCareerMaxAggregateOutputType = {
     id: string | null
     points: number | null
     currentMonth: Date | null
+    kilometers: number | null
     createAt: Date | null
     updateAt: Date | null
+    careersId: string | null
   }
 
   export type CycleCareerCountAggregateOutputType = {
     id: number
     points: number
     currentMonth: number
+    kilometers: number
     createAt: number
     updateAt: number
+    careersId: number
     _all: number
   }
 
 
   export type CycleCareerAvgAggregateInputType = {
     points?: true
+    kilometers?: true
   }
 
   export type CycleCareerSumAggregateInputType = {
     points?: true
+    kilometers?: true
   }
 
   export type CycleCareerMinAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
   }
 
   export type CycleCareerMaxAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
   }
 
   export type CycleCareerCountAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
     _all?: true
   }
 
@@ -2386,8 +2346,10 @@ export namespace Prisma {
     id: string
     points: number
     currentMonth: Date
+    kilometers: number
     createAt: Date
     updateAt: Date
+    careersId: string
     _count: CycleCareerCountAggregateOutputType | null
     _avg: CycleCareerAvgAggregateOutputType | null
     _sum: CycleCareerSumAggregateOutputType | null
@@ -2413,16 +2375,16 @@ export namespace Prisma {
     id?: boolean
     points?: boolean
     currentMonth?: boolean
+    kilometers?: boolean
     createAt?: boolean
     updateAt?: boolean
-    careers?: boolean | CycleCareer$careersArgs
-    _count?: boolean | CycleCareerCountOutputTypeArgs
+    careersId?: boolean
+    career?: boolean | CareersArgs
   }
 
 
   export type CycleCareerInclude = {
-    careers?: boolean | CycleCareer$careersArgs
-    _count?: boolean | CycleCareerCountOutputTypeArgs
+    career?: boolean | CareersArgs
   }
 
   export type CycleCareerGetPayload<S extends boolean | null | undefined | CycleCareerArgs> =
@@ -2432,14 +2394,12 @@ export namespace Prisma {
     S extends { include: any } & (CycleCareerArgs | CycleCareerFindManyArgs)
     ? CycleCareer  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'careers' ? Array < CareersGetPayload<S['include'][P]>>  :
-        P extends '_count' ? CycleCareerCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends 'career' ? CareersGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (CycleCareerArgs | CycleCareerFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'careers' ? Array < CareersGetPayload<S['select'][P]>>  :
-        P extends '_count' ? CycleCareerCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof CycleCareer ? CycleCareer[P] : never
+        P extends 'career' ? CareersGetPayload<S['select'][P]> :  P extends keyof CycleCareer ? CycleCareer[P] : never
   } 
       : CycleCareer
 
@@ -2811,7 +2771,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    careers<T extends CycleCareer$careersArgs= {}>(args?: Subset<T, CycleCareer$careersArgs>): Prisma.PrismaPromise<Array<CareersGetPayload<T>>| Null>;
+    career<T extends CareersArgs= {}>(args?: Subset<T, CareersArgs>): Prisma__CareersClient<CareersGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -3169,27 +3129,6 @@ export namespace Prisma {
 
 
   /**
-   * CycleCareer.careers
-   */
-  export type CycleCareer$careersArgs = {
-    /**
-     * Select specific fields to fetch from the Careers
-     */
-    select?: CareersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: CareersInclude | null
-    where?: CareersWhereInput
-    orderBy?: Enumerable<CareersOrderByWithRelationInput>
-    cursor?: CareersWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<CareersScalarFieldEnum>
-  }
-
-
-  /**
    * CycleCareer without action
    */
   export type CycleCareerArgs = {
@@ -3220,68 +3159,84 @@ export namespace Prisma {
 
   export type WalkCareerAvgAggregateOutputType = {
     points: number | null
+    kilometers: number | null
   }
 
   export type WalkCareerSumAggregateOutputType = {
     points: number | null
+    kilometers: number | null
   }
 
   export type WalkCareerMinAggregateOutputType = {
     id: string | null
     points: number | null
     currentMonth: Date | null
+    kilometers: number | null
     createAt: Date | null
     updateAt: Date | null
+    careersId: string | null
   }
 
   export type WalkCareerMaxAggregateOutputType = {
     id: string | null
     points: number | null
     currentMonth: Date | null
+    kilometers: number | null
     createAt: Date | null
     updateAt: Date | null
+    careersId: string | null
   }
 
   export type WalkCareerCountAggregateOutputType = {
     id: number
     points: number
     currentMonth: number
+    kilometers: number
     createAt: number
     updateAt: number
+    careersId: number
     _all: number
   }
 
 
   export type WalkCareerAvgAggregateInputType = {
     points?: true
+    kilometers?: true
   }
 
   export type WalkCareerSumAggregateInputType = {
     points?: true
+    kilometers?: true
   }
 
   export type WalkCareerMinAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
   }
 
   export type WalkCareerMaxAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
   }
 
   export type WalkCareerCountAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
     _all?: true
   }
 
@@ -3376,8 +3331,10 @@ export namespace Prisma {
     id: string
     points: number
     currentMonth: Date
+    kilometers: number
     createAt: Date
     updateAt: Date
+    careersId: string
     _count: WalkCareerCountAggregateOutputType | null
     _avg: WalkCareerAvgAggregateOutputType | null
     _sum: WalkCareerSumAggregateOutputType | null
@@ -3403,16 +3360,16 @@ export namespace Prisma {
     id?: boolean
     points?: boolean
     currentMonth?: boolean
+    kilometers?: boolean
     createAt?: boolean
     updateAt?: boolean
-    careers?: boolean | WalkCareer$careersArgs
-    _count?: boolean | WalkCareerCountOutputTypeArgs
+    careersId?: boolean
+    career?: boolean | CareersArgs
   }
 
 
   export type WalkCareerInclude = {
-    careers?: boolean | WalkCareer$careersArgs
-    _count?: boolean | WalkCareerCountOutputTypeArgs
+    career?: boolean | CareersArgs
   }
 
   export type WalkCareerGetPayload<S extends boolean | null | undefined | WalkCareerArgs> =
@@ -3422,14 +3379,12 @@ export namespace Prisma {
     S extends { include: any } & (WalkCareerArgs | WalkCareerFindManyArgs)
     ? WalkCareer  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'careers' ? Array < CareersGetPayload<S['include'][P]>>  :
-        P extends '_count' ? WalkCareerCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends 'career' ? CareersGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (WalkCareerArgs | WalkCareerFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'careers' ? Array < CareersGetPayload<S['select'][P]>>  :
-        P extends '_count' ? WalkCareerCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof WalkCareer ? WalkCareer[P] : never
+        P extends 'career' ? CareersGetPayload<S['select'][P]> :  P extends keyof WalkCareer ? WalkCareer[P] : never
   } 
       : WalkCareer
 
@@ -3801,7 +3756,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    careers<T extends WalkCareer$careersArgs= {}>(args?: Subset<T, WalkCareer$careersArgs>): Prisma.PrismaPromise<Array<CareersGetPayload<T>>| Null>;
+    career<T extends CareersArgs= {}>(args?: Subset<T, CareersArgs>): Prisma__CareersClient<CareersGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -4159,27 +4114,6 @@ export namespace Prisma {
 
 
   /**
-   * WalkCareer.careers
-   */
-  export type WalkCareer$careersArgs = {
-    /**
-     * Select specific fields to fetch from the Careers
-     */
-    select?: CareersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: CareersInclude | null
-    where?: CareersWhereInput
-    orderBy?: Enumerable<CareersOrderByWithRelationInput>
-    cursor?: CareersWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<CareersScalarFieldEnum>
-  }
-
-
-  /**
    * WalkCareer without action
    */
   export type WalkCareerArgs = {
@@ -4210,68 +4144,90 @@ export namespace Prisma {
 
   export type RunCareerAvgAggregateOutputType = {
     points: number | null
+    kilometers: number | null
   }
 
   export type RunCareerSumAggregateOutputType = {
     points: number | null
+    kilometers: number | null
   }
 
   export type RunCareerMinAggregateOutputType = {
     id: string | null
     points: number | null
     currentMonth: Date | null
+    kilometers: number | null
+    careerId: string | null
     createAt: Date | null
     updateAt: Date | null
+    careersId: string | null
   }
 
   export type RunCareerMaxAggregateOutputType = {
     id: string | null
     points: number | null
     currentMonth: Date | null
+    kilometers: number | null
+    careerId: string | null
     createAt: Date | null
     updateAt: Date | null
+    careersId: string | null
   }
 
   export type RunCareerCountAggregateOutputType = {
     id: number
     points: number
     currentMonth: number
+    kilometers: number
+    careerId: number
     createAt: number
     updateAt: number
+    careersId: number
     _all: number
   }
 
 
   export type RunCareerAvgAggregateInputType = {
     points?: true
+    kilometers?: true
   }
 
   export type RunCareerSumAggregateInputType = {
     points?: true
+    kilometers?: true
   }
 
   export type RunCareerMinAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
+    careerId?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
   }
 
   export type RunCareerMaxAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
+    careerId?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
   }
 
   export type RunCareerCountAggregateInputType = {
     id?: true
     points?: true
     currentMonth?: true
+    kilometers?: true
+    careerId?: true
     createAt?: true
     updateAt?: true
+    careersId?: true
     _all?: true
   }
 
@@ -4366,8 +4322,11 @@ export namespace Prisma {
     id: string
     points: number
     currentMonth: Date
+    kilometers: number
+    careerId: string
     createAt: Date
     updateAt: Date
+    careersId: string
     _count: RunCareerCountAggregateOutputType | null
     _avg: RunCareerAvgAggregateOutputType | null
     _sum: RunCareerSumAggregateOutputType | null
@@ -4393,16 +4352,17 @@ export namespace Prisma {
     id?: boolean
     points?: boolean
     currentMonth?: boolean
+    kilometers?: boolean
+    careerId?: boolean
     createAt?: boolean
     updateAt?: boolean
-    careers?: boolean | RunCareer$careersArgs
-    _count?: boolean | RunCareerCountOutputTypeArgs
+    careersId?: boolean
+    career?: boolean | CareersArgs
   }
 
 
   export type RunCareerInclude = {
-    careers?: boolean | RunCareer$careersArgs
-    _count?: boolean | RunCareerCountOutputTypeArgs
+    career?: boolean | CareersArgs
   }
 
   export type RunCareerGetPayload<S extends boolean | null | undefined | RunCareerArgs> =
@@ -4412,14 +4372,12 @@ export namespace Prisma {
     S extends { include: any } & (RunCareerArgs | RunCareerFindManyArgs)
     ? RunCareer  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'careers' ? Array < CareersGetPayload<S['include'][P]>>  :
-        P extends '_count' ? RunCareerCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends 'career' ? CareersGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (RunCareerArgs | RunCareerFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'careers' ? Array < CareersGetPayload<S['select'][P]>>  :
-        P extends '_count' ? RunCareerCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof RunCareer ? RunCareer[P] : never
+        P extends 'career' ? CareersGetPayload<S['select'][P]> :  P extends keyof RunCareer ? RunCareer[P] : never
   } 
       : RunCareer
 
@@ -4791,7 +4749,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    careers<T extends RunCareer$careersArgs= {}>(args?: Subset<T, RunCareer$careersArgs>): Prisma.PrismaPromise<Array<CareersGetPayload<T>>| Null>;
+    career<T extends CareersArgs= {}>(args?: Subset<T, CareersArgs>): Prisma__CareersClient<CareersGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -5149,27 +5107,6 @@ export namespace Prisma {
 
 
   /**
-   * RunCareer.careers
-   */
-  export type RunCareer$careersArgs = {
-    /**
-     * Select specific fields to fetch from the Careers
-     */
-    select?: CareersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: CareersInclude | null
-    where?: CareersWhereInput
-    orderBy?: Enumerable<CareersOrderByWithRelationInput>
-    cursor?: CareersWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<CareersScalarFieldEnum>
-  }
-
-
-  /**
    * RunCareer without action
    */
   export type RunCareerArgs = {
@@ -5199,31 +5136,16 @@ export namespace Prisma {
   export type CareersMinAggregateOutputType = {
     id: string | null
     employeeId: string | null
-    cycleCareerId: string | null
-    walkCareerId: string | null
-    runCareerId: string | null
-    createAt: Date | null
-    updateAt: Date | null
   }
 
   export type CareersMaxAggregateOutputType = {
     id: string | null
     employeeId: string | null
-    cycleCareerId: string | null
-    walkCareerId: string | null
-    runCareerId: string | null
-    createAt: Date | null
-    updateAt: Date | null
   }
 
   export type CareersCountAggregateOutputType = {
     id: number
     employeeId: number
-    cycleCareerId: number
-    walkCareerId: number
-    runCareerId: number
-    createAt: number
-    updateAt: number
     _all: number
   }
 
@@ -5231,31 +5153,16 @@ export namespace Prisma {
   export type CareersMinAggregateInputType = {
     id?: true
     employeeId?: true
-    cycleCareerId?: true
-    walkCareerId?: true
-    runCareerId?: true
-    createAt?: true
-    updateAt?: true
   }
 
   export type CareersMaxAggregateInputType = {
     id?: true
     employeeId?: true
-    cycleCareerId?: true
-    walkCareerId?: true
-    runCareerId?: true
-    createAt?: true
-    updateAt?: true
   }
 
   export type CareersCountAggregateInputType = {
     id?: true
     employeeId?: true
-    cycleCareerId?: true
-    walkCareerId?: true
-    runCareerId?: true
-    createAt?: true
-    updateAt?: true
     _all?: true
   }
 
@@ -5335,11 +5242,6 @@ export namespace Prisma {
   export type CareersGroupByOutputType = {
     id: string
     employeeId: string
-    cycleCareerId: string
-    walkCareerId: string
-    runCareerId: string
-    createAt: Date
-    updateAt: Date
     _count: CareersCountAggregateOutputType | null
     _min: CareersMinAggregateOutputType | null
     _max: CareersMaxAggregateOutputType | null
@@ -5362,23 +5264,20 @@ export namespace Prisma {
   export type CareersSelect = {
     id?: boolean
     employeeId?: boolean
-    cycleCareerId?: boolean
-    walkCareerId?: boolean
-    runCareerId?: boolean
-    createAt?: boolean
-    updateAt?: boolean
+    cycleCareer?: boolean | Careers$cycleCareerArgs
+    walkCareer?: boolean | Careers$walkCareerArgs
+    runCareer?: boolean | Careers$runCareerArgs
     employee?: boolean | EmployeeArgs
-    cycleCareer?: boolean | CycleCareerArgs
-    walkCareer?: boolean | WalkCareerArgs
-    runCareer?: boolean | RunCareerArgs
+    _count?: boolean | CareersCountOutputTypeArgs
   }
 
 
   export type CareersInclude = {
+    cycleCareer?: boolean | Careers$cycleCareerArgs
+    walkCareer?: boolean | Careers$walkCareerArgs
+    runCareer?: boolean | Careers$runCareerArgs
     employee?: boolean | EmployeeArgs
-    cycleCareer?: boolean | CycleCareerArgs
-    walkCareer?: boolean | WalkCareerArgs
-    runCareer?: boolean | RunCareerArgs
+    _count?: boolean | CareersCountOutputTypeArgs
   }
 
   export type CareersGetPayload<S extends boolean | null | undefined | CareersArgs> =
@@ -5388,18 +5287,20 @@ export namespace Prisma {
     S extends { include: any } & (CareersArgs | CareersFindManyArgs)
     ? Careers  & {
     [P in TruthyKeys<S['include']>]:
+        P extends 'cycleCareer' ? Array < CycleCareerGetPayload<S['include'][P]>>  :
+        P extends 'walkCareer' ? Array < WalkCareerGetPayload<S['include'][P]>>  :
+        P extends 'runCareer' ? Array < RunCareerGetPayload<S['include'][P]>>  :
         P extends 'employee' ? EmployeeGetPayload<S['include'][P]> :
-        P extends 'cycleCareer' ? CycleCareerGetPayload<S['include'][P]> :
-        P extends 'walkCareer' ? WalkCareerGetPayload<S['include'][P]> :
-        P extends 'runCareer' ? RunCareerGetPayload<S['include'][P]> :  never
+        P extends '_count' ? CareersCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (CareersArgs | CareersFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
+        P extends 'cycleCareer' ? Array < CycleCareerGetPayload<S['select'][P]>>  :
+        P extends 'walkCareer' ? Array < WalkCareerGetPayload<S['select'][P]>>  :
+        P extends 'runCareer' ? Array < RunCareerGetPayload<S['select'][P]>>  :
         P extends 'employee' ? EmployeeGetPayload<S['select'][P]> :
-        P extends 'cycleCareer' ? CycleCareerGetPayload<S['select'][P]> :
-        P extends 'walkCareer' ? WalkCareerGetPayload<S['select'][P]> :
-        P extends 'runCareer' ? RunCareerGetPayload<S['select'][P]> :  P extends keyof Careers ? Careers[P] : never
+        P extends '_count' ? CareersCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Careers ? Careers[P] : never
   } 
       : Careers
 
@@ -5771,13 +5672,13 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    cycleCareer<T extends Careers$cycleCareerArgs= {}>(args?: Subset<T, Careers$cycleCareerArgs>): Prisma.PrismaPromise<Array<CycleCareerGetPayload<T>>| Null>;
+
+    walkCareer<T extends Careers$walkCareerArgs= {}>(args?: Subset<T, Careers$walkCareerArgs>): Prisma.PrismaPromise<Array<WalkCareerGetPayload<T>>| Null>;
+
+    runCareer<T extends Careers$runCareerArgs= {}>(args?: Subset<T, Careers$runCareerArgs>): Prisma.PrismaPromise<Array<RunCareerGetPayload<T>>| Null>;
+
     employee<T extends EmployeeArgs= {}>(args?: Subset<T, EmployeeArgs>): Prisma__EmployeeClient<EmployeeGetPayload<T> | Null>;
-
-    cycleCareer<T extends CycleCareerArgs= {}>(args?: Subset<T, CycleCareerArgs>): Prisma__CycleCareerClient<CycleCareerGetPayload<T> | Null>;
-
-    walkCareer<T extends WalkCareerArgs= {}>(args?: Subset<T, WalkCareerArgs>): Prisma__WalkCareerClient<WalkCareerGetPayload<T> | Null>;
-
-    runCareer<T extends RunCareerArgs= {}>(args?: Subset<T, RunCareerArgs>): Prisma__RunCareerClient<RunCareerGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -6135,6 +6036,69 @@ export namespace Prisma {
 
 
   /**
+   * Careers.cycleCareer
+   */
+  export type Careers$cycleCareerArgs = {
+    /**
+     * Select specific fields to fetch from the CycleCareer
+     */
+    select?: CycleCareerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CycleCareerInclude | null
+    where?: CycleCareerWhereInput
+    orderBy?: Enumerable<CycleCareerOrderByWithRelationInput>
+    cursor?: CycleCareerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<CycleCareerScalarFieldEnum>
+  }
+
+
+  /**
+   * Careers.walkCareer
+   */
+  export type Careers$walkCareerArgs = {
+    /**
+     * Select specific fields to fetch from the WalkCareer
+     */
+    select?: WalkCareerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: WalkCareerInclude | null
+    where?: WalkCareerWhereInput
+    orderBy?: Enumerable<WalkCareerOrderByWithRelationInput>
+    cursor?: WalkCareerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<WalkCareerScalarFieldEnum>
+  }
+
+
+  /**
+   * Careers.runCareer
+   */
+  export type Careers$runCareerArgs = {
+    /**
+     * Select specific fields to fetch from the RunCareer
+     */
+    select?: RunCareerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RunCareerInclude | null
+    where?: RunCareerWhereInput
+    orderBy?: Enumerable<RunCareerOrderByWithRelationInput>
+    cursor?: RunCareerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<RunCareerScalarFieldEnum>
+  }
+
+
+  /**
    * Careers without action
    */
   export type CareersArgs = {
@@ -6308,15 +6272,15 @@ export namespace Prisma {
     title?: boolean
     content?: boolean
     authorId?: boolean
-    author?: boolean | EmployeeArgs
     comments?: boolean | Posts$commentsArgs
+    author?: boolean | EmployeeArgs
     _count?: boolean | PostsCountOutputTypeArgs
   }
 
 
   export type PostsInclude = {
-    author?: boolean | EmployeeArgs
     comments?: boolean | Posts$commentsArgs
+    author?: boolean | EmployeeArgs
     _count?: boolean | PostsCountOutputTypeArgs
   }
 
@@ -6327,15 +6291,15 @@ export namespace Prisma {
     S extends { include: any } & (PostsArgs | PostsFindManyArgs)
     ? Posts  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'author' ? EmployeeGetPayload<S['include'][P]> :
         P extends 'comments' ? Array < CommentsGetPayload<S['include'][P]>>  :
+        P extends 'author' ? EmployeeGetPayload<S['include'][P]> :
         P extends '_count' ? PostsCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (PostsArgs | PostsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'author' ? EmployeeGetPayload<S['select'][P]> :
         P extends 'comments' ? Array < CommentsGetPayload<S['select'][P]>>  :
+        P extends 'author' ? EmployeeGetPayload<S['select'][P]> :
         P extends '_count' ? PostsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Posts ? Posts[P] : never
   } 
       : Posts
@@ -6708,9 +6672,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    author<T extends EmployeeArgs= {}>(args?: Subset<T, EmployeeArgs>): Prisma__EmployeeClient<EmployeeGetPayload<T> | Null>;
-
     comments<T extends Posts$commentsArgs= {}>(args?: Subset<T, Posts$commentsArgs>): Prisma.PrismaPromise<Array<CommentsGetPayload<T>>| Null>;
+
+    author<T extends EmployeeArgs= {}>(args?: Subset<T, EmployeeArgs>): Prisma__EmployeeClient<EmployeeGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -7118,28 +7082,28 @@ export namespace Prisma {
   export type CommentsMinAggregateOutputType = {
     id: string | null
     content: string | null
-    createAt: Date | null
-    updateAt: Date | null
     postId: string | null
     authorId: string | null
+    createAt: Date | null
+    updateAt: Date | null
   }
 
   export type CommentsMaxAggregateOutputType = {
     id: string | null
     content: string | null
-    createAt: Date | null
-    updateAt: Date | null
     postId: string | null
     authorId: string | null
+    createAt: Date | null
+    updateAt: Date | null
   }
 
   export type CommentsCountAggregateOutputType = {
     id: number
     content: number
-    createAt: number
-    updateAt: number
     postId: number
     authorId: number
+    createAt: number
+    updateAt: number
     _all: number
   }
 
@@ -7147,28 +7111,28 @@ export namespace Prisma {
   export type CommentsMinAggregateInputType = {
     id?: true
     content?: true
-    createAt?: true
-    updateAt?: true
     postId?: true
     authorId?: true
+    createAt?: true
+    updateAt?: true
   }
 
   export type CommentsMaxAggregateInputType = {
     id?: true
     content?: true
-    createAt?: true
-    updateAt?: true
     postId?: true
     authorId?: true
+    createAt?: true
+    updateAt?: true
   }
 
   export type CommentsCountAggregateInputType = {
     id?: true
     content?: true
-    createAt?: true
-    updateAt?: true
     postId?: true
     authorId?: true
+    createAt?: true
+    updateAt?: true
     _all?: true
   }
 
@@ -7248,10 +7212,10 @@ export namespace Prisma {
   export type CommentsGroupByOutputType = {
     id: string
     content: string
-    createAt: Date
-    updateAt: Date
     postId: string
     authorId: string
+    createAt: Date
+    updateAt: Date
     _count: CommentsCountAggregateOutputType | null
     _min: CommentsMinAggregateOutputType | null
     _max: CommentsMaxAggregateOutputType | null
@@ -7274,10 +7238,10 @@ export namespace Prisma {
   export type CommentsSelect = {
     id?: boolean
     content?: boolean
-    createAt?: boolean
-    updateAt?: boolean
     postId?: boolean
     authorId?: boolean
+    createAt?: boolean
+    updateAt?: boolean
     post?: boolean | PostsArgs
     author?: boolean | EmployeeArgs
   }
@@ -8058,12 +8022,7 @@ export namespace Prisma {
 
   export const CareersScalarFieldEnum: {
     id: 'id',
-    employeeId: 'employeeId',
-    cycleCareerId: 'cycleCareerId',
-    walkCareerId: 'walkCareerId',
-    runCareerId: 'runCareerId',
-    createAt: 'createAt',
-    updateAt: 'updateAt'
+    employeeId: 'employeeId'
   };
 
   export type CareersScalarFieldEnum = (typeof CareersScalarFieldEnum)[keyof typeof CareersScalarFieldEnum]
@@ -8072,10 +8031,10 @@ export namespace Prisma {
   export const CommentsScalarFieldEnum: {
     id: 'id',
     content: 'content',
-    createAt: 'createAt',
-    updateAt: 'updateAt',
     postId: 'postId',
-    authorId: 'authorId'
+    authorId: 'authorId',
+    createAt: 'createAt',
+    updateAt: 'updateAt'
   };
 
   export type CommentsScalarFieldEnum = (typeof CommentsScalarFieldEnum)[keyof typeof CommentsScalarFieldEnum]
@@ -8085,8 +8044,10 @@ export namespace Prisma {
     id: 'id',
     points: 'points',
     currentMonth: 'currentMonth',
+    kilometers: 'kilometers',
     createAt: 'createAt',
-    updateAt: 'updateAt'
+    updateAt: 'updateAt',
+    careersId: 'careersId'
   };
 
   export type CycleCareerScalarFieldEnum = (typeof CycleCareerScalarFieldEnum)[keyof typeof CycleCareerScalarFieldEnum]
@@ -8096,9 +8057,10 @@ export namespace Prisma {
     id: 'id',
     fullName: 'fullName',
     dni: 'dni',
-    email: 'email',
+    username: 'username',
     phone: 'phone',
     password: 'password',
+    role: 'role',
     createAt: 'createAt',
     updateAt: 'updateAt'
   };
@@ -8128,8 +8090,11 @@ export namespace Prisma {
     id: 'id',
     points: 'points',
     currentMonth: 'currentMonth',
+    kilometers: 'kilometers',
+    careerId: 'careerId',
     createAt: 'createAt',
-    updateAt: 'updateAt'
+    updateAt: 'updateAt',
+    careersId: 'careersId'
   };
 
   export type RunCareerScalarFieldEnum = (typeof RunCareerScalarFieldEnum)[keyof typeof RunCareerScalarFieldEnum]
@@ -8157,8 +8122,10 @@ export namespace Prisma {
     id: 'id',
     points: 'points',
     currentMonth: 'currentMonth',
+    kilometers: 'kilometers',
     createAt: 'createAt',
-    updateAt: 'updateAt'
+    updateAt: 'updateAt',
+    careersId: 'careersId'
   };
 
   export type WalkCareerScalarFieldEnum = (typeof WalkCareerScalarFieldEnum)[keyof typeof WalkCareerScalarFieldEnum]
@@ -8176,9 +8143,10 @@ export namespace Prisma {
     id?: StringFilter | string
     fullName?: StringFilter | string
     dni?: IntFilter | number
-    email?: StringFilter | string
+    username?: StringFilter | string
     phone?: StringFilter | string
     password?: StringFilter | string
+    role?: EnumRoleFilter | Role
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
     careers?: CareersListRelationFilter
@@ -8190,9 +8158,10 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careers?: CareersOrderByRelationAggregateInput
@@ -8203,16 +8172,17 @@ export namespace Prisma {
   export type EmployeeWhereUniqueInput = {
     id?: string
     dni?: number
-    email?: string
+    username?: string
   }
 
   export type EmployeeOrderByWithAggregationInput = {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     _count?: EmployeeCountOrderByAggregateInput
@@ -8229,9 +8199,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter | string
     fullName?: StringWithAggregatesFilter | string
     dni?: IntWithAggregatesFilter | number
-    email?: StringWithAggregatesFilter | string
+    username?: StringWithAggregatesFilter | string
     phone?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
+    role?: EnumRoleWithAggregatesFilter | Role
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -8243,18 +8214,22 @@ export namespace Prisma {
     id?: StringFilter | string
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
+    kilometers?: IntFilter | number
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
-    careers?: CareersListRelationFilter
+    careersId?: StringFilter | string
+    career?: XOR<CareersRelationFilter, CareersWhereInput>
   }
 
   export type CycleCareerOrderByWithRelationInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
-    careers?: CareersOrderByRelationAggregateInput
+    careersId?: SortOrder
+    career?: CareersOrderByWithRelationInput
   }
 
   export type CycleCareerWhereUniqueInput = {
@@ -8265,8 +8240,10 @@ export namespace Prisma {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
     _count?: CycleCareerCountOrderByAggregateInput
     _avg?: CycleCareerAvgOrderByAggregateInput
     _max?: CycleCareerMaxOrderByAggregateInput
@@ -8281,8 +8258,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter | string
     points?: IntWithAggregatesFilter | number
     currentMonth?: DateTimeWithAggregatesFilter | Date | string
+    kilometers?: IntWithAggregatesFilter | number
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
+    careersId?: StringWithAggregatesFilter | string
   }
 
   export type WalkCareerWhereInput = {
@@ -8292,18 +8271,22 @@ export namespace Prisma {
     id?: StringFilter | string
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
+    kilometers?: IntFilter | number
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
-    careers?: CareersListRelationFilter
+    careersId?: StringFilter | string
+    career?: XOR<CareersRelationFilter, CareersWhereInput>
   }
 
   export type WalkCareerOrderByWithRelationInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
-    careers?: CareersOrderByRelationAggregateInput
+    careersId?: SortOrder
+    career?: CareersOrderByWithRelationInput
   }
 
   export type WalkCareerWhereUniqueInput = {
@@ -8314,8 +8297,10 @@ export namespace Prisma {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
     _count?: WalkCareerCountOrderByAggregateInput
     _avg?: WalkCareerAvgOrderByAggregateInput
     _max?: WalkCareerMaxOrderByAggregateInput
@@ -8330,8 +8315,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter | string
     points?: IntWithAggregatesFilter | number
     currentMonth?: DateTimeWithAggregatesFilter | Date | string
+    kilometers?: IntWithAggregatesFilter | number
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
+    careersId?: StringWithAggregatesFilter | string
   }
 
   export type RunCareerWhereInput = {
@@ -8341,18 +8328,24 @@ export namespace Prisma {
     id?: StringFilter | string
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
+    kilometers?: IntFilter | number
+    careerId?: StringFilter | string
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
-    careers?: CareersListRelationFilter
+    careersId?: StringFilter | string
+    career?: XOR<CareersRelationFilter, CareersWhereInput>
   }
 
   export type RunCareerOrderByWithRelationInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
+    careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
-    careers?: CareersOrderByRelationAggregateInput
+    careersId?: SortOrder
+    career?: CareersOrderByWithRelationInput
   }
 
   export type RunCareerWhereUniqueInput = {
@@ -8363,8 +8356,11 @@ export namespace Prisma {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
+    careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
     _count?: RunCareerCountOrderByAggregateInput
     _avg?: RunCareerAvgOrderByAggregateInput
     _max?: RunCareerMaxOrderByAggregateInput
@@ -8379,8 +8375,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter | string
     points?: IntWithAggregatesFilter | number
     currentMonth?: DateTimeWithAggregatesFilter | Date | string
+    kilometers?: IntWithAggregatesFilter | number
+    careerId?: StringWithAggregatesFilter | string
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
+    careersId?: StringWithAggregatesFilter | string
   }
 
   export type CareersWhereInput = {
@@ -8389,29 +8388,19 @@ export namespace Prisma {
     NOT?: Enumerable<CareersWhereInput>
     id?: StringFilter | string
     employeeId?: StringFilter | string
-    cycleCareerId?: StringFilter | string
-    walkCareerId?: StringFilter | string
-    runCareerId?: StringFilter | string
-    createAt?: DateTimeFilter | Date | string
-    updateAt?: DateTimeFilter | Date | string
+    cycleCareer?: CycleCareerListRelationFilter
+    walkCareer?: WalkCareerListRelationFilter
+    runCareer?: RunCareerListRelationFilter
     employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
-    cycleCareer?: XOR<CycleCareerRelationFilter, CycleCareerWhereInput>
-    walkCareer?: XOR<WalkCareerRelationFilter, WalkCareerWhereInput>
-    runCareer?: XOR<RunCareerRelationFilter, RunCareerWhereInput>
   }
 
   export type CareersOrderByWithRelationInput = {
     id?: SortOrder
     employeeId?: SortOrder
-    cycleCareerId?: SortOrder
-    walkCareerId?: SortOrder
-    runCareerId?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
+    cycleCareer?: CycleCareerOrderByRelationAggregateInput
+    walkCareer?: WalkCareerOrderByRelationAggregateInput
+    runCareer?: RunCareerOrderByRelationAggregateInput
     employee?: EmployeeOrderByWithRelationInput
-    cycleCareer?: CycleCareerOrderByWithRelationInput
-    walkCareer?: WalkCareerOrderByWithRelationInput
-    runCareer?: RunCareerOrderByWithRelationInput
   }
 
   export type CareersWhereUniqueInput = {
@@ -8421,11 +8410,6 @@ export namespace Prisma {
   export type CareersOrderByWithAggregationInput = {
     id?: SortOrder
     employeeId?: SortOrder
-    cycleCareerId?: SortOrder
-    walkCareerId?: SortOrder
-    runCareerId?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
     _count?: CareersCountOrderByAggregateInput
     _max?: CareersMaxOrderByAggregateInput
     _min?: CareersMinOrderByAggregateInput
@@ -8437,11 +8421,6 @@ export namespace Prisma {
     NOT?: Enumerable<CareersScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
     employeeId?: StringWithAggregatesFilter | string
-    cycleCareerId?: StringWithAggregatesFilter | string
-    walkCareerId?: StringWithAggregatesFilter | string
-    runCareerId?: StringWithAggregatesFilter | string
-    createAt?: DateTimeWithAggregatesFilter | Date | string
-    updateAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
   export type PostsWhereInput = {
@@ -8452,8 +8431,8 @@ export namespace Prisma {
     title?: StringFilter | string
     content?: StringFilter | string
     authorId?: StringFilter | string
-    author?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
     comments?: CommentsListRelationFilter
+    author?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
 
   export type PostsOrderByWithRelationInput = {
@@ -8461,8 +8440,8 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     authorId?: SortOrder
-    author?: EmployeeOrderByWithRelationInput
     comments?: CommentsOrderByRelationAggregateInput
+    author?: EmployeeOrderByWithRelationInput
   }
 
   export type PostsWhereUniqueInput = {
@@ -8495,10 +8474,10 @@ export namespace Prisma {
     NOT?: Enumerable<CommentsWhereInput>
     id?: StringFilter | string
     content?: StringFilter | string
-    createAt?: DateTimeFilter | Date | string
-    updateAt?: DateTimeFilter | Date | string
     postId?: StringFilter | string
     authorId?: StringFilter | string
+    createAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeFilter | Date | string
     post?: XOR<PostsRelationFilter, PostsWhereInput>
     author?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
@@ -8506,10 +8485,10 @@ export namespace Prisma {
   export type CommentsOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
     postId?: SortOrder
     authorId?: SortOrder
+    createAt?: SortOrder
+    updateAt?: SortOrder
     post?: PostsOrderByWithRelationInput
     author?: EmployeeOrderByWithRelationInput
   }
@@ -8521,10 +8500,10 @@ export namespace Prisma {
   export type CommentsOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
     postId?: SortOrder
     authorId?: SortOrder
+    createAt?: SortOrder
+    updateAt?: SortOrder
     _count?: CommentsCountOrderByAggregateInput
     _max?: CommentsMaxOrderByAggregateInput
     _min?: CommentsMinOrderByAggregateInput
@@ -8536,19 +8515,20 @@ export namespace Prisma {
     NOT?: Enumerable<CommentsScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
     content?: StringWithAggregatesFilter | string
-    createAt?: DateTimeWithAggregatesFilter | Date | string
-    updateAt?: DateTimeWithAggregatesFilter | Date | string
     postId?: StringWithAggregatesFilter | string
     authorId?: StringWithAggregatesFilter | string
+    createAt?: DateTimeWithAggregatesFilter | Date | string
+    updateAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
   export type EmployeeCreateInput = {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersCreateNestedManyWithoutEmployeeInput
@@ -8560,9 +8540,10 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
@@ -8574,9 +8555,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUpdateManyWithoutEmployeeNestedInput
@@ -8588,9 +8570,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -8602,9 +8585,10 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -8613,9 +8597,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8624,9 +8609,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8635,50 +8621,57 @@ export namespace Prisma {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
     createAt?: Date | string
     updateAt?: Date | string
-    careers?: CareersCreateNestedManyWithoutCycleCareerInput
+    career: CareersCreateNestedOneWithoutCycleCareerInput
   }
 
   export type CycleCareerUncheckedCreateInput = {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
     createAt?: Date | string
     updateAt?: Date | string
-    careers?: CareersUncheckedCreateNestedManyWithoutCycleCareerInput
+    careersId: string
   }
 
   export type CycleCareerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    careers?: CareersUpdateManyWithoutCycleCareerNestedInput
+    career?: CareersUpdateOneRequiredWithoutCycleCareerNestedInput
   }
 
   export type CycleCareerUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    careers?: CareersUncheckedUpdateManyWithoutCycleCareerNestedInput
+    careersId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CycleCareerCreateManyInput = {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
     createAt?: Date | string
     updateAt?: Date | string
+    careersId: string
   }
 
   export type CycleCareerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8687,58 +8680,67 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    careersId?: StringFieldUpdateOperationsInput | string
   }
 
   export type WalkCareerCreateInput = {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
     createAt?: Date | string
     updateAt?: Date | string
-    careers?: CareersCreateNestedManyWithoutWalkCareerInput
+    career: CareersCreateNestedOneWithoutWalkCareerInput
   }
 
   export type WalkCareerUncheckedCreateInput = {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
     createAt?: Date | string
     updateAt?: Date | string
-    careers?: CareersUncheckedCreateNestedManyWithoutWalkCareerInput
+    careersId: string
   }
 
   export type WalkCareerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    careers?: CareersUpdateManyWithoutWalkCareerNestedInput
+    career?: CareersUpdateOneRequiredWithoutWalkCareerNestedInput
   }
 
   export type WalkCareerUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    careers?: CareersUncheckedUpdateManyWithoutWalkCareerNestedInput
+    careersId?: StringFieldUpdateOperationsInput | string
   }
 
   export type WalkCareerCreateManyInput = {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
     createAt?: Date | string
     updateAt?: Date | string
+    careersId: string
   }
 
   export type WalkCareerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8747,58 +8749,73 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    careersId?: StringFieldUpdateOperationsInput | string
   }
 
   export type RunCareerCreateInput = {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
+    careerId: string
     createAt?: Date | string
     updateAt?: Date | string
-    careers?: CareersCreateNestedManyWithoutRunCareerInput
+    career: CareersCreateNestedOneWithoutRunCareerInput
   }
 
   export type RunCareerUncheckedCreateInput = {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
+    careerId: string
     createAt?: Date | string
     updateAt?: Date | string
-    careers?: CareersUncheckedCreateNestedManyWithoutRunCareerInput
+    careersId: string
   }
 
   export type RunCareerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    careers?: CareersUpdateManyWithoutRunCareerNestedInput
+    career?: CareersUpdateOneRequiredWithoutRunCareerNestedInput
   }
 
   export type RunCareerUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    careers?: CareersUncheckedUpdateManyWithoutRunCareerNestedInput
+    careersId?: StringFieldUpdateOperationsInput | string
   }
 
   export type RunCareerCreateManyInput = {
     id?: string
     points: number
     currentMonth: Date | string
+    kilometers: number
+    careerId: string
     createAt?: Date | string
     updateAt?: Date | string
+    careersId: string
   }
 
   export type RunCareerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8807,82 +8824,65 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    careersId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CareersCreateInput = {
     id?: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    cycleCareer?: CycleCareerCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerCreateNestedManyWithoutCareerInput
     employee: EmployeeCreateNestedOneWithoutCareersInput
-    cycleCareer: CycleCareerCreateNestedOneWithoutCareersInput
-    walkCareer: WalkCareerCreateNestedOneWithoutCareersInput
-    runCareer: RunCareerCreateNestedOneWithoutCareersInput
   }
 
   export type CareersUncheckedCreateInput = {
     id?: string
     employeeId: string
-    cycleCareerId: string
-    walkCareerId: string
-    runCareerId: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    cycleCareer?: CycleCareerUncheckedCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cycleCareer?: CycleCareerUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUpdateManyWithoutCareerNestedInput
     employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
-    cycleCareer?: CycleCareerUpdateOneRequiredWithoutCareersNestedInput
-    walkCareer?: WalkCareerUpdateOneRequiredWithoutCareersNestedInput
-    runCareer?: RunCareerUpdateOneRequiredWithoutCareersNestedInput
   }
 
   export type CareersUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     employeeId?: StringFieldUpdateOperationsInput | string
-    cycleCareerId?: StringFieldUpdateOperationsInput | string
-    walkCareerId?: StringFieldUpdateOperationsInput | string
-    runCareerId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cycleCareer?: CycleCareerUncheckedUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersCreateManyInput = {
     id?: string
     employeeId: string
-    cycleCareerId: string
-    walkCareerId: string
-    runCareerId: string
-    createAt?: Date | string
-    updateAt?: Date | string
   }
 
   export type CareersUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CareersUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     employeeId?: StringFieldUpdateOperationsInput | string
-    cycleCareerId?: StringFieldUpdateOperationsInput | string
-    walkCareerId?: StringFieldUpdateOperationsInput | string
-    runCareerId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostsCreateInput = {
     id?: string
     title: string
     content: string
-    author: EmployeeCreateNestedOneWithoutPostInput
     comments?: CommentsCreateNestedManyWithoutPostInput
+    author: EmployeeCreateNestedOneWithoutPostInput
   }
 
   export type PostsUncheckedCreateInput = {
@@ -8897,8 +8897,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    author?: EmployeeUpdateOneRequiredWithoutPostNestedInput
     comments?: CommentsUpdateManyWithoutPostNestedInput
+    author?: EmployeeUpdateOneRequiredWithoutPostNestedInput
   }
 
   export type PostsUncheckedUpdateInput = {
@@ -8941,10 +8941,10 @@ export namespace Prisma {
   export type CommentsUncheckedCreateInput = {
     id?: string
     content: string
-    createAt?: Date | string
-    updateAt?: Date | string
     postId: string
     authorId: string
+    createAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type CommentsUpdateInput = {
@@ -8959,19 +8959,19 @@ export namespace Prisma {
   export type CommentsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     postId?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentsCreateManyInput = {
     id?: string
     content: string
-    createAt?: Date | string
-    updateAt?: Date | string
     postId: string
     authorId: string
+    createAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type CommentsUpdateManyMutationInput = {
@@ -8984,10 +8984,10 @@ export namespace Prisma {
   export type CommentsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     postId?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter = {
@@ -9014,6 +9014,13 @@ export namespace Prisma {
     gt?: number
     gte?: number
     not?: NestedIntFilter | number
+  }
+
+  export type EnumRoleFilter = {
+    equals?: Role
+    in?: Enumerable<Role>
+    notIn?: Enumerable<Role>
+    not?: NestedEnumRoleFilter | Role
   }
 
   export type DateTimeFilter = {
@@ -9061,9 +9068,10 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
   }
@@ -9076,9 +9084,10 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
   }
@@ -9087,9 +9096,10 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     dni?: SortOrder
-    email?: SortOrder
+    username?: SortOrder
     phone?: SortOrder
     password?: SortOrder
+    role?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
   }
@@ -9132,6 +9142,16 @@ export namespace Prisma {
     _max?: NestedIntFilter
   }
 
+  export type EnumRoleWithAggregatesFilter = {
+    equals?: Role
+    in?: Enumerable<Role>
+    notIn?: Enumerable<Role>
+    not?: NestedEnumRoleWithAggregatesFilter | Role
+    _count?: NestedIntFilter
+    _min?: NestedEnumRoleFilter
+    _max?: NestedEnumRoleFilter
+  }
+
   export type DateTimeWithAggregatesFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -9146,100 +9166,150 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type CareersRelationFilter = {
+    is?: CareersWhereInput
+    isNot?: CareersWhereInput
+  }
+
   export type CycleCareerCountOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type CycleCareerAvgOrderByAggregateInput = {
     points?: SortOrder
+    kilometers?: SortOrder
   }
 
   export type CycleCareerMaxOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type CycleCareerMinOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type CycleCareerSumOrderByAggregateInput = {
     points?: SortOrder
+    kilometers?: SortOrder
   }
 
   export type WalkCareerCountOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type WalkCareerAvgOrderByAggregateInput = {
     points?: SortOrder
+    kilometers?: SortOrder
   }
 
   export type WalkCareerMaxOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type WalkCareerMinOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type WalkCareerSumOrderByAggregateInput = {
     points?: SortOrder
+    kilometers?: SortOrder
   }
 
   export type RunCareerCountOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
+    careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type RunCareerAvgOrderByAggregateInput = {
     points?: SortOrder
+    kilometers?: SortOrder
   }
 
   export type RunCareerMaxOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
+    careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type RunCareerMinOrderByAggregateInput = {
     id?: SortOrder
     points?: SortOrder
     currentMonth?: SortOrder
+    kilometers?: SortOrder
+    careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
+    careersId?: SortOrder
   }
 
   export type RunCareerSumOrderByAggregateInput = {
     points?: SortOrder
+    kilometers?: SortOrder
+  }
+
+  export type CycleCareerListRelationFilter = {
+    every?: CycleCareerWhereInput
+    some?: CycleCareerWhereInput
+    none?: CycleCareerWhereInput
+  }
+
+  export type WalkCareerListRelationFilter = {
+    every?: WalkCareerWhereInput
+    some?: WalkCareerWhereInput
+    none?: WalkCareerWhereInput
+  }
+
+  export type RunCareerListRelationFilter = {
+    every?: RunCareerWhereInput
+    some?: RunCareerWhereInput
+    none?: RunCareerWhereInput
   }
 
   export type EmployeeRelationFilter = {
@@ -9247,49 +9317,31 @@ export namespace Prisma {
     isNot?: EmployeeWhereInput
   }
 
-  export type CycleCareerRelationFilter = {
-    is?: CycleCareerWhereInput
-    isNot?: CycleCareerWhereInput
+  export type CycleCareerOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
-  export type WalkCareerRelationFilter = {
-    is?: WalkCareerWhereInput
-    isNot?: WalkCareerWhereInput
+  export type WalkCareerOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
-  export type RunCareerRelationFilter = {
-    is?: RunCareerWhereInput
-    isNot?: RunCareerWhereInput
+  export type RunCareerOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CareersCountOrderByAggregateInput = {
     id?: SortOrder
     employeeId?: SortOrder
-    cycleCareerId?: SortOrder
-    walkCareerId?: SortOrder
-    runCareerId?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
   }
 
   export type CareersMaxOrderByAggregateInput = {
     id?: SortOrder
     employeeId?: SortOrder
-    cycleCareerId?: SortOrder
-    walkCareerId?: SortOrder
-    runCareerId?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
   }
 
   export type CareersMinOrderByAggregateInput = {
     id?: SortOrder
     employeeId?: SortOrder
-    cycleCareerId?: SortOrder
-    walkCareerId?: SortOrder
-    runCareerId?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
   }
 
   export type PostsCountOrderByAggregateInput = {
@@ -9321,28 +9373,28 @@ export namespace Prisma {
   export type CommentsCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
     postId?: SortOrder
     authorId?: SortOrder
+    createAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type CommentsMaxOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
     postId?: SortOrder
     authorId?: SortOrder
+    createAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type CommentsMinOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    createAt?: SortOrder
-    updateAt?: SortOrder
     postId?: SortOrder
     authorId?: SortOrder
+    createAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type CareersCreateNestedManyWithoutEmployeeInput = {
@@ -9397,6 +9449,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: Role
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -9487,130 +9543,67 @@ export namespace Prisma {
     deleteMany?: Enumerable<CommentsScalarWhereInput>
   }
 
-  export type CareersCreateNestedManyWithoutCycleCareerInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutCycleCareerInput>, Enumerable<CareersUncheckedCreateWithoutCycleCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutCycleCareerInput>
-    createMany?: CareersCreateManyCycleCareerInputEnvelope
-    connect?: Enumerable<CareersWhereUniqueInput>
+  export type CareersCreateNestedOneWithoutCycleCareerInput = {
+    create?: XOR<CareersCreateWithoutCycleCareerInput, CareersUncheckedCreateWithoutCycleCareerInput>
+    connectOrCreate?: CareersCreateOrConnectWithoutCycleCareerInput
+    connect?: CareersWhereUniqueInput
   }
 
-  export type CareersUncheckedCreateNestedManyWithoutCycleCareerInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutCycleCareerInput>, Enumerable<CareersUncheckedCreateWithoutCycleCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutCycleCareerInput>
-    createMany?: CareersCreateManyCycleCareerInputEnvelope
-    connect?: Enumerable<CareersWhereUniqueInput>
+  export type CareersUpdateOneRequiredWithoutCycleCareerNestedInput = {
+    create?: XOR<CareersCreateWithoutCycleCareerInput, CareersUncheckedCreateWithoutCycleCareerInput>
+    connectOrCreate?: CareersCreateOrConnectWithoutCycleCareerInput
+    upsert?: CareersUpsertWithoutCycleCareerInput
+    connect?: CareersWhereUniqueInput
+    update?: XOR<CareersUpdateWithoutCycleCareerInput, CareersUncheckedUpdateWithoutCycleCareerInput>
   }
 
-  export type CareersUpdateManyWithoutCycleCareerNestedInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutCycleCareerInput>, Enumerable<CareersUncheckedCreateWithoutCycleCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutCycleCareerInput>
-    upsert?: Enumerable<CareersUpsertWithWhereUniqueWithoutCycleCareerInput>
-    createMany?: CareersCreateManyCycleCareerInputEnvelope
-    set?: Enumerable<CareersWhereUniqueInput>
-    disconnect?: Enumerable<CareersWhereUniqueInput>
-    delete?: Enumerable<CareersWhereUniqueInput>
-    connect?: Enumerable<CareersWhereUniqueInput>
-    update?: Enumerable<CareersUpdateWithWhereUniqueWithoutCycleCareerInput>
-    updateMany?: Enumerable<CareersUpdateManyWithWhereWithoutCycleCareerInput>
-    deleteMany?: Enumerable<CareersScalarWhereInput>
+  export type CareersCreateNestedOneWithoutWalkCareerInput = {
+    create?: XOR<CareersCreateWithoutWalkCareerInput, CareersUncheckedCreateWithoutWalkCareerInput>
+    connectOrCreate?: CareersCreateOrConnectWithoutWalkCareerInput
+    connect?: CareersWhereUniqueInput
   }
 
-  export type CareersUncheckedUpdateManyWithoutCycleCareerNestedInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutCycleCareerInput>, Enumerable<CareersUncheckedCreateWithoutCycleCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutCycleCareerInput>
-    upsert?: Enumerable<CareersUpsertWithWhereUniqueWithoutCycleCareerInput>
-    createMany?: CareersCreateManyCycleCareerInputEnvelope
-    set?: Enumerable<CareersWhereUniqueInput>
-    disconnect?: Enumerable<CareersWhereUniqueInput>
-    delete?: Enumerable<CareersWhereUniqueInput>
-    connect?: Enumerable<CareersWhereUniqueInput>
-    update?: Enumerable<CareersUpdateWithWhereUniqueWithoutCycleCareerInput>
-    updateMany?: Enumerable<CareersUpdateManyWithWhereWithoutCycleCareerInput>
-    deleteMany?: Enumerable<CareersScalarWhereInput>
+  export type CareersUpdateOneRequiredWithoutWalkCareerNestedInput = {
+    create?: XOR<CareersCreateWithoutWalkCareerInput, CareersUncheckedCreateWithoutWalkCareerInput>
+    connectOrCreate?: CareersCreateOrConnectWithoutWalkCareerInput
+    upsert?: CareersUpsertWithoutWalkCareerInput
+    connect?: CareersWhereUniqueInput
+    update?: XOR<CareersUpdateWithoutWalkCareerInput, CareersUncheckedUpdateWithoutWalkCareerInput>
   }
 
-  export type CareersCreateNestedManyWithoutWalkCareerInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutWalkCareerInput>, Enumerable<CareersUncheckedCreateWithoutWalkCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutWalkCareerInput>
-    createMany?: CareersCreateManyWalkCareerInputEnvelope
-    connect?: Enumerable<CareersWhereUniqueInput>
+  export type CareersCreateNestedOneWithoutRunCareerInput = {
+    create?: XOR<CareersCreateWithoutRunCareerInput, CareersUncheckedCreateWithoutRunCareerInput>
+    connectOrCreate?: CareersCreateOrConnectWithoutRunCareerInput
+    connect?: CareersWhereUniqueInput
   }
 
-  export type CareersUncheckedCreateNestedManyWithoutWalkCareerInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutWalkCareerInput>, Enumerable<CareersUncheckedCreateWithoutWalkCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutWalkCareerInput>
-    createMany?: CareersCreateManyWalkCareerInputEnvelope
-    connect?: Enumerable<CareersWhereUniqueInput>
+  export type CareersUpdateOneRequiredWithoutRunCareerNestedInput = {
+    create?: XOR<CareersCreateWithoutRunCareerInput, CareersUncheckedCreateWithoutRunCareerInput>
+    connectOrCreate?: CareersCreateOrConnectWithoutRunCareerInput
+    upsert?: CareersUpsertWithoutRunCareerInput
+    connect?: CareersWhereUniqueInput
+    update?: XOR<CareersUpdateWithoutRunCareerInput, CareersUncheckedUpdateWithoutRunCareerInput>
   }
 
-  export type CareersUpdateManyWithoutWalkCareerNestedInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutWalkCareerInput>, Enumerable<CareersUncheckedCreateWithoutWalkCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutWalkCareerInput>
-    upsert?: Enumerable<CareersUpsertWithWhereUniqueWithoutWalkCareerInput>
-    createMany?: CareersCreateManyWalkCareerInputEnvelope
-    set?: Enumerable<CareersWhereUniqueInput>
-    disconnect?: Enumerable<CareersWhereUniqueInput>
-    delete?: Enumerable<CareersWhereUniqueInput>
-    connect?: Enumerable<CareersWhereUniqueInput>
-    update?: Enumerable<CareersUpdateWithWhereUniqueWithoutWalkCareerInput>
-    updateMany?: Enumerable<CareersUpdateManyWithWhereWithoutWalkCareerInput>
-    deleteMany?: Enumerable<CareersScalarWhereInput>
+  export type CycleCareerCreateNestedManyWithoutCareerInput = {
+    create?: XOR<Enumerable<CycleCareerCreateWithoutCareerInput>, Enumerable<CycleCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<CycleCareerCreateOrConnectWithoutCareerInput>
+    createMany?: CycleCareerCreateManyCareerInputEnvelope
+    connect?: Enumerable<CycleCareerWhereUniqueInput>
   }
 
-  export type CareersUncheckedUpdateManyWithoutWalkCareerNestedInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutWalkCareerInput>, Enumerable<CareersUncheckedCreateWithoutWalkCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutWalkCareerInput>
-    upsert?: Enumerable<CareersUpsertWithWhereUniqueWithoutWalkCareerInput>
-    createMany?: CareersCreateManyWalkCareerInputEnvelope
-    set?: Enumerable<CareersWhereUniqueInput>
-    disconnect?: Enumerable<CareersWhereUniqueInput>
-    delete?: Enumerable<CareersWhereUniqueInput>
-    connect?: Enumerable<CareersWhereUniqueInput>
-    update?: Enumerable<CareersUpdateWithWhereUniqueWithoutWalkCareerInput>
-    updateMany?: Enumerable<CareersUpdateManyWithWhereWithoutWalkCareerInput>
-    deleteMany?: Enumerable<CareersScalarWhereInput>
+  export type WalkCareerCreateNestedManyWithoutCareerInput = {
+    create?: XOR<Enumerable<WalkCareerCreateWithoutCareerInput>, Enumerable<WalkCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<WalkCareerCreateOrConnectWithoutCareerInput>
+    createMany?: WalkCareerCreateManyCareerInputEnvelope
+    connect?: Enumerable<WalkCareerWhereUniqueInput>
   }
 
-  export type CareersCreateNestedManyWithoutRunCareerInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutRunCareerInput>, Enumerable<CareersUncheckedCreateWithoutRunCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutRunCareerInput>
-    createMany?: CareersCreateManyRunCareerInputEnvelope
-    connect?: Enumerable<CareersWhereUniqueInput>
-  }
-
-  export type CareersUncheckedCreateNestedManyWithoutRunCareerInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutRunCareerInput>, Enumerable<CareersUncheckedCreateWithoutRunCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutRunCareerInput>
-    createMany?: CareersCreateManyRunCareerInputEnvelope
-    connect?: Enumerable<CareersWhereUniqueInput>
-  }
-
-  export type CareersUpdateManyWithoutRunCareerNestedInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutRunCareerInput>, Enumerable<CareersUncheckedCreateWithoutRunCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutRunCareerInput>
-    upsert?: Enumerable<CareersUpsertWithWhereUniqueWithoutRunCareerInput>
-    createMany?: CareersCreateManyRunCareerInputEnvelope
-    set?: Enumerable<CareersWhereUniqueInput>
-    disconnect?: Enumerable<CareersWhereUniqueInput>
-    delete?: Enumerable<CareersWhereUniqueInput>
-    connect?: Enumerable<CareersWhereUniqueInput>
-    update?: Enumerable<CareersUpdateWithWhereUniqueWithoutRunCareerInput>
-    updateMany?: Enumerable<CareersUpdateManyWithWhereWithoutRunCareerInput>
-    deleteMany?: Enumerable<CareersScalarWhereInput>
-  }
-
-  export type CareersUncheckedUpdateManyWithoutRunCareerNestedInput = {
-    create?: XOR<Enumerable<CareersCreateWithoutRunCareerInput>, Enumerable<CareersUncheckedCreateWithoutRunCareerInput>>
-    connectOrCreate?: Enumerable<CareersCreateOrConnectWithoutRunCareerInput>
-    upsert?: Enumerable<CareersUpsertWithWhereUniqueWithoutRunCareerInput>
-    createMany?: CareersCreateManyRunCareerInputEnvelope
-    set?: Enumerable<CareersWhereUniqueInput>
-    disconnect?: Enumerable<CareersWhereUniqueInput>
-    delete?: Enumerable<CareersWhereUniqueInput>
-    connect?: Enumerable<CareersWhereUniqueInput>
-    update?: Enumerable<CareersUpdateWithWhereUniqueWithoutRunCareerInput>
-    updateMany?: Enumerable<CareersUpdateManyWithWhereWithoutRunCareerInput>
-    deleteMany?: Enumerable<CareersScalarWhereInput>
+  export type RunCareerCreateNestedManyWithoutCareerInput = {
+    create?: XOR<Enumerable<RunCareerCreateWithoutCareerInput>, Enumerable<RunCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<RunCareerCreateOrConnectWithoutCareerInput>
+    createMany?: RunCareerCreateManyCareerInputEnvelope
+    connect?: Enumerable<RunCareerWhereUniqueInput>
   }
 
   export type EmployeeCreateNestedOneWithoutCareersInput = {
@@ -9619,22 +9612,67 @@ export namespace Prisma {
     connect?: EmployeeWhereUniqueInput
   }
 
-  export type CycleCareerCreateNestedOneWithoutCareersInput = {
-    create?: XOR<CycleCareerCreateWithoutCareersInput, CycleCareerUncheckedCreateWithoutCareersInput>
-    connectOrCreate?: CycleCareerCreateOrConnectWithoutCareersInput
-    connect?: CycleCareerWhereUniqueInput
+  export type CycleCareerUncheckedCreateNestedManyWithoutCareerInput = {
+    create?: XOR<Enumerable<CycleCareerCreateWithoutCareerInput>, Enumerable<CycleCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<CycleCareerCreateOrConnectWithoutCareerInput>
+    createMany?: CycleCareerCreateManyCareerInputEnvelope
+    connect?: Enumerable<CycleCareerWhereUniqueInput>
   }
 
-  export type WalkCareerCreateNestedOneWithoutCareersInput = {
-    create?: XOR<WalkCareerCreateWithoutCareersInput, WalkCareerUncheckedCreateWithoutCareersInput>
-    connectOrCreate?: WalkCareerCreateOrConnectWithoutCareersInput
-    connect?: WalkCareerWhereUniqueInput
+  export type WalkCareerUncheckedCreateNestedManyWithoutCareerInput = {
+    create?: XOR<Enumerable<WalkCareerCreateWithoutCareerInput>, Enumerable<WalkCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<WalkCareerCreateOrConnectWithoutCareerInput>
+    createMany?: WalkCareerCreateManyCareerInputEnvelope
+    connect?: Enumerable<WalkCareerWhereUniqueInput>
   }
 
-  export type RunCareerCreateNestedOneWithoutCareersInput = {
-    create?: XOR<RunCareerCreateWithoutCareersInput, RunCareerUncheckedCreateWithoutCareersInput>
-    connectOrCreate?: RunCareerCreateOrConnectWithoutCareersInput
-    connect?: RunCareerWhereUniqueInput
+  export type RunCareerUncheckedCreateNestedManyWithoutCareerInput = {
+    create?: XOR<Enumerable<RunCareerCreateWithoutCareerInput>, Enumerable<RunCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<RunCareerCreateOrConnectWithoutCareerInput>
+    createMany?: RunCareerCreateManyCareerInputEnvelope
+    connect?: Enumerable<RunCareerWhereUniqueInput>
+  }
+
+  export type CycleCareerUpdateManyWithoutCareerNestedInput = {
+    create?: XOR<Enumerable<CycleCareerCreateWithoutCareerInput>, Enumerable<CycleCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<CycleCareerCreateOrConnectWithoutCareerInput>
+    upsert?: Enumerable<CycleCareerUpsertWithWhereUniqueWithoutCareerInput>
+    createMany?: CycleCareerCreateManyCareerInputEnvelope
+    set?: Enumerable<CycleCareerWhereUniqueInput>
+    disconnect?: Enumerable<CycleCareerWhereUniqueInput>
+    delete?: Enumerable<CycleCareerWhereUniqueInput>
+    connect?: Enumerable<CycleCareerWhereUniqueInput>
+    update?: Enumerable<CycleCareerUpdateWithWhereUniqueWithoutCareerInput>
+    updateMany?: Enumerable<CycleCareerUpdateManyWithWhereWithoutCareerInput>
+    deleteMany?: Enumerable<CycleCareerScalarWhereInput>
+  }
+
+  export type WalkCareerUpdateManyWithoutCareerNestedInput = {
+    create?: XOR<Enumerable<WalkCareerCreateWithoutCareerInput>, Enumerable<WalkCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<WalkCareerCreateOrConnectWithoutCareerInput>
+    upsert?: Enumerable<WalkCareerUpsertWithWhereUniqueWithoutCareerInput>
+    createMany?: WalkCareerCreateManyCareerInputEnvelope
+    set?: Enumerable<WalkCareerWhereUniqueInput>
+    disconnect?: Enumerable<WalkCareerWhereUniqueInput>
+    delete?: Enumerable<WalkCareerWhereUniqueInput>
+    connect?: Enumerable<WalkCareerWhereUniqueInput>
+    update?: Enumerable<WalkCareerUpdateWithWhereUniqueWithoutCareerInput>
+    updateMany?: Enumerable<WalkCareerUpdateManyWithWhereWithoutCareerInput>
+    deleteMany?: Enumerable<WalkCareerScalarWhereInput>
+  }
+
+  export type RunCareerUpdateManyWithoutCareerNestedInput = {
+    create?: XOR<Enumerable<RunCareerCreateWithoutCareerInput>, Enumerable<RunCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<RunCareerCreateOrConnectWithoutCareerInput>
+    upsert?: Enumerable<RunCareerUpsertWithWhereUniqueWithoutCareerInput>
+    createMany?: RunCareerCreateManyCareerInputEnvelope
+    set?: Enumerable<RunCareerWhereUniqueInput>
+    disconnect?: Enumerable<RunCareerWhereUniqueInput>
+    delete?: Enumerable<RunCareerWhereUniqueInput>
+    connect?: Enumerable<RunCareerWhereUniqueInput>
+    update?: Enumerable<RunCareerUpdateWithWhereUniqueWithoutCareerInput>
+    updateMany?: Enumerable<RunCareerUpdateManyWithWhereWithoutCareerInput>
+    deleteMany?: Enumerable<RunCareerScalarWhereInput>
   }
 
   export type EmployeeUpdateOneRequiredWithoutCareersNestedInput = {
@@ -9645,34 +9683,46 @@ export namespace Prisma {
     update?: XOR<EmployeeUpdateWithoutCareersInput, EmployeeUncheckedUpdateWithoutCareersInput>
   }
 
-  export type CycleCareerUpdateOneRequiredWithoutCareersNestedInput = {
-    create?: XOR<CycleCareerCreateWithoutCareersInput, CycleCareerUncheckedCreateWithoutCareersInput>
-    connectOrCreate?: CycleCareerCreateOrConnectWithoutCareersInput
-    upsert?: CycleCareerUpsertWithoutCareersInput
-    connect?: CycleCareerWhereUniqueInput
-    update?: XOR<CycleCareerUpdateWithoutCareersInput, CycleCareerUncheckedUpdateWithoutCareersInput>
+  export type CycleCareerUncheckedUpdateManyWithoutCareerNestedInput = {
+    create?: XOR<Enumerable<CycleCareerCreateWithoutCareerInput>, Enumerable<CycleCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<CycleCareerCreateOrConnectWithoutCareerInput>
+    upsert?: Enumerable<CycleCareerUpsertWithWhereUniqueWithoutCareerInput>
+    createMany?: CycleCareerCreateManyCareerInputEnvelope
+    set?: Enumerable<CycleCareerWhereUniqueInput>
+    disconnect?: Enumerable<CycleCareerWhereUniqueInput>
+    delete?: Enumerable<CycleCareerWhereUniqueInput>
+    connect?: Enumerable<CycleCareerWhereUniqueInput>
+    update?: Enumerable<CycleCareerUpdateWithWhereUniqueWithoutCareerInput>
+    updateMany?: Enumerable<CycleCareerUpdateManyWithWhereWithoutCareerInput>
+    deleteMany?: Enumerable<CycleCareerScalarWhereInput>
   }
 
-  export type WalkCareerUpdateOneRequiredWithoutCareersNestedInput = {
-    create?: XOR<WalkCareerCreateWithoutCareersInput, WalkCareerUncheckedCreateWithoutCareersInput>
-    connectOrCreate?: WalkCareerCreateOrConnectWithoutCareersInput
-    upsert?: WalkCareerUpsertWithoutCareersInput
-    connect?: WalkCareerWhereUniqueInput
-    update?: XOR<WalkCareerUpdateWithoutCareersInput, WalkCareerUncheckedUpdateWithoutCareersInput>
+  export type WalkCareerUncheckedUpdateManyWithoutCareerNestedInput = {
+    create?: XOR<Enumerable<WalkCareerCreateWithoutCareerInput>, Enumerable<WalkCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<WalkCareerCreateOrConnectWithoutCareerInput>
+    upsert?: Enumerable<WalkCareerUpsertWithWhereUniqueWithoutCareerInput>
+    createMany?: WalkCareerCreateManyCareerInputEnvelope
+    set?: Enumerable<WalkCareerWhereUniqueInput>
+    disconnect?: Enumerable<WalkCareerWhereUniqueInput>
+    delete?: Enumerable<WalkCareerWhereUniqueInput>
+    connect?: Enumerable<WalkCareerWhereUniqueInput>
+    update?: Enumerable<WalkCareerUpdateWithWhereUniqueWithoutCareerInput>
+    updateMany?: Enumerable<WalkCareerUpdateManyWithWhereWithoutCareerInput>
+    deleteMany?: Enumerable<WalkCareerScalarWhereInput>
   }
 
-  export type RunCareerUpdateOneRequiredWithoutCareersNestedInput = {
-    create?: XOR<RunCareerCreateWithoutCareersInput, RunCareerUncheckedCreateWithoutCareersInput>
-    connectOrCreate?: RunCareerCreateOrConnectWithoutCareersInput
-    upsert?: RunCareerUpsertWithoutCareersInput
-    connect?: RunCareerWhereUniqueInput
-    update?: XOR<RunCareerUpdateWithoutCareersInput, RunCareerUncheckedUpdateWithoutCareersInput>
-  }
-
-  export type EmployeeCreateNestedOneWithoutPostInput = {
-    create?: XOR<EmployeeCreateWithoutPostInput, EmployeeUncheckedCreateWithoutPostInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutPostInput
-    connect?: EmployeeWhereUniqueInput
+  export type RunCareerUncheckedUpdateManyWithoutCareerNestedInput = {
+    create?: XOR<Enumerable<RunCareerCreateWithoutCareerInput>, Enumerable<RunCareerUncheckedCreateWithoutCareerInput>>
+    connectOrCreate?: Enumerable<RunCareerCreateOrConnectWithoutCareerInput>
+    upsert?: Enumerable<RunCareerUpsertWithWhereUniqueWithoutCareerInput>
+    createMany?: RunCareerCreateManyCareerInputEnvelope
+    set?: Enumerable<RunCareerWhereUniqueInput>
+    disconnect?: Enumerable<RunCareerWhereUniqueInput>
+    delete?: Enumerable<RunCareerWhereUniqueInput>
+    connect?: Enumerable<RunCareerWhereUniqueInput>
+    update?: Enumerable<RunCareerUpdateWithWhereUniqueWithoutCareerInput>
+    updateMany?: Enumerable<RunCareerUpdateManyWithWhereWithoutCareerInput>
+    deleteMany?: Enumerable<RunCareerScalarWhereInput>
   }
 
   export type CommentsCreateNestedManyWithoutPostInput = {
@@ -9682,19 +9732,17 @@ export namespace Prisma {
     connect?: Enumerable<CommentsWhereUniqueInput>
   }
 
+  export type EmployeeCreateNestedOneWithoutPostInput = {
+    create?: XOR<EmployeeCreateWithoutPostInput, EmployeeUncheckedCreateWithoutPostInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutPostInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
   export type CommentsUncheckedCreateNestedManyWithoutPostInput = {
     create?: XOR<Enumerable<CommentsCreateWithoutPostInput>, Enumerable<CommentsUncheckedCreateWithoutPostInput>>
     connectOrCreate?: Enumerable<CommentsCreateOrConnectWithoutPostInput>
     createMany?: CommentsCreateManyPostInputEnvelope
     connect?: Enumerable<CommentsWhereUniqueInput>
-  }
-
-  export type EmployeeUpdateOneRequiredWithoutPostNestedInput = {
-    create?: XOR<EmployeeCreateWithoutPostInput, EmployeeUncheckedCreateWithoutPostInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutPostInput
-    upsert?: EmployeeUpsertWithoutPostInput
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<EmployeeUpdateWithoutPostInput, EmployeeUncheckedUpdateWithoutPostInput>
   }
 
   export type CommentsUpdateManyWithoutPostNestedInput = {
@@ -9709,6 +9757,14 @@ export namespace Prisma {
     update?: Enumerable<CommentsUpdateWithWhereUniqueWithoutPostInput>
     updateMany?: Enumerable<CommentsUpdateManyWithWhereWithoutPostInput>
     deleteMany?: Enumerable<CommentsScalarWhereInput>
+  }
+
+  export type EmployeeUpdateOneRequiredWithoutPostNestedInput = {
+    create?: XOR<EmployeeCreateWithoutPostInput, EmployeeUncheckedCreateWithoutPostInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutPostInput
+    upsert?: EmployeeUpsertWithoutPostInput
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<EmployeeUpdateWithoutPostInput, EmployeeUncheckedUpdateWithoutPostInput>
   }
 
   export type CommentsUncheckedUpdateManyWithoutPostNestedInput = {
@@ -9778,6 +9834,13 @@ export namespace Prisma {
     not?: NestedIntFilter | number
   }
 
+  export type NestedEnumRoleFilter = {
+    equals?: Role
+    in?: Enumerable<Role>
+    notIn?: Enumerable<Role>
+    not?: NestedEnumRoleFilter | Role
+  }
+
   export type NestedDateTimeFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -9833,6 +9896,16 @@ export namespace Prisma {
     not?: NestedFloatFilter | number
   }
 
+  export type NestedEnumRoleWithAggregatesFilter = {
+    equals?: Role
+    in?: Enumerable<Role>
+    notIn?: Enumerable<Role>
+    not?: NestedEnumRoleWithAggregatesFilter | Role
+    _count?: NestedIntFilter
+    _min?: NestedEnumRoleFilter
+    _max?: NestedEnumRoleFilter
+  }
+
   export type NestedDateTimeWithAggregatesFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -9849,20 +9922,16 @@ export namespace Prisma {
 
   export type CareersCreateWithoutEmployeeInput = {
     id?: string
-    createAt?: Date | string
-    updateAt?: Date | string
-    cycleCareer: CycleCareerCreateNestedOneWithoutCareersInput
-    walkCareer: WalkCareerCreateNestedOneWithoutCareersInput
-    runCareer: RunCareerCreateNestedOneWithoutCareersInput
+    cycleCareer?: CycleCareerCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerCreateNestedManyWithoutCareerInput
   }
 
   export type CareersUncheckedCreateWithoutEmployeeInput = {
     id?: string
-    cycleCareerId: string
-    walkCareerId: string
-    runCareerId: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    cycleCareer?: CycleCareerUncheckedCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersCreateOrConnectWithoutEmployeeInput = {
@@ -9910,9 +9979,9 @@ export namespace Prisma {
   export type CommentsUncheckedCreateWithoutAuthorInput = {
     id?: string
     content: string
+    postId: string
     createAt?: Date | string
     updateAt?: Date | string
-    postId: string
   }
 
   export type CommentsCreateOrConnectWithoutAuthorInput = {
@@ -9947,11 +10016,6 @@ export namespace Prisma {
     NOT?: Enumerable<CareersScalarWhereInput>
     id?: StringFilter | string
     employeeId?: StringFilter | string
-    cycleCareerId?: StringFilter | string
-    walkCareerId?: StringFilter | string
-    runCareerId?: StringFilter | string
-    createAt?: DateTimeFilter | Date | string
-    updateAt?: DateTimeFilter | Date | string
   }
 
   export type PostsUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -10002,28 +10066,24 @@ export namespace Prisma {
     NOT?: Enumerable<CommentsScalarWhereInput>
     id?: StringFilter | string
     content?: StringFilter | string
-    createAt?: DateTimeFilter | Date | string
-    updateAt?: DateTimeFilter | Date | string
     postId?: StringFilter | string
     authorId?: StringFilter | string
+    createAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeFilter | Date | string
   }
 
   export type CareersCreateWithoutCycleCareerInput = {
     id?: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    walkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerCreateNestedManyWithoutCareerInput
     employee: EmployeeCreateNestedOneWithoutCareersInput
-    walkCareer: WalkCareerCreateNestedOneWithoutCareersInput
-    runCareer: RunCareerCreateNestedOneWithoutCareersInput
   }
 
   export type CareersUncheckedCreateWithoutCycleCareerInput = {
     id?: string
     employeeId: string
-    walkCareerId: string
-    runCareerId: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    walkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersCreateOrConnectWithoutCycleCareerInput = {
@@ -10031,43 +10091,37 @@ export namespace Prisma {
     create: XOR<CareersCreateWithoutCycleCareerInput, CareersUncheckedCreateWithoutCycleCareerInput>
   }
 
-  export type CareersCreateManyCycleCareerInputEnvelope = {
-    data: Enumerable<CareersCreateManyCycleCareerInput>
-    skipDuplicates?: boolean
-  }
-
-  export type CareersUpsertWithWhereUniqueWithoutCycleCareerInput = {
-    where: CareersWhereUniqueInput
+  export type CareersUpsertWithoutCycleCareerInput = {
     update: XOR<CareersUpdateWithoutCycleCareerInput, CareersUncheckedUpdateWithoutCycleCareerInput>
     create: XOR<CareersCreateWithoutCycleCareerInput, CareersUncheckedCreateWithoutCycleCareerInput>
   }
 
-  export type CareersUpdateWithWhereUniqueWithoutCycleCareerInput = {
-    where: CareersWhereUniqueInput
-    data: XOR<CareersUpdateWithoutCycleCareerInput, CareersUncheckedUpdateWithoutCycleCareerInput>
+  export type CareersUpdateWithoutCycleCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUpdateManyWithoutCareerNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
   }
 
-  export type CareersUpdateManyWithWhereWithoutCycleCareerInput = {
-    where: CareersScalarWhereInput
-    data: XOR<CareersUpdateManyMutationInput, CareersUncheckedUpdateManyWithoutCareersInput>
+  export type CareersUncheckedUpdateWithoutCycleCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    walkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersCreateWithoutWalkCareerInput = {
     id?: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    cycleCareer?: CycleCareerCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerCreateNestedManyWithoutCareerInput
     employee: EmployeeCreateNestedOneWithoutCareersInput
-    cycleCareer: CycleCareerCreateNestedOneWithoutCareersInput
-    runCareer: RunCareerCreateNestedOneWithoutCareersInput
   }
 
   export type CareersUncheckedCreateWithoutWalkCareerInput = {
     id?: string
     employeeId: string
-    cycleCareerId: string
-    runCareerId: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    cycleCareer?: CycleCareerUncheckedCreateNestedManyWithoutCareerInput
+    runCareer?: RunCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersCreateOrConnectWithoutWalkCareerInput = {
@@ -10075,43 +10129,37 @@ export namespace Prisma {
     create: XOR<CareersCreateWithoutWalkCareerInput, CareersUncheckedCreateWithoutWalkCareerInput>
   }
 
-  export type CareersCreateManyWalkCareerInputEnvelope = {
-    data: Enumerable<CareersCreateManyWalkCareerInput>
-    skipDuplicates?: boolean
-  }
-
-  export type CareersUpsertWithWhereUniqueWithoutWalkCareerInput = {
-    where: CareersWhereUniqueInput
+  export type CareersUpsertWithoutWalkCareerInput = {
     update: XOR<CareersUpdateWithoutWalkCareerInput, CareersUncheckedUpdateWithoutWalkCareerInput>
     create: XOR<CareersCreateWithoutWalkCareerInput, CareersUncheckedCreateWithoutWalkCareerInput>
   }
 
-  export type CareersUpdateWithWhereUniqueWithoutWalkCareerInput = {
-    where: CareersWhereUniqueInput
-    data: XOR<CareersUpdateWithoutWalkCareerInput, CareersUncheckedUpdateWithoutWalkCareerInput>
+  export type CareersUpdateWithoutWalkCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    cycleCareer?: CycleCareerUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUpdateManyWithoutCareerNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
   }
 
-  export type CareersUpdateManyWithWhereWithoutWalkCareerInput = {
-    where: CareersScalarWhereInput
-    data: XOR<CareersUpdateManyMutationInput, CareersUncheckedUpdateManyWithoutCareersInput>
+  export type CareersUncheckedUpdateWithoutWalkCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    cycleCareer?: CycleCareerUncheckedUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersCreateWithoutRunCareerInput = {
     id?: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    cycleCareer?: CycleCareerCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerCreateNestedManyWithoutCareerInput
     employee: EmployeeCreateNestedOneWithoutCareersInput
-    cycleCareer: CycleCareerCreateNestedOneWithoutCareersInput
-    walkCareer: WalkCareerCreateNestedOneWithoutCareersInput
   }
 
   export type CareersUncheckedCreateWithoutRunCareerInput = {
     id?: string
     employeeId: string
-    cycleCareerId: string
-    walkCareerId: string
-    createAt?: Date | string
-    updateAt?: Date | string
+    cycleCareer?: CycleCareerUncheckedCreateNestedManyWithoutCareerInput
+    walkCareer?: WalkCareerUncheckedCreateNestedManyWithoutCareerInput
   }
 
   export type CareersCreateOrConnectWithoutRunCareerInput = {
@@ -10119,34 +10167,119 @@ export namespace Prisma {
     create: XOR<CareersCreateWithoutRunCareerInput, CareersUncheckedCreateWithoutRunCareerInput>
   }
 
-  export type CareersCreateManyRunCareerInputEnvelope = {
-    data: Enumerable<CareersCreateManyRunCareerInput>
-    skipDuplicates?: boolean
-  }
-
-  export type CareersUpsertWithWhereUniqueWithoutRunCareerInput = {
-    where: CareersWhereUniqueInput
+  export type CareersUpsertWithoutRunCareerInput = {
     update: XOR<CareersUpdateWithoutRunCareerInput, CareersUncheckedUpdateWithoutRunCareerInput>
     create: XOR<CareersCreateWithoutRunCareerInput, CareersUncheckedCreateWithoutRunCareerInput>
   }
 
-  export type CareersUpdateWithWhereUniqueWithoutRunCareerInput = {
-    where: CareersWhereUniqueInput
-    data: XOR<CareersUpdateWithoutRunCareerInput, CareersUncheckedUpdateWithoutRunCareerInput>
+  export type CareersUpdateWithoutRunCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    cycleCareer?: CycleCareerUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
   }
 
-  export type CareersUpdateManyWithWhereWithoutRunCareerInput = {
-    where: CareersScalarWhereInput
-    data: XOR<CareersUpdateManyMutationInput, CareersUncheckedUpdateManyWithoutCareersInput>
+  export type CareersUncheckedUpdateWithoutRunCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    cycleCareer?: CycleCareerUncheckedUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
+  }
+
+  export type CycleCareerCreateWithoutCareerInput = {
+    id?: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
+    createAt?: Date | string
+    updateAt?: Date | string
+  }
+
+  export type CycleCareerUncheckedCreateWithoutCareerInput = {
+    id?: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
+    createAt?: Date | string
+    updateAt?: Date | string
+  }
+
+  export type CycleCareerCreateOrConnectWithoutCareerInput = {
+    where: CycleCareerWhereUniqueInput
+    create: XOR<CycleCareerCreateWithoutCareerInput, CycleCareerUncheckedCreateWithoutCareerInput>
+  }
+
+  export type CycleCareerCreateManyCareerInputEnvelope = {
+    data: Enumerable<CycleCareerCreateManyCareerInput>
+    skipDuplicates?: boolean
+  }
+
+  export type WalkCareerCreateWithoutCareerInput = {
+    id?: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
+    createAt?: Date | string
+    updateAt?: Date | string
+  }
+
+  export type WalkCareerUncheckedCreateWithoutCareerInput = {
+    id?: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
+    createAt?: Date | string
+    updateAt?: Date | string
+  }
+
+  export type WalkCareerCreateOrConnectWithoutCareerInput = {
+    where: WalkCareerWhereUniqueInput
+    create: XOR<WalkCareerCreateWithoutCareerInput, WalkCareerUncheckedCreateWithoutCareerInput>
+  }
+
+  export type WalkCareerCreateManyCareerInputEnvelope = {
+    data: Enumerable<WalkCareerCreateManyCareerInput>
+    skipDuplicates?: boolean
+  }
+
+  export type RunCareerCreateWithoutCareerInput = {
+    id?: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
+    careerId: string
+    createAt?: Date | string
+    updateAt?: Date | string
+  }
+
+  export type RunCareerUncheckedCreateWithoutCareerInput = {
+    id?: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
+    careerId: string
+    createAt?: Date | string
+    updateAt?: Date | string
+  }
+
+  export type RunCareerCreateOrConnectWithoutCareerInput = {
+    where: RunCareerWhereUniqueInput
+    create: XOR<RunCareerCreateWithoutCareerInput, RunCareerUncheckedCreateWithoutCareerInput>
+  }
+
+  export type RunCareerCreateManyCareerInputEnvelope = {
+    data: Enumerable<RunCareerCreateManyCareerInput>
+    skipDuplicates?: boolean
   }
 
   export type EmployeeCreateWithoutCareersInput = {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     post?: PostsCreateNestedManyWithoutAuthorInput
@@ -10157,9 +10290,10 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     post?: PostsUncheckedCreateNestedManyWithoutAuthorInput
@@ -10171,67 +10305,92 @@ export namespace Prisma {
     create: XOR<EmployeeCreateWithoutCareersInput, EmployeeUncheckedCreateWithoutCareersInput>
   }
 
-  export type CycleCareerCreateWithoutCareersInput = {
-    id?: string
-    points: number
-    currentMonth: Date | string
-    createAt?: Date | string
-    updateAt?: Date | string
-  }
-
-  export type CycleCareerUncheckedCreateWithoutCareersInput = {
-    id?: string
-    points: number
-    currentMonth: Date | string
-    createAt?: Date | string
-    updateAt?: Date | string
-  }
-
-  export type CycleCareerCreateOrConnectWithoutCareersInput = {
+  export type CycleCareerUpsertWithWhereUniqueWithoutCareerInput = {
     where: CycleCareerWhereUniqueInput
-    create: XOR<CycleCareerCreateWithoutCareersInput, CycleCareerUncheckedCreateWithoutCareersInput>
+    update: XOR<CycleCareerUpdateWithoutCareerInput, CycleCareerUncheckedUpdateWithoutCareerInput>
+    create: XOR<CycleCareerCreateWithoutCareerInput, CycleCareerUncheckedCreateWithoutCareerInput>
   }
 
-  export type WalkCareerCreateWithoutCareersInput = {
-    id?: string
-    points: number
-    currentMonth: Date | string
-    createAt?: Date | string
-    updateAt?: Date | string
+  export type CycleCareerUpdateWithWhereUniqueWithoutCareerInput = {
+    where: CycleCareerWhereUniqueInput
+    data: XOR<CycleCareerUpdateWithoutCareerInput, CycleCareerUncheckedUpdateWithoutCareerInput>
   }
 
-  export type WalkCareerUncheckedCreateWithoutCareersInput = {
-    id?: string
-    points: number
-    currentMonth: Date | string
-    createAt?: Date | string
-    updateAt?: Date | string
+  export type CycleCareerUpdateManyWithWhereWithoutCareerInput = {
+    where: CycleCareerScalarWhereInput
+    data: XOR<CycleCareerUpdateManyMutationInput, CycleCareerUncheckedUpdateManyWithoutCycleCareerInput>
   }
 
-  export type WalkCareerCreateOrConnectWithoutCareersInput = {
+  export type CycleCareerScalarWhereInput = {
+    AND?: Enumerable<CycleCareerScalarWhereInput>
+    OR?: Enumerable<CycleCareerScalarWhereInput>
+    NOT?: Enumerable<CycleCareerScalarWhereInput>
+    id?: StringFilter | string
+    points?: IntFilter | number
+    currentMonth?: DateTimeFilter | Date | string
+    kilometers?: IntFilter | number
+    createAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeFilter | Date | string
+    careersId?: StringFilter | string
+  }
+
+  export type WalkCareerUpsertWithWhereUniqueWithoutCareerInput = {
     where: WalkCareerWhereUniqueInput
-    create: XOR<WalkCareerCreateWithoutCareersInput, WalkCareerUncheckedCreateWithoutCareersInput>
+    update: XOR<WalkCareerUpdateWithoutCareerInput, WalkCareerUncheckedUpdateWithoutCareerInput>
+    create: XOR<WalkCareerCreateWithoutCareerInput, WalkCareerUncheckedCreateWithoutCareerInput>
   }
 
-  export type RunCareerCreateWithoutCareersInput = {
-    id?: string
-    points: number
-    currentMonth: Date | string
-    createAt?: Date | string
-    updateAt?: Date | string
+  export type WalkCareerUpdateWithWhereUniqueWithoutCareerInput = {
+    where: WalkCareerWhereUniqueInput
+    data: XOR<WalkCareerUpdateWithoutCareerInput, WalkCareerUncheckedUpdateWithoutCareerInput>
   }
 
-  export type RunCareerUncheckedCreateWithoutCareersInput = {
-    id?: string
-    points: number
-    currentMonth: Date | string
-    createAt?: Date | string
-    updateAt?: Date | string
+  export type WalkCareerUpdateManyWithWhereWithoutCareerInput = {
+    where: WalkCareerScalarWhereInput
+    data: XOR<WalkCareerUpdateManyMutationInput, WalkCareerUncheckedUpdateManyWithoutWalkCareerInput>
   }
 
-  export type RunCareerCreateOrConnectWithoutCareersInput = {
+  export type WalkCareerScalarWhereInput = {
+    AND?: Enumerable<WalkCareerScalarWhereInput>
+    OR?: Enumerable<WalkCareerScalarWhereInput>
+    NOT?: Enumerable<WalkCareerScalarWhereInput>
+    id?: StringFilter | string
+    points?: IntFilter | number
+    currentMonth?: DateTimeFilter | Date | string
+    kilometers?: IntFilter | number
+    createAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeFilter | Date | string
+    careersId?: StringFilter | string
+  }
+
+  export type RunCareerUpsertWithWhereUniqueWithoutCareerInput = {
     where: RunCareerWhereUniqueInput
-    create: XOR<RunCareerCreateWithoutCareersInput, RunCareerUncheckedCreateWithoutCareersInput>
+    update: XOR<RunCareerUpdateWithoutCareerInput, RunCareerUncheckedUpdateWithoutCareerInput>
+    create: XOR<RunCareerCreateWithoutCareerInput, RunCareerUncheckedCreateWithoutCareerInput>
+  }
+
+  export type RunCareerUpdateWithWhereUniqueWithoutCareerInput = {
+    where: RunCareerWhereUniqueInput
+    data: XOR<RunCareerUpdateWithoutCareerInput, RunCareerUncheckedUpdateWithoutCareerInput>
+  }
+
+  export type RunCareerUpdateManyWithWhereWithoutCareerInput = {
+    where: RunCareerScalarWhereInput
+    data: XOR<RunCareerUpdateManyMutationInput, RunCareerUncheckedUpdateManyWithoutRunCareerInput>
+  }
+
+  export type RunCareerScalarWhereInput = {
+    AND?: Enumerable<RunCareerScalarWhereInput>
+    OR?: Enumerable<RunCareerScalarWhereInput>
+    NOT?: Enumerable<RunCareerScalarWhereInput>
+    id?: StringFilter | string
+    points?: IntFilter | number
+    currentMonth?: DateTimeFilter | Date | string
+    kilometers?: IntFilter | number
+    careerId?: StringFilter | string
+    createAt?: DateTimeFilter | Date | string
+    updateAt?: DateTimeFilter | Date | string
+    careersId?: StringFilter | string
   }
 
   export type EmployeeUpsertWithoutCareersInput = {
@@ -10243,9 +10402,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostsUpdateManyWithoutAuthorNestedInput
@@ -10256,107 +10416,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostsUncheckedUpdateManyWithoutAuthorNestedInput
     comments?: CommentsUncheckedUpdateManyWithoutAuthorNestedInput
-  }
-
-  export type CycleCareerUpsertWithoutCareersInput = {
-    update: XOR<CycleCareerUpdateWithoutCareersInput, CycleCareerUncheckedUpdateWithoutCareersInput>
-    create: XOR<CycleCareerCreateWithoutCareersInput, CycleCareerUncheckedCreateWithoutCareersInput>
-  }
-
-  export type CycleCareerUpdateWithoutCareersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
-    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CycleCareerUncheckedUpdateWithoutCareersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
-    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WalkCareerUpsertWithoutCareersInput = {
-    update: XOR<WalkCareerUpdateWithoutCareersInput, WalkCareerUncheckedUpdateWithoutCareersInput>
-    create: XOR<WalkCareerCreateWithoutCareersInput, WalkCareerUncheckedCreateWithoutCareersInput>
-  }
-
-  export type WalkCareerUpdateWithoutCareersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
-    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WalkCareerUncheckedUpdateWithoutCareersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
-    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type RunCareerUpsertWithoutCareersInput = {
-    update: XOR<RunCareerUpdateWithoutCareersInput, RunCareerUncheckedUpdateWithoutCareersInput>
-    create: XOR<RunCareerCreateWithoutCareersInput, RunCareerUncheckedCreateWithoutCareersInput>
-  }
-
-  export type RunCareerUpdateWithoutCareersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
-    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type RunCareerUncheckedUpdateWithoutCareersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    points?: IntFieldUpdateOperationsInput | number
-    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type EmployeeCreateWithoutPostInput = {
-    id?: string
-    fullName: string
-    dni: number
-    email: string
-    phone: string
-    password: string
-    createAt?: Date | string
-    updateAt?: Date | string
-    careers?: CareersCreateNestedManyWithoutEmployeeInput
-    comments?: CommentsCreateNestedManyWithoutAuthorInput
-  }
-
-  export type EmployeeUncheckedCreateWithoutPostInput = {
-    id?: string
-    fullName: string
-    dni: number
-    email: string
-    phone: string
-    password: string
-    createAt?: Date | string
-    updateAt?: Date | string
-    careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
-    comments?: CommentsUncheckedCreateNestedManyWithoutAuthorInput
-  }
-
-  export type EmployeeCreateOrConnectWithoutPostInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutPostInput, EmployeeUncheckedCreateWithoutPostInput>
   }
 
   export type CommentsCreateWithoutPostInput = {
@@ -10370,9 +10437,9 @@ export namespace Prisma {
   export type CommentsUncheckedCreateWithoutPostInput = {
     id?: string
     content: string
+    authorId: string
     createAt?: Date | string
     updateAt?: Date | string
-    authorId: string
   }
 
   export type CommentsCreateOrConnectWithoutPostInput = {
@@ -10385,35 +10452,37 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EmployeeUpsertWithoutPostInput = {
-    update: XOR<EmployeeUpdateWithoutPostInput, EmployeeUncheckedUpdateWithoutPostInput>
+  export type EmployeeCreateWithoutPostInput = {
+    id?: string
+    fullName: string
+    dni: number
+    username: string
+    phone: string
+    password: string
+    role?: Role
+    createAt?: Date | string
+    updateAt?: Date | string
+    careers?: CareersCreateNestedManyWithoutEmployeeInput
+    comments?: CommentsCreateNestedManyWithoutAuthorInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutPostInput = {
+    id?: string
+    fullName: string
+    dni: number
+    username: string
+    phone: string
+    password: string
+    role?: Role
+    createAt?: Date | string
+    updateAt?: Date | string
+    careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
+    comments?: CommentsUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutPostInput = {
+    where: EmployeeWhereUniqueInput
     create: XOR<EmployeeCreateWithoutPostInput, EmployeeUncheckedCreateWithoutPostInput>
-  }
-
-  export type EmployeeUpdateWithoutPostInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    fullName?: StringFieldUpdateOperationsInput | string
-    dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    careers?: CareersUpdateManyWithoutEmployeeNestedInput
-    comments?: CommentsUpdateManyWithoutAuthorNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateWithoutPostInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    fullName?: StringFieldUpdateOperationsInput | string
-    dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
-    comments?: CommentsUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type CommentsUpsertWithWhereUniqueWithoutPostInput = {
@@ -10430,6 +10499,39 @@ export namespace Prisma {
   export type CommentsUpdateManyWithWhereWithoutPostInput = {
     where: CommentsScalarWhereInput
     data: XOR<CommentsUpdateManyMutationInput, CommentsUncheckedUpdateManyWithoutCommentsInput>
+  }
+
+  export type EmployeeUpsertWithoutPostInput = {
+    update: XOR<EmployeeUpdateWithoutPostInput, EmployeeUncheckedUpdateWithoutPostInput>
+    create: XOR<EmployeeCreateWithoutPostInput, EmployeeUncheckedCreateWithoutPostInput>
+  }
+
+  export type EmployeeUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dni?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    careers?: CareersUpdateManyWithoutEmployeeNestedInput
+    comments?: CommentsUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dni?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
+    comments?: CommentsUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type PostsCreateWithoutCommentsInput = {
@@ -10455,9 +10557,10 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersCreateNestedManyWithoutEmployeeInput
@@ -10468,9 +10571,10 @@ export namespace Prisma {
     id?: string
     fullName: string
     dni: number
-    email: string
+    username: string
     phone: string
     password: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
@@ -10510,9 +10614,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUpdateManyWithoutEmployeeNestedInput
@@ -10523,9 +10628,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dni?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -10534,11 +10640,6 @@ export namespace Prisma {
 
   export type CareersCreateManyEmployeeInput = {
     id?: string
-    cycleCareerId: string
-    walkCareerId: string
-    runCareerId: string
-    createAt?: Date | string
-    updateAt?: Date | string
   }
 
   export type PostsCreateManyAuthorInput = {
@@ -10550,36 +10651,27 @@ export namespace Prisma {
   export type CommentsCreateManyAuthorInput = {
     id?: string
     content: string
+    postId: string
     createAt?: Date | string
     updateAt?: Date | string
-    postId: string
   }
 
   export type CareersUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cycleCareer?: CycleCareerUpdateOneRequiredWithoutCareersNestedInput
-    walkCareer?: WalkCareerUpdateOneRequiredWithoutCareersNestedInput
-    runCareer?: RunCareerUpdateOneRequiredWithoutCareersNestedInput
+    cycleCareer?: CycleCareerUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersUncheckedUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cycleCareerId?: StringFieldUpdateOperationsInput | string
-    walkCareerId?: StringFieldUpdateOperationsInput | string
-    runCareerId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cycleCareer?: CycleCareerUncheckedUpdateManyWithoutCareerNestedInput
+    walkCareer?: WalkCareerUncheckedUpdateManyWithoutCareerNestedInput
+    runCareer?: RunCareerUncheckedUpdateManyWithoutCareerNestedInput
   }
 
   export type CareersUncheckedUpdateManyWithoutCareersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cycleCareerId?: StringFieldUpdateOperationsInput | string
-    walkCareerId?: StringFieldUpdateOperationsInput | string
-    runCareerId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostsUpdateWithoutAuthorInput = {
@@ -10613,96 +10705,127 @@ export namespace Prisma {
   export type CommentsUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    postId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    postId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CommentsUncheckedUpdateManyWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     postId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CareersCreateManyCycleCareerInput = {
+  export type CycleCareerCreateManyCareerInput = {
     id?: string
-    employeeId: string
-    walkCareerId: string
-    runCareerId: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
     createAt?: Date | string
     updateAt?: Date | string
   }
 
-  export type CareersUpdateWithoutCycleCareerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
-    walkCareer?: WalkCareerUpdateOneRequiredWithoutCareersNestedInput
-    runCareer?: RunCareerUpdateOneRequiredWithoutCareersNestedInput
-  }
-
-  export type CareersUncheckedUpdateWithoutCycleCareerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employeeId?: StringFieldUpdateOperationsInput | string
-    walkCareerId?: StringFieldUpdateOperationsInput | string
-    runCareerId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CareersCreateManyWalkCareerInput = {
+  export type WalkCareerCreateManyCareerInput = {
     id?: string
-    employeeId: string
-    cycleCareerId: string
-    runCareerId: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
     createAt?: Date | string
     updateAt?: Date | string
   }
 
-  export type CareersUpdateWithoutWalkCareerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
-    cycleCareer?: CycleCareerUpdateOneRequiredWithoutCareersNestedInput
-    runCareer?: RunCareerUpdateOneRequiredWithoutCareersNestedInput
-  }
-
-  export type CareersUncheckedUpdateWithoutWalkCareerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employeeId?: StringFieldUpdateOperationsInput | string
-    cycleCareerId?: StringFieldUpdateOperationsInput | string
-    runCareerId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CareersCreateManyRunCareerInput = {
+  export type RunCareerCreateManyCareerInput = {
     id?: string
-    employeeId: string
-    cycleCareerId: string
-    walkCareerId: string
+    points: number
+    currentMonth: Date | string
+    kilometers: number
+    careerId: string
     createAt?: Date | string
     updateAt?: Date | string
   }
 
-  export type CareersUpdateWithoutRunCareerInput = {
+  export type CycleCareerUpdateWithoutCareerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employee?: EmployeeUpdateOneRequiredWithoutCareersNestedInput
-    cycleCareer?: CycleCareerUpdateOneRequiredWithoutCareersNestedInput
-    walkCareer?: WalkCareerUpdateOneRequiredWithoutCareersNestedInput
   }
 
-  export type CareersUncheckedUpdateWithoutRunCareerInput = {
+  export type CycleCareerUncheckedUpdateWithoutCareerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    employeeId?: StringFieldUpdateOperationsInput | string
-    cycleCareerId?: StringFieldUpdateOperationsInput | string
-    walkCareerId?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CycleCareerUncheckedUpdateManyWithoutCycleCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalkCareerUpdateWithoutCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalkCareerUncheckedUpdateWithoutCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalkCareerUncheckedUpdateManyWithoutWalkCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RunCareerUpdateWithoutCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    careerId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RunCareerUncheckedUpdateWithoutCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    careerId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RunCareerUncheckedUpdateManyWithoutRunCareerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
+    kilometers?: IntFieldUpdateOperationsInput | number
+    careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10710,9 +10833,9 @@ export namespace Prisma {
   export type CommentsCreateManyPostInput = {
     id?: string
     content: string
+    authorId: string
     createAt?: Date | string
     updateAt?: Date | string
-    authorId: string
   }
 
   export type CommentsUpdateWithoutPostInput = {
@@ -10726,9 +10849,9 @@ export namespace Prisma {
   export type CommentsUncheckedUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authorId?: StringFieldUpdateOperationsInput | string
   }
 
 

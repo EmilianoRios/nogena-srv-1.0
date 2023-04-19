@@ -21,7 +21,7 @@ async function createNewEmployee(data: EmployeeModel) {
       }
     })
 
-    if (employeeUsername) {
+    if (!employeeUsername) {
       throw new Error('El usuario ya existe.')
     }
 
@@ -31,7 +31,7 @@ async function createNewEmployee(data: EmployeeModel) {
       }
     })
 
-    if (employeeDni) {
+    if (!employeeDni) {
       throw new Error('El usuario ya existe.')
     }
 

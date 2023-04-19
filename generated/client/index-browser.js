@@ -166,7 +166,10 @@ exports.Prisma.WalkCareerScalarFieldEnum = {
   updateAt: 'updateAt',
   careersId: 'careersId'
 };
-
+exports.Role = {
+  REGULAR: 'REGULAR',
+  ADMIN: 'ADMIN'
+};
 
 exports.Prisma.ModelName = {
   Employee: 'Employee',

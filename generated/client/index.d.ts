@@ -3,7 +3,7 @@
  * Client
 **/
 
-import * as runtime from './runtime/library';
+import * as runtime from './runtime/data-proxy';
 type UnwrapPromise<P extends any> = P extends Promise<infer R> ? R : P
 type UnwrapTuple<Tuple extends readonly unknown[]> = {
   [K in keyof Tuple]: K extends `${number}` ? Tuple[K] extends Prisma.PrismaPromise<infer X> ? X : UnwrapPromise<Tuple[K]> : UnwrapPromise<Tuple[K]>
@@ -23,7 +23,7 @@ export type Employee = {
   username: string
   phone: string
   password: string
-  role: string
+  role: Role
   createAt: Date
   updateAt: Date
 }
@@ -103,6 +103,21 @@ export type Comments = {
   createAt: Date
   updateAt: Date
 }
+
+
+/**
+ * Enums
+ */
+
+// Based on
+// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+
+export const Role: {
+  REGULAR: 'REGULAR',
+  ADMIN: 'ADMIN'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
 
 
 /**
@@ -1096,7 +1111,7 @@ export namespace Prisma {
     username: string | null
     phone: string | null
     password: string | null
-    role: string | null
+    role: Role | null
     createAt: Date | null
     updateAt: Date | null
   }
@@ -1108,7 +1123,7 @@ export namespace Prisma {
     username: string | null
     phone: string | null
     password: string | null
-    role: string | null
+    role: Role | null
     createAt: Date | null
     updateAt: Date | null
   }
@@ -1266,7 +1281,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role: Role
     createAt: Date
     updateAt: Date
     _count: EmployeeCountAggregateOutputType | null
@@ -8131,7 +8146,7 @@ export namespace Prisma {
     username?: StringFilter | string
     phone?: StringFilter | string
     password?: StringFilter | string
-    role?: StringFilter | string
+    role?: EnumRoleFilter | Role
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
     careers?: CareersListRelationFilter
@@ -8187,7 +8202,7 @@ export namespace Prisma {
     username?: StringWithAggregatesFilter | string
     phone?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
-    role?: StringWithAggregatesFilter | string
+    role?: EnumRoleWithAggregatesFilter | Role
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -8513,7 +8528,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersCreateNestedManyWithoutEmployeeInput
@@ -8528,7 +8543,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
@@ -8543,7 +8558,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUpdateManyWithoutEmployeeNestedInput
@@ -8558,7 +8573,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -8573,7 +8588,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -8585,7 +8600,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8597,7 +8612,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9001,6 +9016,13 @@ export namespace Prisma {
     not?: NestedIntFilter | number
   }
 
+  export type EnumRoleFilter = {
+    equals?: Role
+    in?: Enumerable<Role>
+    notIn?: Enumerable<Role>
+    not?: NestedEnumRoleFilter | Role
+  }
+
   export type DateTimeFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -9118,6 +9140,16 @@ export namespace Prisma {
     _sum?: NestedIntFilter
     _min?: NestedIntFilter
     _max?: NestedIntFilter
+  }
+
+  export type EnumRoleWithAggregatesFilter = {
+    equals?: Role
+    in?: Enumerable<Role>
+    notIn?: Enumerable<Role>
+    not?: NestedEnumRoleWithAggregatesFilter | Role
+    _count?: NestedIntFilter
+    _min?: NestedEnumRoleFilter
+    _max?: NestedEnumRoleFilter
   }
 
   export type DateTimeWithAggregatesFilter = {
@@ -9417,6 +9449,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: Role
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -9798,6 +9834,13 @@ export namespace Prisma {
     not?: NestedIntFilter | number
   }
 
+  export type NestedEnumRoleFilter = {
+    equals?: Role
+    in?: Enumerable<Role>
+    notIn?: Enumerable<Role>
+    not?: NestedEnumRoleFilter | Role
+  }
+
   export type NestedDateTimeFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -9851,6 +9894,16 @@ export namespace Prisma {
     gt?: number
     gte?: number
     not?: NestedFloatFilter | number
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter = {
+    equals?: Role
+    in?: Enumerable<Role>
+    notIn?: Enumerable<Role>
+    not?: NestedEnumRoleWithAggregatesFilter | Role
+    _count?: NestedIntFilter
+    _min?: NestedEnumRoleFilter
+    _max?: NestedEnumRoleFilter
   }
 
   export type NestedDateTimeWithAggregatesFilter = {
@@ -10226,7 +10279,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     post?: PostsCreateNestedManyWithoutAuthorInput
@@ -10240,7 +10293,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     post?: PostsUncheckedCreateNestedManyWithoutAuthorInput
@@ -10352,7 +10405,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostsUpdateManyWithoutAuthorNestedInput
@@ -10366,7 +10419,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostsUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10406,7 +10459,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersCreateNestedManyWithoutEmployeeInput
@@ -10420,7 +10473,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
@@ -10460,7 +10513,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUpdateManyWithoutEmployeeNestedInput
@@ -10474,7 +10527,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -10507,7 +10560,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersCreateNestedManyWithoutEmployeeInput
@@ -10521,7 +10574,7 @@ export namespace Prisma {
     username: string
     phone: string
     password: string
-    role: string
+    role?: Role
     createAt?: Date | string
     updateAt?: Date | string
     careers?: CareersUncheckedCreateNestedManyWithoutEmployeeInput
@@ -10564,7 +10617,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUpdateManyWithoutEmployeeNestedInput
@@ -10578,7 +10631,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | Role
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careers?: CareersUncheckedUpdateManyWithoutEmployeeNestedInput
