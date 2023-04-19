@@ -10,7 +10,7 @@ async function createNewCycleCareer(data: CyclesCareersModel) {
       data: {
         careersId: data?.careersId,
         points: data?.points,
-        currentMonth: currentMonth.toISOString(),
+        currentMonth: currentMonth,
         kilometers: data?.kilometers
       }
     })
