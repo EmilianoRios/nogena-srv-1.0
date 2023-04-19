@@ -5,9 +5,9 @@ import * as cycleCareersService from '../services/serviceCycleCareer.ts'
 async function createNewCycleCareer(ctx: Context) {
   try {
     const body = await ctx.request.body('json').value
-    const { careerId, points, currentMonth, kilometers } = body
+    const { careersId, points, currentMonth, kilometers } = body
 
-    if (!careerId || !points || !currentMonth || !kilometers) {
+    if (!careersId || !points || !currentMonth || !kilometers) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -17,7 +17,7 @@ async function createNewCycleCareer(ctx: Context) {
     }
 
     const newCycleCareer = await cycleCareersService.createNewCycleCareer({
-      careerId,
+      careersId,
       points,
       currentMonth,
       kilometers
@@ -107,9 +107,9 @@ async function deleteOneCycleCareer(ctx: Context) {
 async function updateOneCycleCareer(ctx: Context) {
   try {
     const body = await ctx.request.body('json').value
-    const { careerId, points, currentMonth, kilometers } = body
+    const { careersId, points, currentMonth, kilometers } = body
 
-    if (!careerId || !points || !currentMonth || !kilometers) {
+    if (!careersId || !points || !currentMonth || !kilometers) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -119,7 +119,7 @@ async function updateOneCycleCareer(ctx: Context) {
     }
 
     const updatedCycleCareer = await cycleCareersService.updateOneCycleCareer({
-      careerId,
+      careersId,
       points,
       currentMonth,
       kilometers

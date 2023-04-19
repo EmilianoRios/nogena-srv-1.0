@@ -1,5 +1,5 @@
 interface CyclesCareersModel {
-  careerId: string
+  careersId: string
   points: number
   currentMonth: string
   kilometers: number
