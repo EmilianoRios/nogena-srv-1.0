@@ -21,7 +21,7 @@ async function createNewEmployee(data: EmployeeModel) {
       }
     })
 
-    if (!employeeUsername) {
+    if (employeeUsername) {
       throw new Error('El usuario ya existe.')
     }
 
@@ -31,7 +31,7 @@ async function createNewEmployee(data: EmployeeModel) {
       }
     })
 
-    if (!employeeDni) {
+    if (employeeDni) {
       throw new Error('El usuario ya existe.')
     }
 
@@ -54,14 +54,18 @@ async function createNewEmployee(data: EmployeeModel) {
       }
     })
 
-    const newCareer = await prisma.career.create({
+    console.log(newEmployee)
+
+    const newCareer = await prisma.careers.create({
       data: {
-        employeeId: newEmployee?.id
+        employeeId: newEmployee.id
       },
       select: {
         id: true
       }
     })
+
+    console.log(newCareer)
 
     return { newEmployee, newCareer }
   } catch (error) {
