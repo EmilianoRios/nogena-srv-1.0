@@ -54,8 +54,6 @@ async function createNewEmployee(data: EmployeeModel) {
       }
     })
 
-    console.log(newEmployee)
-
     const newCareer = await prisma.careers.create({
       data: {
         employeeId: newEmployee.id
@@ -64,8 +62,6 @@ async function createNewEmployee(data: EmployeeModel) {
         id: true
       }
     })
-
-    console.log(newCareer)
 
     return { newEmployee, newCareer }
   } catch (error) {
