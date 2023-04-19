@@ -6,7 +6,7 @@ interface CyclesCareersModel {
 }
 
 interface OneCyclesCareers {
-  careerId: string
+  careersId: string
 }
 
 export { CyclesCareersModel, OneCyclesCareers }

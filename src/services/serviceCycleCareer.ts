@@ -35,7 +35,7 @@ async function getOneCycleCareer(data: OneCyclesCareers) {
   try {
     const cycleCareerEmploye = await prisma.cyclecareer.findUnique({
       where: {
-        careerId: data?.careerId
+        careersId: data?.careersId
       },
       select: {
         points: true,
@@ -52,7 +52,7 @@ async function deleteOneCycleCareer(data: OneCyclesCareers) {
   try {
     const cycleCareerEmploye = await prisma.cyclecareer.findUnique({
       where: {
-        careerId: data?.careerId
+        careersId: data?.careersId
       }
     })
 
@@ -62,7 +62,7 @@ async function deleteOneCycleCareer(data: OneCyclesCareers) {
 
     await prisma.cyclecareer.delete({
       where: {
-        careerId: data?.careerId
+        careersId: data?.careersId
       }
     })
 
@@ -75,7 +75,7 @@ async function updateOneCycleCareer(data: CyclesCareersModel) {
   try {
     const cycleCareerEmploye = await prisma.findUnique({
       where: {
-        careerId: data?.careerId
+        careersId: data?.careersId
       }
     })
 
@@ -85,7 +85,7 @@ async function updateOneCycleCareer(data: CyclesCareersModel) {
 
     const updateCycleCareer = await prisma.cyclecareer.update({
       where: {
-        careerId: data?.careerId
+        careersId: data?.careersId
       },
       data: {
         points: data?.points,
