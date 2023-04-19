@@ -10,11 +10,13 @@ async function validateToken(ctx: Context, next: () => Promise<void>) {
 
     if (!auth) return (ctx.response.body = { error: 'Acceso no disponible' })
 
-    const token = auth.trim().split('Bearer')[1]
+    const token = auth.trim().split(' ')
+    const cleanToken = token[token.length - 1]
 
-    if (!token) return (ctx.response.body = { error: 'Acceso no disponible' })
+    if (!cleanToken)
+      return (ctx.response.body = { error: 'Acceso no disponible' })
 
-    const validToken = await verify(token, key)
+    const validToken = await verify(cleanToken, key)
 
     if (!validToken) throw new Error('Token no valido')
 
