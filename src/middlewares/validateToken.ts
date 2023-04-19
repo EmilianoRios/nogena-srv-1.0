@@ -10,7 +10,7 @@ async function validateToken(ctx: Context, next: () => Promise<void>) {
 
     if (!auth) return (ctx.response.body = { error: 'Acceso no disponible' })
 
-    const token = auth.trim().splice(0, 1)
+    const token = auth.trim().split('Bearer')[1]
 
     if (!token) return (ctx.response.body = { error: 'Acceso no disponible' })
 
