@@ -267,7 +267,7 @@ async function authenticateToken(data: EmployeeAccessToken) {
         fullName: true,
         dni: true,
         phone: true,
-        email: true
+        username: true
       }
     })
 
