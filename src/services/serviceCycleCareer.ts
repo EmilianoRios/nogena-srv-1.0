@@ -4,11 +4,13 @@ import { PaginationModel } from '../models/pagination.ts'
 
 async function createNewCycleCareer(data: CyclesCareersModel) {
   try {
-    const newCycleCareer = await prisma.cyclecareer.create({
+    const currentMonth = new Date(data?.currentMonth)
+
+    const newCycleCareer = await prisma.cycleCareer.create({
       data: {
         careersId: data?.careersId,
         points: data?.points,
-        currentMonth: data?.currentMonth,
+        currentMonth: currentMonth.toISOString(),
         kilometers: data?.kilometers
       }
     })
@@ -19,7 +21,7 @@ async function createNewCycleCareer(data: CyclesCareersModel) {
 }
 async function getAllCyclesCareers(pagination: PaginationModel) {
   try {
-    const allCycleCareers = await prisma.cyclecareer.findMany({
+    const allCycleCareers = await prisma.cycleCareer.findMany({
       take: +pagination.take,
       skip: +pagination.take * +pagination.skip,
       select: {
@@ -36,7 +38,7 @@ async function getAllCyclesCareers(pagination: PaginationModel) {
 }
 async function getOneCycleCareer(data: OneCyclesCareers) {
   try {
-    const cycleCareerEmploye = await prisma.cyclecareer.findUnique({
+    const cycleCareerEmploye = await prisma.cycleCareer.findUnique({
       where: {
         careersId: data?.careersId
       },
@@ -53,7 +55,7 @@ async function getOneCycleCareer(data: OneCyclesCareers) {
 }
 async function deleteOneCycleCareer(data: OneCyclesCareers) {
   try {
-    const cycleCareerEmploye = await prisma.cyclecareer.findUnique({
+    const cycleCareerEmploye = await prisma.cycleCareer.findUnique({
       where: {
         careersId: data?.careersId
       }
@@ -86,7 +88,7 @@ async function updateOneCycleCareer(data: CyclesCareersModel) {
       throw new Error('La careera del usuario no fue encontrada.')
     }
 
-    const updateCycleCareer = await prisma.cyclecareer.update({
+    const updateCycleCareer = await prisma.cycleCareer.update({
       where: {
         careersId: data?.careersId
       },
