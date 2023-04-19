@@ -6,7 +6,10 @@ async function createNewCycleCareer(data: CyclesCareersModel) {
   try {
     const newCycleCareer = await prisma.cyclecareer.create({
       data: {
-        ...data
+        careersId: data?.careersId,
+        points: data?.points,
+        currentMonth: data?.currentMonth,
+        kilometers: data?.kilometers
       }
     })
     return newCycleCareer
