@@ -6,11 +6,11 @@ import { config } from 'https://deno.land/std@0.163.0/dotenv/mod.ts'
 const envVars = await config()
 
 const prisma = new PrismaClient({
-  datasources: {
+  datasource: {
     db: {
-      url: envVars.DATABASE_URL,
-    },
-  },
+      url: envVars.DATABASE_URL
+    }
+  }
 })
 
 export { prisma }
