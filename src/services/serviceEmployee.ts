@@ -35,7 +35,7 @@ async function createNewEmployee(data: EmployeeModel) {
       throw new Error('El usuario ya existe.')
     }
 
-    const hash = await bcrypt.hash(data?.password)
+    /* const hash = await bcrypt.hash(data?.password) */
 
     const newEmployee = await prisma.employee.create({
       data: {
@@ -43,7 +43,8 @@ async function createNewEmployee(data: EmployeeModel) {
         dni: data?.dni,
         phone: data?.phone,
         username: data?.username,
-        password: hash
+        /* password: hash */
+        password: data?.password
       },
       select: {
         id: true,
