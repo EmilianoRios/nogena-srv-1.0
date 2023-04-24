@@ -36,9 +36,7 @@ async function getAllCyclesCareers(pagination: PaginationModel) {
       },
       where: {
         points: {
-          gt: {
-            _col: 'points'
-          }
+          gt: 0
         }
       },
       orderBy: {
