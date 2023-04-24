@@ -1,9 +1,5 @@
 // @ts-ignore
-import {
-  hash as passwordToHash,
-  compare as comparePassword
-  // @ts-ignore
-} from 'https://deno.land/x/bcrypt/mod.ts'
+import { hash, compare } from 'https://deno.land/x/bcrypt/mod.ts'
 // @ts-ignore
 import { create } from 'https://deno.land/x/djwt/mod.ts'
 import { prisma } from '../database/config.ts'
@@ -39,7 +35,7 @@ async function createNewEmployee(data: EmployeeModel) {
       throw new Error('El usuario ya existe.')
     }
 
-    const passwordHash = await passwordToHash(data?.password)
+    const passwordHash = await hash(data?.password)
 
     const newEmployee = await prisma.employee.create({
       data: {
@@ -183,13 +179,13 @@ async function updateOneEmployeePassword(data: EmployeeUpdatePasswordModel) {
       throw new Error('Usuario no encontrado.')
     }
 
-    const match = await comparePassword(data?.password, employee?.password)
+    const match = await compare(data?.password, employee?.password)
 
     if (!match) {
       throw new Error('La contraseña actual ingresada no es correcta.')
     }
 
-    const passwordHash = await passwordToHash(data?.newPassword)
+    const passwordHash = await hash(data?.newPassword)
 
     const updateEmployee = await prisma.employee.update({
       where: {
@@ -232,7 +228,7 @@ async function logInUser(data: EmployeeLogInModel) {
       throw new Error('Correo o contraseña incorrectas')
     }
 
-    const match = await comparePassword(data?.password, foundedUser?.password)
+    const match = await compare(data?.password, foundedUser?.password)
 
     if (!match) {
       throw new Error('Correo o contraseña incorrectas')
