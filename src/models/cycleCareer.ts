@@ -4,8 +4,14 @@ interface CyclesCareersModel {
   kilometers: number
 }
 
-interface OneCyclesCareers {
-  careersId: string
+interface CyclesCareersUpdateModel {
+  cycleCareerId: string
+  currentMonth: string
+  kilometers: number
 }
 
-export { CyclesCareersModel, OneCyclesCareers }
+interface OneCyclesCareers {
+  cycleCareerId: string
+}
+
+export { CyclesCareersModel, OneCyclesCareers, CyclesCareersUpdateModel }

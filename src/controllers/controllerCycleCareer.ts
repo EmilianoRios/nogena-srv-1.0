@@ -56,9 +56,9 @@ async function getAllCyclesCareers(ctx: Context) {
 
 async function getOneCycleCareer(ctx: Context) {
   try {
-    const careersId = await ctx.params.careersId
+    const cycleCareerId = await ctx.params.cycleCareerId
 
-    if (!careersId) {
+    if (!cycleCareerId) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -68,7 +68,7 @@ async function getOneCycleCareer(ctx: Context) {
     }
 
     const cycleCareerEmployee = await cycleCareersService.getOneCycleCareer({
-      careersId
+      cycleCareerId
     })
 
     ctx.response.status = 200
@@ -84,9 +84,9 @@ async function getOneCycleCareer(ctx: Context) {
 
 async function deleteOneCycleCareer(ctx: Context) {
   try {
-    const careersId = await ctx.params.careersId
+    const cycleCareerId = await ctx.params.cycleCareerId
 
-    if (!careersId) {
+    if (!cycleCareerId) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -94,7 +94,7 @@ async function deleteOneCycleCareer(ctx: Context) {
       }
     }
 
-    await cycleCareersService.deleteOneCycleCareer({ careersId })
+    await cycleCareersService.deleteOneCycleCareer({ cycleCareerId })
 
     ctx.response.status = 204
   } catch (error) {
@@ -106,9 +106,9 @@ async function deleteOneCycleCareer(ctx: Context) {
 async function updateOneCycleCareer(ctx: Context) {
   try {
     const body = await ctx.request.body('json').value
-    const { careersId, currentMonth, kilometers } = body
+    const { cycleCareerId, currentMonth, kilometers } = body
 
-    if (!careersId || !currentMonth || !kilometers) {
+    if (!cycleCareerId || !currentMonth || !kilometers) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -118,7 +118,7 @@ async function updateOneCycleCareer(ctx: Context) {
     }
 
     const updatedCycleCareer = await cycleCareersService.updateOneCycleCareer({
-      careersId,
+      cycleCareerId,
       currentMonth,
       kilometers
     })

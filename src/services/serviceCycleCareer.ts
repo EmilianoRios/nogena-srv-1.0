@@ -1,5 +1,9 @@
 import { prisma } from '../database/config.ts'
-import { OneCyclesCareers, CyclesCareersModel } from '../models/cycleCareer.ts'
+import {
+  OneCyclesCareers,
+  CyclesCareersModel,
+  CyclesCareersUpdateModel
+} from '../models/cycleCareer.ts'
 import { PaginationModel } from '../models/pagination.ts'
 
 async function createNewCycleCareer(data: CyclesCareersModel) {
@@ -42,7 +46,7 @@ async function getOneCycleCareer(data: OneCyclesCareers) {
   try {
     const cycleCareerEmploye = await prisma.cycleCareer.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.cycleCareerId
       },
       select: {
         points: true,
@@ -77,7 +81,7 @@ async function deleteOneCycleCareer(data: OneCyclesCareers) {
   try {
     const cycleCareerEmploye = await prisma.cycleCareer.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.cycleCareerId
       }
     })
 
@@ -87,7 +91,7 @@ async function deleteOneCycleCareer(data: OneCyclesCareers) {
 
     await prisma.cyclecareer.delete({
       where: {
-        careersId: data?.careersId
+        id: data?.cycleCareerId
       }
     })
 
@@ -96,11 +100,11 @@ async function deleteOneCycleCareer(data: OneCyclesCareers) {
     throw new Error(error)
   }
 }
-async function updateOneCycleCareer(data: CyclesCareersModel) {
+async function updateOneCycleCareer(data: CyclesCareersUpdateModel) {
   try {
     const cycleCareerEmploye = await prisma.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.cycleCareerId
       }
     })
 
@@ -110,7 +114,7 @@ async function updateOneCycleCareer(data: CyclesCareersModel) {
 
     const updateCycleCareer = await prisma.cycleCareer.update({
       where: {
-        careersId: data?.careersId
+        careersId: data?.cycleCareerId
       },
       data: {
         points: Math.round(+data?.kilometers * 1.33589),

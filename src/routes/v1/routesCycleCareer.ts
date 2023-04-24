@@ -8,6 +8,6 @@ export const routesCycleCareer = new Router()
 routesCycleCareer
   .post('/', cycleCareerController.createNewCycleCareer)
   .get('/', cycleCareerController.getAllCyclesCareers)
-  .get('/:careerId', cycleCareerController.getOneCycleCareer)
-  .delete('/:careerId', cycleCareerController.deleteOneCycleCareer)
+  .get('/:cycleCareerId', cycleCareerController.getOneCycleCareer)
+  .delete('/:cycleCareerId', cycleCareerController.deleteOneCycleCareer)
   .patch('/', cycleCareerController.updateOneCycleCareer)
