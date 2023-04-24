@@ -8,13 +8,20 @@ async function validateToken(ctx: Context, next: () => Promise<void>) {
   try {
     const auth = ctx.request.headers.get('Authorization')
 
-    if (!auth) return (ctx.response.body = { error: 'Acceso no disponible' })
+    if (!auth)
+      return (ctx.response.body = {
+        status: 'FAILED',
+        error: 'Acceso no disponible'
+      })
 
     const token = auth.trim().split(' ')
     const cleanToken = token[token.length - 1]
 
     if (!cleanToken)
-      return (ctx.response.body = { error: 'Acceso no disponible' })
+      return (ctx.response.body = {
+        status: 'FAILED',
+        error: 'Acceso no disponible'
+      })
 
     const validToken = await verify(cleanToken, key)
 
@@ -25,7 +32,10 @@ async function validateToken(ctx: Context, next: () => Promise<void>) {
     await next()
   } catch (error) {
     ctx.response.status = 401
-    ctx.response.body = { error: 'No estas autorizado a ingresar a esta ruta' }
+    ctx.response.body = {
+      status: 'FAILED',
+      error: error.message || 'No estas autorizado a ingresar a esta ruta'
+    }
     return
   }
 }
