@@ -9,7 +9,7 @@ import {
 
 async function createNewEmployee(ctx: Context) {
   try {
-    const body: EmployeeModel = await ctx.request.body('json').value
+    const body = await ctx.request.body('json').value
     const { fullName, dni, phone, username, password } = body
 
     if (!fullName || !dni || !phone || !username || !password) {
