@@ -31,10 +31,44 @@ async function getAllCareers(pagination: PaginationModel) {
       take: +pagination?.take,
       skip: +pagination?.take * +pagination?.skip,
       select: {
-        employeeId: true,
-        cycleCareer: true,
-        walkCareer: true,
-        runCareer: true
+        employee: {
+          select: {
+            fullName: true,
+            dni: true,
+            phone: true,
+            username: true
+          }
+        },
+        cycleCareer: {
+          select: {
+            id: true,
+            points: true,
+            currentMonth: true,
+            kilometers: true,
+            createAt: true,
+            updateAt: true
+          }
+        },
+        walkCareer: {
+          select: {
+            id: true,
+            points: true,
+            currentMonth: true,
+            kilometers: true,
+            createAt: true,
+            updateAt: true
+          }
+        },
+        runCareer: {
+          select: {
+            id: true,
+            points: true,
+            currentMonth: true,
+            kilometers: true,
+            createAt: true,
+            updateAt: true
+          }
+        }
       }
     })
     return allCareers
