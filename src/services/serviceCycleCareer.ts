@@ -59,7 +59,16 @@ async function getOneCycleCareer(data: OneCyclesCareers) {
       }
     })
 
-    return { cycleCareerEmploye, rank: +rank + 1 }
+    const equalRanks = await prisma.cycleCareer.count({
+      where: {
+        points: cycleCareerEmploye.points,
+        id: {
+          lt: cycleCareerEmploye.id
+        }
+      }
+    })
+
+    return { cycleCareerEmploye, rank: +rank + +equalRanks + 1 }
   } catch (error) {
     throw new Error(error)
   }
