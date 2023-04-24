@@ -37,7 +37,6 @@ export type CycleCareer = {
   points: number
   currentMonth: Date
   kilometers: number
-  position: number
   createAt: Date
   updateAt: Date
   careersId: string
@@ -52,7 +51,6 @@ export type WalkCareer = {
   points: number
   currentMonth: Date
   kilometers: number
-  position: number
   createAt: Date
   updateAt: Date
   careersId: string
@@ -67,7 +65,6 @@ export type RunCareer = {
   points: number
   currentMonth: Date
   kilometers: number
-  position: number
   careerId: string
   createAt: Date
   updateAt: Date
@@ -2178,13 +2175,11 @@ export namespace Prisma {
   export type CycleCareerAvgAggregateOutputType = {
     points: number | null
     kilometers: number | null
-    position: number | null
   }
 
   export type CycleCareerSumAggregateOutputType = {
     points: number | null
     kilometers: number | null
-    position: number | null
   }
 
   export type CycleCareerMinAggregateOutputType = {
@@ -2192,7 +2187,6 @@ export namespace Prisma {
     points: number | null
     currentMonth: Date | null
     kilometers: number | null
-    position: number | null
     createAt: Date | null
     updateAt: Date | null
     careersId: string | null
@@ -2203,7 +2197,6 @@ export namespace Prisma {
     points: number | null
     currentMonth: Date | null
     kilometers: number | null
-    position: number | null
     createAt: Date | null
     updateAt: Date | null
     careersId: string | null
@@ -2214,7 +2207,6 @@ export namespace Prisma {
     points: number
     currentMonth: number
     kilometers: number
-    position: number
     createAt: number
     updateAt: number
     careersId: number
@@ -2225,13 +2217,11 @@ export namespace Prisma {
   export type CycleCareerAvgAggregateInputType = {
     points?: true
     kilometers?: true
-    position?: true
   }
 
   export type CycleCareerSumAggregateInputType = {
     points?: true
     kilometers?: true
-    position?: true
   }
 
   export type CycleCareerMinAggregateInputType = {
@@ -2239,7 +2229,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     createAt?: true
     updateAt?: true
     careersId?: true
@@ -2250,7 +2239,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     createAt?: true
     updateAt?: true
     careersId?: true
@@ -2261,7 +2249,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     createAt?: true
     updateAt?: true
     careersId?: true
@@ -2360,7 +2347,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date
     kilometers: number
-    position: number
     createAt: Date
     updateAt: Date
     careersId: string
@@ -2390,7 +2376,6 @@ export namespace Prisma {
     points?: boolean
     currentMonth?: boolean
     kilometers?: boolean
-    position?: boolean
     createAt?: boolean
     updateAt?: boolean
     careersId?: boolean
@@ -3175,13 +3160,11 @@ export namespace Prisma {
   export type WalkCareerAvgAggregateOutputType = {
     points: number | null
     kilometers: number | null
-    position: number | null
   }
 
   export type WalkCareerSumAggregateOutputType = {
     points: number | null
     kilometers: number | null
-    position: number | null
   }
 
   export type WalkCareerMinAggregateOutputType = {
@@ -3189,7 +3172,6 @@ export namespace Prisma {
     points: number | null
     currentMonth: Date | null
     kilometers: number | null
-    position: number | null
     createAt: Date | null
     updateAt: Date | null
     careersId: string | null
@@ -3200,7 +3182,6 @@ export namespace Prisma {
     points: number | null
     currentMonth: Date | null
     kilometers: number | null
-    position: number | null
     createAt: Date | null
     updateAt: Date | null
     careersId: string | null
@@ -3211,7 +3192,6 @@ export namespace Prisma {
     points: number
     currentMonth: number
     kilometers: number
-    position: number
     createAt: number
     updateAt: number
     careersId: number
@@ -3222,13 +3202,11 @@ export namespace Prisma {
   export type WalkCareerAvgAggregateInputType = {
     points?: true
     kilometers?: true
-    position?: true
   }
 
   export type WalkCareerSumAggregateInputType = {
     points?: true
     kilometers?: true
-    position?: true
   }
 
   export type WalkCareerMinAggregateInputType = {
@@ -3236,7 +3214,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     createAt?: true
     updateAt?: true
     careersId?: true
@@ -3247,7 +3224,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     createAt?: true
     updateAt?: true
     careersId?: true
@@ -3258,7 +3234,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     createAt?: true
     updateAt?: true
     careersId?: true
@@ -3357,7 +3332,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date
     kilometers: number
-    position: number
     createAt: Date
     updateAt: Date
     careersId: string
@@ -3387,7 +3361,6 @@ export namespace Prisma {
     points?: boolean
     currentMonth?: boolean
     kilometers?: boolean
-    position?: boolean
     createAt?: boolean
     updateAt?: boolean
     careersId?: boolean
@@ -4172,13 +4145,11 @@ export namespace Prisma {
   export type RunCareerAvgAggregateOutputType = {
     points: number | null
     kilometers: number | null
-    position: number | null
   }
 
   export type RunCareerSumAggregateOutputType = {
     points: number | null
     kilometers: number | null
-    position: number | null
   }
 
   export type RunCareerMinAggregateOutputType = {
@@ -4186,7 +4157,6 @@ export namespace Prisma {
     points: number | null
     currentMonth: Date | null
     kilometers: number | null
-    position: number | null
     careerId: string | null
     createAt: Date | null
     updateAt: Date | null
@@ -4198,7 +4168,6 @@ export namespace Prisma {
     points: number | null
     currentMonth: Date | null
     kilometers: number | null
-    position: number | null
     careerId: string | null
     createAt: Date | null
     updateAt: Date | null
@@ -4210,7 +4179,6 @@ export namespace Prisma {
     points: number
     currentMonth: number
     kilometers: number
-    position: number
     careerId: number
     createAt: number
     updateAt: number
@@ -4222,13 +4190,11 @@ export namespace Prisma {
   export type RunCareerAvgAggregateInputType = {
     points?: true
     kilometers?: true
-    position?: true
   }
 
   export type RunCareerSumAggregateInputType = {
     points?: true
     kilometers?: true
-    position?: true
   }
 
   export type RunCareerMinAggregateInputType = {
@@ -4236,7 +4202,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     careerId?: true
     createAt?: true
     updateAt?: true
@@ -4248,7 +4213,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     careerId?: true
     createAt?: true
     updateAt?: true
@@ -4260,7 +4224,6 @@ export namespace Prisma {
     points?: true
     currentMonth?: true
     kilometers?: true
-    position?: true
     careerId?: true
     createAt?: true
     updateAt?: true
@@ -4360,7 +4323,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date
     kilometers: number
-    position: number
     careerId: string
     createAt: Date
     updateAt: Date
@@ -4391,7 +4353,6 @@ export namespace Prisma {
     points?: boolean
     currentMonth?: boolean
     kilometers?: boolean
-    position?: boolean
     careerId?: boolean
     createAt?: boolean
     updateAt?: boolean
@@ -8084,7 +8045,6 @@ export namespace Prisma {
     points: 'points',
     currentMonth: 'currentMonth',
     kilometers: 'kilometers',
-    position: 'position',
     createAt: 'createAt',
     updateAt: 'updateAt',
     careersId: 'careersId'
@@ -8131,7 +8091,6 @@ export namespace Prisma {
     points: 'points',
     currentMonth: 'currentMonth',
     kilometers: 'kilometers',
-    position: 'position',
     careerId: 'careerId',
     createAt: 'createAt',
     updateAt: 'updateAt',
@@ -8164,7 +8123,6 @@ export namespace Prisma {
     points: 'points',
     currentMonth: 'currentMonth',
     kilometers: 'kilometers',
-    position: 'position',
     createAt: 'createAt',
     updateAt: 'updateAt',
     careersId: 'careersId'
@@ -8257,7 +8215,6 @@ export namespace Prisma {
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
     kilometers?: IntFilter | number
-    position?: IntFilter | number
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
     careersId?: StringFilter | string
@@ -8269,7 +8226,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -8285,7 +8241,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -8304,7 +8259,6 @@ export namespace Prisma {
     points?: IntWithAggregatesFilter | number
     currentMonth?: DateTimeWithAggregatesFilter | Date | string
     kilometers?: IntWithAggregatesFilter | number
-    position?: IntWithAggregatesFilter | number
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
     careersId?: StringWithAggregatesFilter | string
@@ -8318,7 +8272,6 @@ export namespace Prisma {
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
     kilometers?: IntFilter | number
-    position?: IntFilter | number
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
     careersId?: StringFilter | string
@@ -8330,7 +8283,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -8346,7 +8298,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -8365,7 +8316,6 @@ export namespace Prisma {
     points?: IntWithAggregatesFilter | number
     currentMonth?: DateTimeWithAggregatesFilter | Date | string
     kilometers?: IntWithAggregatesFilter | number
-    position?: IntWithAggregatesFilter | number
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
     careersId?: StringWithAggregatesFilter | string
@@ -8379,7 +8329,6 @@ export namespace Prisma {
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
     kilometers?: IntFilter | number
-    position?: IntFilter | number
     careerId?: StringFilter | string
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
@@ -8392,7 +8341,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -8409,7 +8357,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -8429,7 +8376,6 @@ export namespace Prisma {
     points?: IntWithAggregatesFilter | number
     currentMonth?: DateTimeWithAggregatesFilter | Date | string
     kilometers?: IntWithAggregatesFilter | number
-    position?: IntWithAggregatesFilter | number
     careerId?: StringWithAggregatesFilter | string
     createAt?: DateTimeWithAggregatesFilter | Date | string
     updateAt?: DateTimeWithAggregatesFilter | Date | string
@@ -8676,7 +8622,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
     career: CareersCreateNestedOneWithoutCycleCareerInput
@@ -8687,7 +8632,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
     careersId: string
@@ -8698,7 +8642,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     career?: CareersUpdateOneRequiredWithoutCycleCareerNestedInput
@@ -8709,7 +8652,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careersId?: StringFieldUpdateOperationsInput | string
@@ -8720,7 +8662,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
     careersId: string
@@ -8731,7 +8672,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8741,7 +8681,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careersId?: StringFieldUpdateOperationsInput | string
@@ -8752,7 +8691,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
     career: CareersCreateNestedOneWithoutWalkCareerInput
@@ -8763,7 +8701,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
     careersId: string
@@ -8774,7 +8711,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     career?: CareersUpdateOneRequiredWithoutWalkCareerNestedInput
@@ -8785,7 +8721,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careersId?: StringFieldUpdateOperationsInput | string
@@ -8796,7 +8731,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
     careersId: string
@@ -8807,7 +8741,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8817,7 +8750,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     careersId?: StringFieldUpdateOperationsInput | string
@@ -8828,7 +8760,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     careerId: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -8840,7 +8771,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     careerId: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -8852,7 +8782,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8864,7 +8793,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8876,7 +8804,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     careerId: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -8888,7 +8815,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8899,7 +8825,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9251,7 +9176,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -9260,7 +9184,6 @@ export namespace Prisma {
   export type CycleCareerAvgOrderByAggregateInput = {
     points?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
   }
 
   export type CycleCareerMaxOrderByAggregateInput = {
@@ -9268,7 +9191,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -9279,7 +9201,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -9288,7 +9209,6 @@ export namespace Prisma {
   export type CycleCareerSumOrderByAggregateInput = {
     points?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
   }
 
   export type WalkCareerCountOrderByAggregateInput = {
@@ -9296,7 +9216,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -9305,7 +9224,6 @@ export namespace Prisma {
   export type WalkCareerAvgOrderByAggregateInput = {
     points?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
   }
 
   export type WalkCareerMaxOrderByAggregateInput = {
@@ -9313,7 +9231,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -9324,7 +9241,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
     careersId?: SortOrder
@@ -9333,7 +9249,6 @@ export namespace Prisma {
   export type WalkCareerSumOrderByAggregateInput = {
     points?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
   }
 
   export type RunCareerCountOrderByAggregateInput = {
@@ -9341,7 +9256,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -9351,7 +9265,6 @@ export namespace Prisma {
   export type RunCareerAvgOrderByAggregateInput = {
     points?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
   }
 
   export type RunCareerMaxOrderByAggregateInput = {
@@ -9359,7 +9272,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -9371,7 +9283,6 @@ export namespace Prisma {
     points?: SortOrder
     currentMonth?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
     careerId?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -9381,7 +9292,6 @@ export namespace Prisma {
   export type RunCareerSumOrderByAggregateInput = {
     points?: SortOrder
     kilometers?: SortOrder
-    position?: SortOrder
   }
 
   export type CycleCareerListRelationFilter = {
@@ -10281,7 +10191,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -10291,7 +10200,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -10311,7 +10219,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -10321,7 +10228,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -10341,7 +10247,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     careerId: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -10352,7 +10257,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     careerId: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -10425,7 +10329,6 @@ export namespace Prisma {
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
     kilometers?: IntFilter | number
-    position?: IntFilter | number
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
     careersId?: StringFilter | string
@@ -10455,7 +10358,6 @@ export namespace Prisma {
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
     kilometers?: IntFilter | number
-    position?: IntFilter | number
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
     careersId?: StringFilter | string
@@ -10485,7 +10387,6 @@ export namespace Prisma {
     points?: IntFilter | number
     currentMonth?: DateTimeFilter | Date | string
     kilometers?: IntFilter | number
-    position?: IntFilter | number
     careerId?: StringFilter | string
     createAt?: DateTimeFilter | Date | string
     updateAt?: DateTimeFilter | Date | string
@@ -10822,7 +10723,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -10832,7 +10732,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     createAt?: Date | string
     updateAt?: Date | string
   }
@@ -10842,7 +10741,6 @@ export namespace Prisma {
     points: number
     currentMonth: Date | string
     kilometers: number
-    position?: number
     careerId: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -10853,7 +10751,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10863,7 +10760,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10873,7 +10769,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10883,7 +10778,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10893,7 +10787,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10903,7 +10796,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10913,7 +10805,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10924,7 +10815,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10935,7 +10825,6 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     currentMonth?: DateTimeFieldUpdateOperationsInput | Date | string
     kilometers?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
     careerId?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -27,23 +27,12 @@ async function getAllCyclesCareers(pagination: PaginationModel) {
       select: {
         points: true,
         currentMonth: true,
-        kilometers: true,
-        position: {
-          select: {
-            _count: true
-          }
-        }
-      },
-      where: {
-        points: {
-          gt: 0
-        }
+        kilometers: true
       },
       orderBy: {
-        points: 'desc'
+        points: true
       }
     })
-
     return allCycleCareers
   } catch (error) {
     throw new Error(error)
@@ -61,7 +50,16 @@ async function getOneCycleCareer(data: OneCyclesCareers) {
         kilometers: true
       }
     })
-    return cycleCareerEmploye
+
+    const rank = await prisma.cycleCareer.count({
+      where: {
+        points: {
+          gt: cycleCareerEmploye.points
+        }
+      }
+    })
+
+    return { cycleCareerEmploye, rank: +rank + 1 }
   } catch (error) {
     throw new Error(error)
   }
