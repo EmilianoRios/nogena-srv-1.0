@@ -1,5 +1,5 @@
 // @ts-ignore
-import { hash, compare } from 'https://deno.land/x/bcrypt/mod.ts'
+import { hash, compare, genSaltSync } from 'https://deno.land/x/bcrypt/mod.ts'
 // @ts-ignore
 import { create } from 'https://deno.land/x/djwt/mod.ts'
 import { prisma } from '../database/config.ts'
@@ -35,7 +35,8 @@ async function createNewEmployee(data: EmployeeModel) {
       throw new Error('El usuario ya existe.')
     }
 
-    const passwordHash = await hash(data?.password)
+    const salt = await genSaltSync(8)
+    const passwordHash = await hash(data?.password, salt)
 
     const newEmployee = await prisma.employee.create({
       data: {
@@ -185,7 +186,8 @@ async function updateOneEmployeePassword(data: EmployeeUpdatePasswordModel) {
       throw new Error('La contraseña actual ingresada no es correcta.')
     }
 
-    const passwordHash = await hash(data?.newPassword)
+    const salt = await genSaltSync(8)
+    const passwordHash = await hash(data?.newPassword, salt)
 
     const updateEmployee = await prisma.employee.update({
       where: {
