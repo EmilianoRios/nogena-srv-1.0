@@ -35,7 +35,7 @@ async function createNewEmployee(data: EmployeeModel) {
       throw new Error('El usuario ya existe.')
     }
 
-    /* const hash = await bcrypt.hash(data?.password) */
+    const passwordHash = await bcrypt.hash(data?.password)
 
     const newEmployee = await prisma.employee.create({
       data: {
@@ -43,8 +43,7 @@ async function createNewEmployee(data: EmployeeModel) {
         dni: data?.dni,
         phone: data?.phone,
         username: data?.username,
-        /* password: hash */
-        password: data?.password
+        password: passwordHash
       },
       select: {
         id: true,
@@ -186,14 +185,14 @@ async function updateOneEmployeePassword(data: EmployeeUpdatePasswordModel) {
       throw new Error('La contraseña actual ingresada no es correcta.')
     }
 
-    const hash = await bcrypt.hash(data?.newPassword)
+    const passwordHash = await bcrypt.hash(data?.newPassword)
 
     const updateEmployee = await prisma.employee.update({
       where: {
         id: data?.id
       },
       data: {
-        password: hash
+        password: passwordHash
       },
       select: {
         id: true,
