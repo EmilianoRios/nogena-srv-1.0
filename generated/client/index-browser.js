@@ -105,6 +105,7 @@ exports.Prisma.CycleCareerScalarFieldEnum = {
   points: 'points',
   currentMonth: 'currentMonth',
   kilometers: 'kilometers',
+  position: 'position',
   createAt: 'createAt',
   updateAt: 'updateAt',
   careersId: 'careersId'
@@ -139,6 +140,7 @@ exports.Prisma.RunCareerScalarFieldEnum = {
   points: 'points',
   currentMonth: 'currentMonth',
   kilometers: 'kilometers',
+  position: 'position',
   careerId: 'careerId',
   createAt: 'createAt',
   updateAt: 'updateAt',
@@ -162,6 +164,7 @@ exports.Prisma.WalkCareerScalarFieldEnum = {
   points: 'points',
   currentMonth: 'currentMonth',
   kilometers: 'kilometers',
+  position: 'position',
   createAt: 'createAt',
   updateAt: 'updateAt',
   careersId: 'careersId'

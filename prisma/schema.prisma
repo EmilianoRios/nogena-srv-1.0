@@ -33,6 +33,7 @@ model CycleCareer {
   points       Int
   currentMonth DateTime
   kilometers   Int
+  position     Int      @default(0)
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
   careersId    String
@@ -44,6 +45,7 @@ model WalkCareer {
   points       Int
   currentMonth DateTime
   kilometers   Int
+  position     Int      @default(0)
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
   careersId    String
@@ -55,6 +57,7 @@ model RunCareer {
   points       Int
   currentMonth DateTime
   kilometers   Int
+  position     Int      @default(0)
   careerId     String
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
