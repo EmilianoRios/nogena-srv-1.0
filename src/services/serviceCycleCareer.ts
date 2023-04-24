@@ -34,7 +34,7 @@ async function getAllCyclesCareers(pagination: PaginationModel) {
         kilometers: true
       },
       orderBy: {
-        points: true
+        points: 'desc'
       }
     })
     return allCycleCareers
@@ -72,7 +72,7 @@ async function getOneCycleCareer(data: OneCyclesCareers) {
       }
     })
 
-    return { cycleCareerEmploye, rank: +rank + +equalRanks + 1 }
+    return { cycleCareerEmploye, rank: +rank + +equalRanks }
   } catch (error) {
     throw new Error(error)
   }
