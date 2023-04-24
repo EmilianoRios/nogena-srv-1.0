@@ -9,7 +9,7 @@ async function createNewCycleCareer(data: CyclesCareersModel) {
     const newCycleCareer = await prisma.cycleCareer.create({
       data: {
         careersId: data?.careersId,
-        points: data?.points,
+        points: Math.round(+data?.kilometers * 1.33589),
         currentMonth: currentMonth,
         kilometers: data?.kilometers
       }
@@ -27,7 +27,18 @@ async function getAllCyclesCareers(pagination: PaginationModel) {
       select: {
         points: true,
         currentMonth: true,
-        kilometers: true
+        kilometers: true,
+        position: {
+          select: {
+            _count: true
+          },
+          where: {
+            points: { gt: { points: { _col: 'employee.points' } } }
+          }
+        }
+      },
+      orderBy: {
+        points: 'desc'
       }
     })
 
@@ -93,7 +104,7 @@ async function updateOneCycleCareer(data: CyclesCareersModel) {
         careersId: data?.careersId
       },
       data: {
-        points: data?.points,
+        points: Math.round(+data?.kilometers * 1.33589),
         currentMonth: data?.currentMonth,
         kilometers: data?.kilometers
       }
