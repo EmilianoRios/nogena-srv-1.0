@@ -8,7 +8,7 @@ const envVars = await load()
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: envVars.DATABASE_URL
+      url: Deno.env.get('DATABASE_URL')
     }
   }
 })

@@ -1,3 +1,4 @@
+import 'https://deno.land/std@0.184.0/dotenv/load.ts'
 // @ts-ignore
 import { Application, Router } from 'https://deno.land/x/oak/mod.ts'
 import { routesEmployee } from './src/routes/v1/routesEmployee.ts'
