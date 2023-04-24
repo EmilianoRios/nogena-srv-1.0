@@ -56,7 +56,7 @@ async function createNewEmployee(data: EmployeeModel) {
 
     const newCareer = await prisma.careers.create({
       data: {
-        employeeId: newEmployee.id
+        employeeId: newEmployee?.id
       },
       select: {
         id: true
