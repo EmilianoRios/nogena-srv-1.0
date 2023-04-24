@@ -1,9 +1,9 @@
 // @ts-ignore
 import { Prisma, PrismaClient } from '../generated/client/deno/edge.ts'
 // @ts-ignore
-import { config } from 'https://deno.land/std@0.163.0/dotenv/mod.ts'
+import { load } from 'https://deno.land/std@0.184.0/dotenv/mod.ts'
 
-const envVars = await config()
+const envVars = await load()
 
 const prisma = new PrismaClient({
   datasources: {
