@@ -1,6 +1,8 @@
 import 'https://deno.land/std@0.184.0/dotenv/load.ts'
 // @ts-ignore
 import { Application, Router } from 'https://deno.land/x/oak/mod.ts'
+// @ts-ignore
+import { oakCors } from 'https://deno.land/x/cors/mod.ts'
 import { routesEmployee } from './src/routes/v1/routesEmployee.ts'
 import { routesCareer } from './src/routes/v1/routesCareer.ts'
 import { routesCycleCareer } from './src/routes/v1/routesCycleCareer.ts'
@@ -23,6 +25,7 @@ router.use(prefix + 'post', routesPost.routes())
 router.use(prefix + 'comment', routesComment.routes())
 
 app.use(router.routes())
+app.use(oakCors())
 app.use(routesEmployee.allowedMethods())
 
 await app.listen({ port: 8000 })
