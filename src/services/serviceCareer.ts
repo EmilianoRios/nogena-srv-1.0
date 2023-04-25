@@ -205,7 +205,7 @@ async function getOneCareer(data: OneCareerModel) {
       where: {
         employeeId: data?.employeeId
       },
-      select: {
+      include: {
         employee: {
           select: {
             id: true,

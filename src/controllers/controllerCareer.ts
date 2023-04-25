@@ -67,25 +67,21 @@ async function getOneCareer(ctx: Context) {
 
     const careerEmployee = await careersService.getOneCareer({ employeeId })
 
-    const lenAllCareers = careerEmployee.length
-    let dataOneCareers = []
+    const dataCareerEmployee = careerEmployee[0]
 
-    for (let i = 0; i < lenAllCareers; i++) {
-      let dataEmployee = {
-        employee: careerEmployee[i]?.employee,
-        careers: [
-          { cycle: careerEmployee[i]?.cycleCareer },
-          { run: careerEmployee[i]?.runCareer },
-          { walk: careerEmployee[i]?.walkCareer }
-        ]
-      }
-      dataOneCareers.push(dataEmployee)
+    let dataEmployee = {
+      employee: dataCareerEmployee?.employee,
+      careers: [
+        { cycle: dataCareerEmployee?.cycleCareer },
+        { run: dataCareerEmployee?.runCareer },
+        { walk: dataCareerEmployee?.walkCareer }
+      ]
     }
 
     ctx.response.status = 200
     ctx.response.body = {
       status: 'OK',
-      data: dataOneCareers
+      data: dataEmployee
     }
   } catch (error) {
     ctx.response.status = 500
