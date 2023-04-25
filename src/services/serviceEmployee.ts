@@ -22,7 +22,7 @@ async function createNewEmployee(data: EmployeeModel) {
     })
 
     if (employeeUsername) {
-      throw new Error('El usuario ya existe.')
+      throw 'El usuario ya existe.'
     }
 
     const employeeDni = await prisma.employee.findUnique({
@@ -32,7 +32,7 @@ async function createNewEmployee(data: EmployeeModel) {
     })
 
     if (employeeDni) {
-      throw new Error('El usuario ya existe.')
+      throw 'El usuario ya existe.'
     }
 
     const passwordHash = await hash(data?.password)
@@ -120,7 +120,7 @@ async function deleteOneEmployee(id: string) {
     })
 
     if (!employee) {
-      throw new Error('Usuario no encontrado.')
+      throw 'Usuario no encontrado.'
     }
 
     await prisma.employee.delete({
@@ -144,7 +144,7 @@ async function updateOneEmployee(data: EmployeeUpdateModel) {
     })
 
     if (!employee) {
-      throw new Error('Usuario no encontrado.')
+      throw 'Usuario no encontrado.'
     }
 
     const updateEmployee = await prisma.employee.update({
@@ -177,13 +177,13 @@ async function updateOneEmployeePassword(data: EmployeeUpdatePasswordModel) {
     })
 
     if (!employee) {
-      throw new Error('Usuario no encontrado.')
+      throw 'Usuario no encontrado.'
     }
 
     const match = await verify(data?.password, employee?.password)
 
     if (!match) {
-      throw new Error('La contraseña actual ingresada no es correcta.')
+      throw 'La contraseña actual ingresada no es correcta.'
     }
 
     const passwordHash = await hash(data?.newPassword)
@@ -221,19 +221,29 @@ async function logInUser(data: EmployeeLogInModel) {
         dni: true,
         phone: true,
         username: true,
-        password: true
+        password: true,
+        role: true
       }
     })
 
     if (!foundedUser) {
-      throw new Error('Correo o contraseña incorrectas')
+      throw 'Correo o contraseña incorrectas'
     }
 
     const match = await verify(data?.password, foundedUser?.password)
 
     if (!match) {
-      throw new Error('Correo o contraseña incorrectas')
+      throw 'Correo o contraseña incorrectas'
     }
+
+    const careerIdEmployee = await prisma.careers.findMany({
+      where: {
+        employeeId: foundedUser?.id
+      },
+      select: {
+        id: true
+      }
+    })
 
     const accessToken = await create(
       {
@@ -248,7 +258,13 @@ async function logInUser(data: EmployeeLogInModel) {
 
     const loggedUser = {
       token: accessToken,
-      id: foundedUser?.id
+      id: foundedUser?.id,
+      fullName: foundedUser?.fullName,
+      dni: foundedUser?.dni,
+      phone: foundedUser?.phone,
+      username: foundedUser?.username,
+      role: foundedUser?.role,
+      careerId: careerIdEmployee[0]?.id
     }
 
     return loggedUser
@@ -268,7 +284,8 @@ async function authenticateToken(data: EmployeeAccessToken) {
         fullName: true,
         dni: true,
         phone: true,
-        username: true
+        username: true,
+        role: true
       }
     })
 
@@ -277,7 +294,21 @@ async function authenticateToken(data: EmployeeAccessToken) {
       throw error
     }
 
-    return foundedUserWithTokenId
+    const careerIdEmployee = await prisma.careers.findMany({
+      where: {
+        employeeId: foundedUserWithTokenId?.id
+      },
+      select: {
+        id: true
+      }
+    })
+
+    const user = {
+      ...foundedUserWithTokenId,
+      careerId: careerIdEmployee[0]?.id
+    }
+
+    return user
   } catch (error) {
     throw new Error(error)
   }
