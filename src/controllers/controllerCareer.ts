@@ -33,9 +33,9 @@ async function getAllCareers(ctx: Context) {
       let dataEmployee = {
         employee: allCareers[i]?.employee,
         carrers: {
-          cycle: allCareers[i]?.cycleCareer,
-          run: allCareers[i]?.runCareer,
-          walk: allCareers[i]?.walkCareer
+          cycles: allCareers[i]?.cycleCareer,
+          runs: allCareers[i]?.runCareer,
+          walks: allCareers[i]?.walkCareer
         }
       }
       dataAllCareers.push(dataEmployee)

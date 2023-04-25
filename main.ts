@@ -15,7 +15,7 @@ const router = new Router()
 const prefix = '/api/v1/'
 
 router.use(prefix + 'employee', routesEmployee.routes())
-router.use(prefix + 'careers', routesCareer.routes())
+router.use(prefix + 'career', routesCareer.routes())
 router.use(prefix + 'cyclecareer', routesCycleCareer.routes())
 router.use(prefix + 'runcareer', routesRunCareer.routes())
 router.use(prefix + 'walkcareer', routesWalkCareer.routes())
