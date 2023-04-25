@@ -12,6 +12,7 @@ import { routesPost } from './src/routes/v1/routesPost.ts'
 import { routesComment } from './src/routes/v1/routesComment.ts'
 
 const app = new Application()
+app.use(oakCors({ origin: '*' }))
 const router = new Router()
 
 const prefix = '/api/v1/'
@@ -25,7 +26,6 @@ router.use(prefix + 'post', routesPost.routes())
 router.use(prefix + 'comment', routesComment.routes())
 
 app.use(router.routes())
-app.use(oakCors({ origin: 'http://localhost:5173/' }))
 app.use(routesEmployee.allowedMethods())
 
 await app.listen({ port: 8000 })
