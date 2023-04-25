@@ -50,7 +50,8 @@ async function createNewEmployee(data: EmployeeModel) {
         fullName: true,
         dni: true,
         phone: true,
-        username: true
+        username: true,
+        role: true
       }
     })
 
