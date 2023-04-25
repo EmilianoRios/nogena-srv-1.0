@@ -299,11 +299,11 @@ async function getOneCareer(data: OneCareerModel) {
 
         rankCareerEmployee = {
           employee: career?.employee,
-          careers: {
-            cycle: [...career?.cycleCareer],
-            run: [...career?.runCareer],
-            walk: [...career?.walkCareer]
-          }
+          careers: [
+            { cycle: [...career?.cycleCareer] },
+            { run: [...career?.runCareer] },
+            { walk: [...career?.walkCareer] }
+          ]
         }
 
         index++
@@ -346,11 +346,11 @@ async function getOneCareer(data: OneCareerModel) {
 
         rankCareerEmployee = {
           employee: career?.employee,
-          careers: {
-            cycle: [...career?.cycleCareer],
-            run: [...career?.runCareer],
-            walk: [...career?.walkCareer]
-          }
+          careers: [
+            { cycle: [...career?.cycleCareer] },
+            { run: [...career?.runCareer] },
+            { walk: [...career?.walkCareer] }
+          ]
         }
 
         index++
@@ -393,11 +393,11 @@ async function getOneCareer(data: OneCareerModel) {
 
         rankCareerEmployee = {
           employee: career?.employee,
-          careers: {
-            cycle: [...career?.cycleCareer],
-            run: [...career?.runCareer],
-            walk: [...career?.walkCareer]
-          }
+          careers: [
+            { cycle: [...career?.cycleCareer] },
+            { run: [...career?.runCareer] },
+            { walk: [...career?.walkCareer] }
+          ]
         }
 
         index++
