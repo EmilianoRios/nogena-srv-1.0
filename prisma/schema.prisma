@@ -55,7 +55,6 @@ model RunCareer {
   points       Int
   currentMonth DateTime
   kilometers   Int
-  careerId     String
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
   careersId    String

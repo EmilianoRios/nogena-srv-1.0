@@ -139,7 +139,6 @@ exports.Prisma.RunCareerScalarFieldEnum = {
   points: 'points',
   currentMonth: 'currentMonth',
   kilometers: 'kilometers',
-  careerId: 'careerId',
   createAt: 'createAt',
   updateAt: 'updateAt',
   careersId: 'careersId'
