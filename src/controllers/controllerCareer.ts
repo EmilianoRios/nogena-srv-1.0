@@ -32,10 +32,10 @@ async function getAllCareers(ctx: Context) {
     for (let i = 0; i < lenAllCareers; i++) {
       let dataEmployee = {
         employee: allCareers[i]?.employee,
-        carrers: {
-          cycles: allCareers[i]?.cycleCareer,
-          runs: allCareers[i]?.runCareer,
-          walks: allCareers[i]?.walkCareer
+        careers: {
+          cycle: allCareers[i]?.cycleCareer,
+          run: allCareers[i]?.runCareer,
+          walk: allCareers[i]?.walkCareer
         }
       }
       dataAllCareers.push(dataEmployee)
@@ -73,10 +73,10 @@ async function getOneCareer(ctx: Context) {
     for (let i = 0; i < lenAllCareers; i++) {
       let dataEmployee = {
         employee: careerEmployee[i]?.employee,
-        carrers: {
-          cycles: careerEmployee[i]?.cycleCareer,
-          runs: careerEmployee[i]?.runCareer,
-          walks: careerEmployee[i]?.walkCareer
+        careers: {
+          cycle: careerEmployee[i]?.cycleCareer,
+          run: careerEmployee[i]?.runCareer,
+          walk: careerEmployee[i]?.walkCareer
         }
       }
       dataOneCareers.push(dataEmployee)
