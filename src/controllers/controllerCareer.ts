@@ -70,12 +70,9 @@ async function getOneCareer(ctx: Context) {
     const dataCareerEmployee = careerEmployee[0]
 
     let dataEmployee = {
-      employee: dataCareerEmployee?.employee,
-      careers: [
-        { cycle: dataCareerEmployee?.cycleCareer },
-        { run: dataCareerEmployee?.runCareer },
-        { walk: dataCareerEmployee?.walkCareer }
-      ]
+      cycle: dataCareerEmployee?.cycleCareer,
+      run: dataCareerEmployee?.runCareer,
+      walk: dataCareerEmployee?.walkCareer
     }
 
     ctx.response.status = 200

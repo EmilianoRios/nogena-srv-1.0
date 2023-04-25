@@ -206,15 +206,6 @@ async function getOneCareer(data: OneCareerModel) {
         employeeId: data?.employeeId
       },
       include: {
-        employee: {
-          select: {
-            id: true,
-            fullName: true,
-            dni: true,
-            phone: true,
-            username: true
-          }
-        },
         cycleCareer: {
           select: {
             id: true,
