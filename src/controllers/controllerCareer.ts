@@ -26,10 +26,25 @@ async function getAllCareers(ctx: Context) {
 
     const allCareers = await careersService.getAllCareers({ skip, take })
 
+    const lenAllCareers = allCareers.length
+    let dataAllCareers = []
+
+    for (let i = 0; i < lenAllCareers; i++) {
+      let dataEmployee = {
+        employee: allCareers[i]?.employee,
+        carrers: {
+          cycle: allCareers[i]?.cycleCareer,
+          run: allCareers[i]?.runCareer,
+          walk: allCareers[i]?.walkCareer
+        }
+      }
+      dataAllCareers.push(dataEmployee)
+    }
+
     ctx.response.status = 200
     ctx.response.body = {
       status: 'OK',
-      data: allCareers
+      data: dataAllCareers
     }
   } catch (error) {
     ctx.response.status = 500

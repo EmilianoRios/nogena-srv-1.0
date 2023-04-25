@@ -72,7 +72,7 @@ async function getOneCycleCareer(data: OneCyclesCareers) {
       }
     })
 
-    return { cycleCareerEmploye, rank: +rank + +equalRanks }
+    return { ...cycleCareerEmploye, rank: +rank + +equalRanks }
   } catch (error) {
     throw new Error(error)
   }

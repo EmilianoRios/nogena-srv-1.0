@@ -33,6 +33,7 @@ async function getAllCareers(pagination: PaginationModel) {
       select: {
         employee: {
           select: {
+            id: true,
             fullName: true,
             dni: true,
             phone: true,
@@ -71,6 +72,130 @@ async function getAllCareers(pagination: PaginationModel) {
         }
       }
     })
+
+    let rankNumber: number
+    let index: number = 0
+    let listRankCareerEmployee = []
+    let rankCareerEmployee = {}
+    let lenAllCareers = allCareers.length
+
+    for (let i = 0; i < lenAllCareers; i++) {
+      let lenCycle = allCareers[i].cycleCareer.length
+      for (let a = 0; a < lenCycle; a++) {
+        const cycleCareerEmployee = await prisma.cycleCareer.findUnique({
+          where: {
+            id: allCareers[i].cycleCareer[a]?.id
+          },
+          select: {
+            points: true,
+            currentMonth: true,
+            kilometers: true
+          }
+        })
+
+        const rank = await prisma.cycleCareer.count({
+          where: {
+            points: {
+              gt: cycleCareerEmployee.points
+            }
+          }
+        })
+
+        const equalRanks = await prisma.cycleCareer.count({
+          where: {
+            points: cycleCareerEmployee.points,
+            id: {
+              lt: cycleCareerEmployee.id
+            }
+          }
+        })
+
+        rankNumber = rank + equalRanks
+
+        allCareers[i].cycleCareer[a].rank = rankNumber
+
+        index++
+      }
+    }
+
+    for (let i = 0; i < lenAllCareers; i++) {
+      let lenWalk = allCareers[i].walkCareer.length
+      for (let a = 0; a < lenWalk; a++) {
+        const walkCareerEmployee = await prisma.walkCareer.findUnique({
+          where: {
+            id: allCareers[i].walkCareer[a]?.id
+          },
+          select: {
+            points: true,
+            currentMonth: true,
+            kilometers: true
+          }
+        })
+
+        const rank = await prisma.walkCareer.count({
+          where: {
+            points: {
+              gt: walkCareerEmployee.points
+            }
+          }
+        })
+
+        const equalRanks = await prisma.walkCareer.count({
+          where: {
+            points: walkCareerEmployee.points,
+            id: {
+              lt: walkCareerEmployee.id
+            }
+          }
+        })
+
+        rankNumber = rank + equalRanks
+
+        allCareers[i].cycleCareer[a].rank = rankNumber
+
+        index++
+      }
+    }
+
+    for (let i = 0; i < lenAllCareers; i++) {
+      let lenRun = allCareers[i].runCareer.length
+      for (let a = 0; a < lenRun; a++) {
+        const runCareerEmployee = await prisma.runCareer.findUnique({
+          where: {
+            id: allCareers[i].runCareer[a]?.id
+          },
+          select: {
+            points: true,
+            currentMonth: true,
+            kilometers: true
+          }
+        })
+
+        const rank = await prisma.runCareer.count({
+          where: {
+            points: {
+              gt: runCareerEmployee.points
+            }
+          }
+        })
+
+        const equalRanks = await prisma.runCareer.count({
+          where: {
+            points: runCareerEmployee.points,
+            id: {
+              lt: runCareerEmployee.id
+            }
+          }
+        })
+
+        rankNumber = rank + equalRanks
+
+        allCareers[i].runCareer[a].rank = rankNumber
+
+        index++
+      }
+    }
+
     return allCareers
   } catch (error) {
     throw new Error(error)
@@ -78,18 +203,208 @@ async function getAllCareers(pagination: PaginationModel) {
 }
 async function getOneCareer(data: OneCareerModel) {
   try {
-    const careerEmployee = await prisma.careers.findUnique({
+    const careerEmployee = await prisma.careers.findMany({
       where: {
         employeeId: data?.employeeId
       },
       select: {
-        employeeId: true,
-        cycleCareer: true,
-        walkCareer: true,
-        runCareer: true
+        employee: {
+          select: {
+            id: true,
+            fullName: true,
+            dni: true,
+            phone: true,
+            username: true
+          }
+        },
+        cycleCareer: {
+          select: {
+            id: true,
+            points: true,
+            currentMonth: true,
+            kilometers: true,
+            createAt: true,
+            updateAt: true
+          },
+          orderBy: {
+            currentMonth: 'desc'
+          }
+        },
+        walkCareer: {
+          select: {
+            id: true,
+            points: true,
+            currentMonth: true,
+            kilometers: true,
+            createAt: true,
+            updateAt: true
+          },
+          orderBy: {
+            currentMonth: 'desc'
+          }
+        },
+        runCareer: {
+          select: {
+            id: true,
+            points: true,
+            currentMonth: true,
+            kilometers: true,
+            createAt: true,
+            updateAt: true
+          },
+          orderBy: {
+            currentMonth: 'desc'
+          }
+        }
       }
     })
-    return careerEmployee
+
+    let rankNumber: number
+    let index: number = 0
+    let rankCareerEmployee = {}
+
+    for (const career of careerEmployee) {
+      for (const careers of career?.cycleCareer) {
+        const cycleCareerEmployee = await prisma.cycleCareer.findUnique({
+          where: {
+            id: careers?.id
+          },
+          select: {
+            points: true,
+            currentMonth: true,
+            kilometers: true
+          }
+        })
+
+        const rank = await prisma.cycleCareer.count({
+          where: {
+            points: {
+              gt: cycleCareerEmployee.points
+            }
+          }
+        })
+
+        const equalRanks = await prisma.cycleCareer.count({
+          where: {
+            points: cycleCareerEmployee.points,
+            id: {
+              lt: cycleCareerEmployee.id
+            }
+          }
+        })
+
+        rankNumber = rank + equalRanks
+
+        career.cycleCareer[index].rank = rankNumber
+
+        rankCareerEmployee = {
+          employee: career?.employee,
+          careers: {
+            cycle: [...career?.cycleCareer],
+            run: [...career?.runCareer],
+            walk: [...career?.walkCareer]
+          }
+        }
+
+        index++
+      }
+    }
+
+    for (const career of careerEmployee) {
+      for (const careers of career?.runCareer) {
+        const runCareerEmployee = await prisma.runCareer.findUnique({
+          where: {
+            id: careers?.id
+          },
+          select: {
+            points: true,
+            currentMonth: true,
+            kilometers: true
+          }
+        })
+
+        const rank = await prisma.runCareer.count({
+          where: {
+            points: {
+              gt: runCareerEmployee.points
+            }
+          }
+        })
+
+        const equalRanks = await prisma.runCareer.count({
+          where: {
+            points: runCareerEmployee.points,
+            id: {
+              lt: runCareerEmployee.id
+            }
+          }
+        })
+
+        rankNumber = rank + equalRanks
+
+        career.runCareer[index].rank = rankNumber
+
+        rankCareerEmployee = {
+          employee: career?.employee,
+          careers: {
+            cycle: [...career?.cycleCareer],
+            run: [...career?.runCareer],
+            walk: [...career?.walkCareer]
+          }
+        }
+
+        index++
+      }
+    }
+
+    for (const career of careerEmployee) {
+      for (const careers of career?.walkCareer) {
+        const walkCareerEmployee = await prisma.walkCareer.findUnique({
+          where: {
+            id: careers?.id
+          },
+          select: {
+            points: true,
+            currentMonth: true,
+            kilometers: true
+          }
+        })
+
+        const rank = await prisma.walkCareer.count({
+          where: {
+            points: {
+              gt: walkCareerEmployee.points
+            }
+          }
+        })
+
+        const equalRanks = await prisma.walkCareer.count({
+          where: {
+            points: walkCareerEmployee.points,
+            id: {
+              lt: walkCareerEmployee.id
+            }
+          }
+        })
+
+        rankNumber = rank + equalRanks
+
+        career.walkCareer[index].rank = rankNumber
+
+        rankCareerEmployee = {
+          employee: career?.employee,
+          careers: {
+            cycle: [...career?.cycleCareer],
+            run: [...career?.runCareer],
+            walk: [...career?.walkCareer]
+          }
+        }
+
+        index++
+      }
+    }
+
+    return rankCareerEmployee
   } catch (error) {
     throw new Error(error)
   }
