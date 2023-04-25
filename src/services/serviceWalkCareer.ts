@@ -1,5 +1,9 @@
 import { prisma } from '../database/config.ts'
-import { OneWalksCareers, WalksCareersModel } from '../models/walkCareer.ts'
+import {
+  OneWalkCareers,
+  WalksCareersModel,
+  WalksCareersUpdateModel
+} from '../models/walkCareer.ts'
 import { PaginationModel } from '../models/pagination.ts'
 
 async function createNewWalkCareer(data: WalksCareersModel) {
@@ -9,7 +13,7 @@ async function createNewWalkCareer(data: WalksCareersModel) {
     const newWalkCareer = await prisma.walkCareer.create({
       data: {
         careersId: data?.careersId,
-        points: data?.points,
+        points: Math.round(+data?.kilometers * 1.33589),
         currentMonth: currentMonth,
         kilometers: data?.kilometers
       }
@@ -28,19 +32,21 @@ async function getAllWalksCareers(pagination: PaginationModel) {
         points: true,
         currentMonth: true,
         kilometers: true
+      },
+      orderBy: {
+        points: 'desc'
       }
     })
-
     return allWalkCareers
   } catch (error) {
     throw new Error(error)
   }
 }
-async function getOneWalkCareer(data: OneWalksCareers) {
+async function getOneWalkCareer(data: OneWalkCareers) {
   try {
     const walkCareerEmploye = await prisma.walkCareer.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.walkCareerId
       },
       select: {
         points: true,
@@ -48,16 +54,34 @@ async function getOneWalkCareer(data: OneWalksCareers) {
         kilometers: true
       }
     })
-    return walkCareerEmploye
+
+    const rank = await prisma.walkCareer.count({
+      where: {
+        points: {
+          gt: walkCareerEmploye.points
+        }
+      }
+    })
+
+    const equalRanks = await prisma.walkCareer.count({
+      where: {
+        points: walkCareerEmploye.points,
+        id: {
+          lt: walkCareerEmploye.id
+        }
+      }
+    })
+
+    return { ...walkCareerEmploye, rank: +rank + +equalRanks }
   } catch (error) {
     throw new Error(error)
   }
 }
-async function deleteOneWalkCareer(data: OneWalksCareers) {
+async function deleteOneWalkCareer(data: OneWalkCareers) {
   try {
     const walkCareerEmploye = await prisma.walkCareer.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.walkCareerId
       }
     })
 
@@ -67,7 +91,7 @@ async function deleteOneWalkCareer(data: OneWalksCareers) {
 
     await prisma.walkcareer.delete({
       where: {
-        careersId: data?.careersId
+        id: data?.walkCareerId
       }
     })
 
@@ -76,11 +100,11 @@ async function deleteOneWalkCareer(data: OneWalksCareers) {
     throw new Error(error)
   }
 }
-async function updateOneWalkCareer(data: WalksCareersModel) {
+async function updateOneWalkCareer(data: WalksCareersUpdateModel) {
   try {
     const walkCareerEmploye = await prisma.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.walkCareerId
       }
     })
 
@@ -90,10 +114,10 @@ async function updateOneWalkCareer(data: WalksCareersModel) {
 
     const updateWalkCareer = await prisma.walkCareer.update({
       where: {
-        careersId: data?.careersId
+        careersId: data?.walkCareerId
       },
       data: {
-        points: data?.points,
+        points: Math.round(+data?.kilometers * 1.33589),
         currentMonth: data?.currentMonth,
         kilometers: data?.kilometers
       }

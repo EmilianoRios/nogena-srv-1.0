@@ -5,9 +5,9 @@ import * as runCareersService from '../services/serviceRunCareer.ts'
 async function createNewRunCareer(ctx: Context) {
   try {
     const body = await ctx.request.body('json').value
-    const { careersId, points, currentMonth, kilometers } = body
+    const { careersId, currentMonth, kilometers } = body
 
-    if (!careersId || !points || !currentMonth || !kilometers) {
+    if (!careersId || !currentMonth || !kilometers) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -18,7 +18,6 @@ async function createNewRunCareer(ctx: Context) {
 
     const newRunCareer = await runCareersService.createNewRunCareer({
       careersId,
-      points,
       currentMonth,
       kilometers
     })
@@ -57,9 +56,9 @@ async function getAllRunsCareers(ctx: Context) {
 
 async function getOneRunCareer(ctx: Context) {
   try {
-    const careersId = await ctx.params.careersId
+    const runCareerId = await ctx.params.runCareerId
 
-    if (!careersId) {
+    if (!runCareerId) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -69,7 +68,7 @@ async function getOneRunCareer(ctx: Context) {
     }
 
     const runCareerEmployee = await runCareersService.getOneRunCareer({
-      careersId
+      runCareerId
     })
 
     ctx.response.status = 200
@@ -85,9 +84,9 @@ async function getOneRunCareer(ctx: Context) {
 
 async function deleteOneRunCareer(ctx: Context) {
   try {
-    const careersId = await ctx.params.careersId
+    const runCareerId = await ctx.params.runCareerId
 
-    if (!careersId) {
+    if (!runCareerId) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -95,7 +94,7 @@ async function deleteOneRunCareer(ctx: Context) {
       }
     }
 
-    await runCareersService.deleteOneRunCareer({ careersId })
+    await runCareersService.deleteOneRunCareer({ runCareerId })
 
     ctx.response.status = 204
   } catch (error) {
@@ -107,9 +106,9 @@ async function deleteOneRunCareer(ctx: Context) {
 async function updateOneRunCareer(ctx: Context) {
   try {
     const body = await ctx.request.body('json').value
-    const { careersId, points, currentMonth, kilometers } = body
+    const { runCareerId, points, currentMonth, kilometers } = body
 
-    if (!careersId || !points || !currentMonth || !kilometers) {
+    if (!runCareerId || !points || !currentMonth || !kilometers) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -119,8 +118,7 @@ async function updateOneRunCareer(ctx: Context) {
     }
 
     const updatedRunCareer = await runCareersService.updateOneRunCareer({
-      careersId,
-      points,
+      runCareerId,
       currentMonth,
       kilometers
     })

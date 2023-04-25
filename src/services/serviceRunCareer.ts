@@ -1,5 +1,9 @@
 import { prisma } from '../database/config.ts'
-import { OneRunsCareers, RunsCareersModel } from '../models/runCareer.ts'
+import {
+  OneRunCareers,
+  RunsCareersModel,
+  RunsCareersUpdateModel
+} from '../models/runCareer.ts'
 import { PaginationModel } from '../models/pagination.ts'
 
 async function createNewRunCareer(data: RunsCareersModel) {
@@ -9,7 +13,7 @@ async function createNewRunCareer(data: RunsCareersModel) {
     const newRunCareer = await prisma.runCareer.create({
       data: {
         careersId: data?.careersId,
-        points: data?.points,
+        points: Math.round(+data?.kilometers * 1.33589),
         currentMonth: currentMonth,
         kilometers: data?.kilometers
       }
@@ -28,19 +32,21 @@ async function getAllRunsCareers(pagination: PaginationModel) {
         points: true,
         currentMonth: true,
         kilometers: true
+      },
+      orderBy: {
+        points: 'desc'
       }
     })
-
     return allRunCareers
   } catch (error) {
     throw new Error(error)
   }
 }
-async function getOneRunCareer(data: OneRunsCareers) {
+async function getOneRunCareer(data: OneRunCareers) {
   try {
     const runCareerEmploye = await prisma.runCareer.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.runCareerId
       },
       select: {
         points: true,
@@ -48,16 +54,34 @@ async function getOneRunCareer(data: OneRunsCareers) {
         kilometers: true
       }
     })
-    return runCareerEmploye
+
+    const rank = await prisma.runCareer.count({
+      where: {
+        points: {
+          gt: runCareerEmploye.points
+        }
+      }
+    })
+
+    const equalRanks = await prisma.runCareer.count({
+      where: {
+        points: runCareerEmploye.points,
+        id: {
+          lt: runCareerEmploye.id
+        }
+      }
+    })
+
+    return { ...runCareerEmploye, rank: +rank + +equalRanks }
   } catch (error) {
     throw new Error(error)
   }
 }
-async function deleteOneRunCareer(data: OneRunsCareers) {
+async function deleteOneRunCareer(data: OneRunCareers) {
   try {
     const runCareerEmploye = await prisma.runCareer.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.runCareerId
       }
     })
 
@@ -67,7 +91,7 @@ async function deleteOneRunCareer(data: OneRunsCareers) {
 
     await prisma.runcareer.delete({
       where: {
-        careersId: data?.careersId
+        id: data?.runCareerId
       }
     })
 
@@ -76,11 +100,11 @@ async function deleteOneRunCareer(data: OneRunsCareers) {
     throw new Error(error)
   }
 }
-async function updateOneRunCareer(data: RunsCareersModel) {
+async function updateOneRunCareer(data: RunsCareersUpdateModel) {
   try {
     const runCareerEmploye = await prisma.findUnique({
       where: {
-        careersId: data?.careersId
+        id: data?.runCareerId
       }
     })
 
@@ -90,10 +114,10 @@ async function updateOneRunCareer(data: RunsCareersModel) {
 
     const updateRunCareer = await prisma.runCareer.update({
       where: {
-        careersId: data?.careersId
+        careersId: data?.runCareerId
       },
       data: {
-        points: data?.points,
+        points: Math.round(+data?.kilometers * 1.33589),
         currentMonth: data?.currentMonth,
         kilometers: data?.kilometers
       }

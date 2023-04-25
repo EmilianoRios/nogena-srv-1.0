@@ -1,12 +1,17 @@
 interface RunsCareersModel {
   careersId: string
-  points: number
   currentMonth: string
   kilometers: number
 }
 
-interface OneRunsCareers {
-  careersId: string
+interface RunsCareersUpdateModel {
+  runCareerId: string
+  currentMonth: string
+  kilometers: number
 }
 
-export { RunsCareersModel, OneRunsCareers }
+interface OneRunCareers {
+  runCareerId: string
+}
+
+export { RunsCareersModel, RunsCareersUpdateModel, OneRunCareers }

@@ -8,6 +8,6 @@ export const routesWalkCareer = new Router()
 routesWalkCareer
   .post('/', walkCareerController.createNewWalkCareer)
   .get('/', walkCareerController.getAllWalksCareers)
-  .get('/:careerId', walkCareerController.getOneWalkCareer)
-  .delete('/:careerId', walkCareerController.deleteOneWalkCareer)
+  .get('/:walkCareerId', walkCareerController.getOneWalkCareer)
+  .delete('/:walkCareerId', walkCareerController.deleteOneWalkCareer)
   .patch('/', walkCareerController.updateOneWalkCareer)

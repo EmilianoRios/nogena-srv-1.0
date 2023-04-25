@@ -18,7 +18,6 @@ async function createNewWalkCareer(ctx: Context) {
 
     const newWalkCareer = await walkCareersService.createNewWalkCareer({
       careersId,
-      points,
       currentMonth,
       kilometers
     })
@@ -57,9 +56,9 @@ async function getAllWalksCareers(ctx: Context) {
 
 async function getOneWalkCareer(ctx: Context) {
   try {
-    const careersId = await ctx.params.careersId
+    const walkCareerId = await ctx.params.walkCareerId
 
-    if (!careersId) {
+    if (!walkCareerId) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -69,7 +68,7 @@ async function getOneWalkCareer(ctx: Context) {
     }
 
     const walkCareerEmployee = await walkCareersService.getOneWalkCareer({
-      careersId
+      walkCareerId
     })
 
     ctx.response.status = 200
@@ -85,9 +84,9 @@ async function getOneWalkCareer(ctx: Context) {
 
 async function deleteOneWalkCareer(ctx: Context) {
   try {
-    const careersId = await ctx.params.careersId
+    const walkCareerId = await ctx.params.walkCareerId
 
-    if (!careersId) {
+    if (!walkCareerId) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -95,7 +94,7 @@ async function deleteOneWalkCareer(ctx: Context) {
       }
     }
 
-    await walkCareersService.deleteOneWalkCareer({ careersId })
+    await walkCareersService.deleteOneWalkCareer({ walkCareerId })
 
     ctx.response.status = 204
   } catch (error) {
@@ -107,9 +106,9 @@ async function deleteOneWalkCareer(ctx: Context) {
 async function updateOneWalkCareer(ctx: Context) {
   try {
     const body = await ctx.request.body('json').value
-    const { careersId, points, currentMonth, kilometers } = body
+    const { walkCareerId, points, currentMonth, kilometers } = body
 
-    if (!careersId || !points || !currentMonth || !kilometers) {
+    if (!walkCareerId || !points || !currentMonth || !kilometers) {
       ctx.response.status = 500
       ctx.response.body = {
         status: 'FAILED',
@@ -119,8 +118,7 @@ async function updateOneWalkCareer(ctx: Context) {
     }
 
     const updatedWalkCareer = await walkCareersService.updateOneWalkCareer({
-      careersId,
-      points,
+      walkCareerId,
       currentMonth,
       kilometers
     })

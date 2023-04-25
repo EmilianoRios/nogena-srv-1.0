@@ -8,6 +8,6 @@ export const routesRunCareer = new Router()
 routesRunCareer
   .post('/', runCareerController.createNewRunCareer)
   .get('/', runCareerController.getAllRunsCareers)
-  .get('/:careerId', runCareerController.getOneRunCareer)
-  .delete('/:careerId', runCareerController.deleteOneRunCareer)
+  .get('/:runCareerId', runCareerController.getOneRunCareer)
+  .delete('/:runCareerId', runCareerController.deleteOneRunCareer)
   .patch('/', runCareerController.updateOneRunCareer)

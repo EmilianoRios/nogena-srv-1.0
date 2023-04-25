@@ -1,12 +1,17 @@
 interface WalksCareersModel {
   careersId: string
-  points: number
   currentMonth: string
   kilometers: number
 }
 
-interface OneWalksCareers {
-  careersId: string
+interface WalksCareersUpdateModel {
+  walkCareerId: string
+  currentMonth: string
+  kilometers: number
 }
 
-export { WalksCareersModel, OneWalksCareers }
+interface OneWalkCareers {
+  walkCareerId: string
+}
+
+export { WalksCareersModel, WalksCareersUpdateModel, OneWalkCareers }
