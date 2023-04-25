@@ -26,6 +26,6 @@ router.use(prefix + 'post', routesPost.routes())
 router.use(prefix + 'comment', routesComment.routes())
 
 app.use(router.routes())
-app.use(routesEmployee.allowedMethods())
+app.use(router.allowedMethods())
 
 await app.listen({ port: 8000 })
