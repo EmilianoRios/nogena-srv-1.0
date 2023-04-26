@@ -31,20 +31,69 @@ async function getAllCareers(ctx: Context) {
 
     for (let i = 0; i < lenAllCareers; i++) {
       let dataEmployee = {
-        employee: allCareers[i]?.employee,
-        careers: [
-          { cycle: allCareers[i]?.cycleCareer },
-          { run: allCareers[i]?.runCareer },
-          { walk: allCareers[i]?.walkCareer }
-        ]
+        cycle: allCareers[i]?.cycleCareer,
+        run: allCareers[i]?.runCareer,
+        walk: allCareers[i]?.walkCareer
       }
       dataAllCareers.push(dataEmployee)
+    }
+
+    const lenDataAllCareers = dataAllCareers.length
+    const allCycleCareersInOnlyKey = []
+    let cycle = []
+
+    for (let i = 0; i < lenDataAllCareers; i++) {
+      let lenCareerEmployee = dataAllCareers[i].cycle.length
+      for (let a = 0; a < lenCareerEmployee; a++) {
+        cycle = {
+          ...dataAllCareers[i].cycle[a],
+          ...allCareers[i].employee
+        }
+
+        allCycleCareersInOnlyKey.push(cycle)
+      }
+    }
+
+    const allRunCareersInOnlyKey = []
+    let run = []
+
+    for (let i = 0; i < lenDataAllCareers; i++) {
+      let lenCareerEmployee = dataAllCareers[i].run.length
+      for (let a = 0; a < lenCareerEmployee; a++) {
+        run = {
+          ...dataAllCareers[i].run[a],
+          ...allCareers[i].employee
+        }
+
+        allRunCareersInOnlyKey.push(run)
+      }
+    }
+
+    const allWalkCareersInOnlyKey = []
+    let walk = []
+
+    for (let i = 0; i < lenDataAllCareers; i++) {
+      let lenCareerEmployee = dataAllCareers[i].walk.length
+      for (let a = 0; a < lenCareerEmployee; a++) {
+        walk = {
+          ...dataAllCareers[i].run[a],
+          ...allCareers[i].employee
+        }
+
+        allWalkCareersInOnlyKey.push(walk)
+      }
+    }
+
+    const dataAllCareersWithOnlyCareerKey = {
+      cycle: allCycleCareersInOnlyKey || [],
+      run: allRunCareersInOnlyKey || [],
+      walk: allWalkCareersInOnlyKey || []
     }
 
     ctx.response.status = 200
     ctx.response.body = {
       status: 'OK',
-      data: dataAllCareers
+      data: dataAllCareersWithOnlyCareerKey
     }
   } catch (error) {
     ctx.response.status = 500
