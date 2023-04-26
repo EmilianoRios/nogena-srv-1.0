@@ -48,7 +48,13 @@ async function getAllCareers(pagination: PaginationModel) {
             kilometers: true,
             createAt: true,
             updateAt: true
-          }
+          },
+          orderBy: [
+            {
+              currentMonth: 'asc'
+            },
+            { points: 'desc' }
+          ]
         },
         runCareer: {
           select: {
@@ -58,7 +64,13 @@ async function getAllCareers(pagination: PaginationModel) {
             kilometers: true,
             createAt: true,
             updateAt: true
-          }
+          },
+          orderBy: [
+            {
+              currentMonth: 'asc'
+            },
+            { points: 'desc' }
+          ]
         },
         walkCareer: {
           select: {
@@ -68,7 +80,13 @@ async function getAllCareers(pagination: PaginationModel) {
             kilometers: true,
             createAt: true,
             updateAt: true
-          }
+          },
+          orderBy: [
+            {
+              currentMonth: 'asc'
+            },
+            { points: 'desc' }
+          ]
         }
       }
     })
@@ -93,6 +111,7 @@ async function getAllCareers(pagination: PaginationModel) {
 
         const rank = await prisma.cycleCareer.count({
           where: {
+            currentMonth: allCareers[i]?.cycleCareer[a].currentMonth,
             points: {
               gt: cycleCareerEmployee.points
             }
@@ -101,6 +120,7 @@ async function getAllCareers(pagination: PaginationModel) {
 
         const equalRanks = await prisma.cycleCareer.count({
           where: {
+            currentMonth: allCareers[i]?.cycleCareer[a].currentMonth,
             points: cycleCareerEmployee.points,
             id: {
               lt: cycleCareerEmployee.id
@@ -132,6 +152,7 @@ async function getAllCareers(pagination: PaginationModel) {
 
         const rank = await prisma.walkCareer.count({
           where: {
+            currentMonth: allCareers[i]?.walkCareer[a].currentMonth,
             points: {
               gt: walkCareerEmployee.points
             }
@@ -140,6 +161,7 @@ async function getAllCareers(pagination: PaginationModel) {
 
         const equalRanks = await prisma.walkCareer.count({
           where: {
+            currentMonth: allCareers[i]?.walkCareer[a].currentMonth,
             points: walkCareerEmployee.points,
             id: {
               lt: walkCareerEmployee.id
@@ -171,6 +193,7 @@ async function getAllCareers(pagination: PaginationModel) {
 
         const rank = await prisma.runCareer.count({
           where: {
+            currentMonth: allCareers[i]?.runCareer[a].currentMonth,
             points: {
               gt: runCareerEmployee.points
             }
@@ -179,6 +202,7 @@ async function getAllCareers(pagination: PaginationModel) {
 
         const equalRanks = await prisma.runCareer.count({
           where: {
+            currentMonth: allCareers[i]?.runCareer[a].currentMonth,
             points: runCareerEmployee.points,
             id: {
               lt: runCareerEmployee.id
